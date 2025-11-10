@@ -74,6 +74,11 @@
 
         @stack('styles')
 
+        {{-- GSN Custom Styles --}}
+        <link rel="stylesheet" href="{{ asset('css/gsn/font.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/gsn/app.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/gsn/modal.css') }}">
+
         <style>
             {!! core()->getConfigData('general.content.custom_scripts.custom_css') !!}
         </style>
@@ -141,6 +146,10 @@
         {!! view_render_event('bagisto.shop.layout.body.after') !!}
 
         @stack('scripts')
+
+        {{-- GSN Custom Scripts --}}
+        <script type="text/javascript" src="{{ asset('tarteaucitron/tarteaucitron.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/gsn/app.js') }}"></script>
 
         {!! view_render_event('bagisto.shop.layout.vue-app-mount.before') !!}
         <script>
