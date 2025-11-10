@@ -10,7 +10,7 @@ return [
     |
     */
 
-    'shop-default' => 'default',
+    'shop-default' => 'gsn_theme',
 
     'shop' => [
         'default' => [
@@ -20,6 +20,18 @@ return [
 
             'vite'        => [
                 'hot_file'                 => 'shop-default-vite.hot',
+                'build_directory'          => 'themes/shop/default/build',
+                'package_assets_directory' => 'src/Resources/assets',
+            ],
+        ],
+
+        'gsn_theme' => [
+            'name'        => 'GSN Custom Theme',
+            'assets_path' => 'public/themes/gsn',
+            'views_path'  => 'resources/themes/gsn_theme/views',
+
+            'vite'        => [
+                'hot_file'                 => 'shop-gsn-vite.hot',
                 'build_directory'          => 'themes/shop/default/build',
                 'package_assets_directory' => 'src/Resources/assets',
             ],
