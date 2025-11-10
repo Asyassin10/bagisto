@@ -1,11 +1,15 @@
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta name="description" content="@lang('shop::app.checkout.cart.index.cart')" />
+    <meta name="description" content="@lang('shop::app.checkout.cart.index.cart')"/>
 
-    <meta name="keywords" content="@lang('shop::app.checkout.cart.index.cart')" />
+    <meta name="keywords" content="@lang('shop::app.checkout.cart.index.cart')"/>
 @endPush
 
-<x-shop::layouts :has-header="false" :has-feature="false" :has-footer="false">
+<x-shop::layouts
+    :has-header="false"
+    :has-feature="false"
+    :has-footer="false"
+>
     <!-- Page Title -->
     <x-slot:title>
         @lang('shop::app.checkout.cart.index.cart')
@@ -15,14 +19,21 @@
 
     <!-- Page Header -->
     <div class="flex flex-wrap">
-        <div
-            class="flex w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] py-4 max-lg:px-8 max-md:px-4">
+        <div class="flex w-full justify-between border border-b border-l-0 border-r-0 border-t-0 px-[60px] py-4 max-lg:px-8 max-md:px-4">
             <div class="flex items-center gap-x-14 max-[1180px]:gap-x-9">
                 {!! view_render_event('bagisto.shop.checkout.cart.logo.before') !!}
 
-                <a href="{{ route('shop.home.index') }}" class="flex min-h-[30px]" aria-label="@lang('shop::app.checkout.cart.index.bagisto')">
-                    <img src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
-                        alt="{{ config('app.name') }}" width="131" height="29">
+                <a
+                    href="{{ route('shop.home.index') }}"
+                    class="flex min-h-[30px]"
+                    aria-label="@lang('shop::app.checkout.cart.index.bagisto')"
+                >
+                    <img
+                        src="{{ core()->getCurrentChannel()->logo_url ?? bagisto_asset('images/logo.svg') }}"
+                        alt="{{ config('app.name') }}"
+                        width="131"
+                        height="29"
+                    >
                 </a>
 
                 {!! view_render_event('bagisto.shop.checkout.cart.logo.after') !!}
@@ -42,19 +53,18 @@
             {!! view_render_event('bagisto.shop.checkout.cart.breadcrumbs.before') !!}
 
             <!-- Breadcrumbs -->
-            @if (core()->getConfigData('general.general.breadcrumbs.shop'))
+            @if ((core()->getConfigData('general.general.breadcrumbs.shop')))
                 <x-shop::breadcrumbs name="cart" />
             @endif
 
             {!! view_render_event('bagisto.shop.checkout.cart.breadcrumbs.after') !!}
 
             @php
-                $errors = Cart::getErrors();
+                $errors = \Webkul\Checkout\Facades\Cart::getErrors();
             @endphp
 
-            @if (!empty($errors) && $errors['error_code'] === 'MINIMUM_ORDER_AMOUNT')
-                <div
-                    class="mt-5 w-full gap-12 rounded-lg bg-[#FFF3CD] px-5 py-3 text-[#383D41] max-sm:px-3 max-sm:py-2 max-sm:text-sm">
+            @if (! empty($errors) && $errors['error_code'] === 'MINIMUM_ORDER_AMOUNT')
+                <div class="mt-5 w-full gap-12 rounded-lg bg-[#FFF3CD] px-5 py-3 text-[#383D41] max-sm:px-3 max-sm:py-2 max-sm:text-sm">
                     {{ $errors['message'] }}: {{ $errors['amount'] }}
                 </div>
             @endif
@@ -70,7 +80,10 @@
         {!! view_render_event('bagisto.shop.checkout.cart.cross_sell_carousel.before') !!}
 
         <!-- Cross-sell Product Carousal -->
-        <x-shop::products.carousel :title="trans('shop::app.checkout.cart.index.cross-sell.title')" :src="route('shop.api.checkout.cart.cross-sell.index')">
+        <x-shop::products.carousel
+            :title="trans('shop::app.checkout.cart.index.cross-sell.title')"
+            :src="route('shop.api.checkout.cart.cross-sell.index')"
+        >
         </x-shop::products.carousel>
 
         {!! view_render_event('bagisto.shop.checkout.cart.cross_sell_carousel.after') !!}
@@ -236,14 +249,27 @@
                                                     class="grid gap-2"
                                                     v-show="item.option_show"
                                                 >
-                                                    <template v-for="option in item.options">
+                                                    <template v-for="attribute in item.options">
                                                         <div class="max-md:grid max-md:gap-0.5">
                                                             <p class="text-sm font-medium text-zinc-500 max-md:font-normal max-sm:text-xs">
-                                                                @{{ option.attribute_name + ':' }}
+                                                                @{{ attribute.attribute_name + ':' }}
                                                             </p>
 
                                                             <p class="text-sm max-sm:text-xs">
-                                                                @{{ option.option_label }}
+                                                                <template v-if="attribute?.attribute_type === 'file'">
+                                                                    <a
+                                                                        :href="attribute.file_url"
+                                                                        class="text-blue-700"
+                                                                        target="_blank"
+                                                                        :download="attribute.file_name"
+                                                                    >
+                                                                        @{{ attribute.file_name }}
+                                                                    </a>
+                                                                </template>
+
+                                                                <template v-else>
+                                                                    @{{ attribute.option_label }}
+                                                                </template>
                                                             </p>
                                                         </div>
                                                     </template>
@@ -256,7 +282,23 @@
 
                                             <div class="md:hidden">
                                                 <p class="text-lg font-semibold max-md:text-sm">
-                                                    @{{ item.formatted_total }}
+                                                    <template v-if="displayTax.prices == 'including_tax'">
+                                                            @{{ item.formatted_total_incl_tax }}
+                                                    </template>
+
+                                                    <template v-else-if="displayTax.prices == 'both'">
+
+                                                        @{{ item.formatted_total_incl_tax }}
+                                                        <span class="text-xs font-normal">
+                                                            @lang('shopTheme::app.checkout.cart.index.excl-tax')
+                                                            <span class="font-medium">@{{ item.formatted_total }}</span>
+                                                        </span>
+
+                                                    </template>
+
+                                                    <template v-else>
+                                                            @{{ item.formatted_total }}
+                                                    </template>
                                                 </p>
 
                                                 <span
@@ -275,6 +317,7 @@
 
                                             <div class="flex items-center gap-2.5 max-md:mt-2.5">
                                                 <x-shop::quantity-changer
+                                                    v-if="item.can_change_qty"
                                                     class="flex max-w-max items-center gap-x-2.5 rounded-[54px] border border-navyBlue px-3.5 py-1.5 max-md:gap-x-1.5 max-md:px-1 max-md:py-0.5"
                                                     name="quantity"
                                                     ::value="item?.quantity"
@@ -390,8 +433,10 @@
                     >
                         <img
                             class="max-md:h-[100px] max-md:w-[100px]"
-                            src="{{ asset('ShopImages/empty-folder.png') }}" style="max-width: 40%;"
+                            src="{{ bagisto_asset('images/thank-you.png') }}"
                             alt="@lang('shop::app.checkout.cart.index.empty-product')"
+                            loading="lazy"
+                            decoding="async"
                         />
 
                         <p
@@ -410,7 +455,7 @@
                 template: '#v-cart-template',
 
                 data() {
-                    return {
+                    return  {
                         cart: [],
 
                         allSelected: false,
@@ -452,10 +497,7 @@
                                 this.isLoading = false;
 
                                 if (response.data.message) {
-                                    this.$emitter.emit('add-flash', {
-                                        type: 'info',
-                                        message: response.data.message
-                                    });
+                                    this.$emitter.emit('add-flash', { type: 'info', message: response.data.message });
                                 }
                             })
                             .catch(error => {});
@@ -478,22 +520,14 @@
                     update() {
                         this.isStoring = true;
 
-                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
-                                qty: this.applied.quantity
-                            })
+                        this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty: this.applied.quantity })
                             .then(response => {
-                                this.cart = response.data.data;
-
                                 if (response.data.message) {
-                                    this.$emitter.emit('add-flash', {
-                                        type: 'success',
-                                        message: response.data.message
-                                    });
+                                    this.cart = response.data.data;
+
+                                    this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
                                 } else {
-                                    this.$emitter.emit('add-flash', {
-                                        type: 'warning',
-                                        message: response.data.data.message
-                                    });
+                                    this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
                                 }
 
                                 this.isStoring = false;
@@ -518,10 +552,7 @@
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('add-flash', {
-                                            type: 'success',
-                                            message: response.data.message
-                                        });
+                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
                                     })
                                     .catch(error => {});
@@ -532,23 +563,18 @@
                     removeSelectedItems() {
                         this.$emitter.emit('open-confirm-modal', {
                             agree: () => {
-                                const selectedItemsIds = this.cart.items.flatMap(item => item.selected ?
-                                    item.id : []);
+                                const selectedItemsIds = this.cart.items.flatMap(item => item.selected ? item.id : []);
 
-                                this.$axios.post(
-                                    '{{ route('shop.api.checkout.cart.destroy_selected') }}', {
+                                this.$axios.post('{{ route('shop.api.checkout.cart.destroy_selected') }}', {
                                         '_method': 'DELETE',
                                         'ids': selectedItemsIds,
                                     })
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('update-mini-cart', response.data.data);
+                                        this.$emitter.emit('update-mini-cart', response.data.data );
 
-                                        this.$emitter.emit('add-flash', {
-                                            type: 'success',
-                                            message: response.data.message
-                                        });
+                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
                                     })
                                     .catch(error => {});
@@ -559,26 +585,20 @@
                     moveToWishlistSelectedItems() {
                         this.$emitter.emit('open-confirm-modal', {
                             agree: () => {
-                                const selectedItemsIds = this.cart.items.flatMap(item => item.selected ?
-                                    item.id : []);
+                                const selectedItemsIds = this.cart.items.flatMap(item => item.selected ? item.id : []);
 
-                                const selectedItemsQty = this.cart.items.filter(item => item.selected).map(
-                                    item => this.applied.quantity[item.id] ?? item.quantity);
+                                const selectedItemsQty = this.cart.items.filter(item => item.selected).map(item => this.applied.quantity[item.id] ?? item.quantity);
 
-                                this.$axios.post(
-                                    '{{ route('shop.api.checkout.cart.move_to_wishlist') }}', {
+                                this.$axios.post('{{ route('shop.api.checkout.cart.move_to_wishlist') }}', {
                                         'ids': selectedItemsIds,
                                         'qty': selectedItemsQty
                                     })
                                     .then(response => {
                                         this.cart = response.data.data;
 
-                                        this.$emitter.emit('update-mini-cart', response.data.data);
+                                        this.$emitter.emit('update-mini-cart', response.data.data );
 
-                                        this.$emitter.emit('add-flash', {
-                                            type: 'success',
-                                            message: response.data.message
-                                        });
+                                        this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
                                     })
                                     .catch(error => {});

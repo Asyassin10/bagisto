@@ -50,6 +50,7 @@ return [
             'account-exists'              => '已经有账户？',
             'bagisto'                     => '巴基斯托',
             'button-title'                => '注册',
+            'click-here'                  => '点击这里',
             'confirm-pass'                => '确认密码',
             'email'                       => '电子邮件',
             'first-name'                  => '名字',
@@ -62,7 +63,7 @@ return [
             'subscribe-to-newsletter'     => '订阅通讯',
             'success'                     => '成功创建账户。',
             'success-verify'              => '成功创建账户，已发送验证电子邮件。',
-            'success-verify-email-unsent' => '成功创建账户，但未发送验证电子邮件。',
+            'terms-conditions'            => '条款和条件',
             'verification-not-sent'       => '错误！发送验证电子邮件时出现问题，请稍后再试。',
             'verification-sent'           => '已发送验证电子邮件',
             'verified'                    => '您的账户已验证，请尝试登录。',
@@ -373,6 +374,92 @@ return [
                 'success'            => '商品成功添加到愿望清单',
                 'title'              => '愿望清单',
             ],
+
+            'gdpr' => [
+                'create-success'              => '请求创建成功',
+                'revoked-successfully'        => '请求撤销成功',
+                'success-verify'              => '成功！验证邮件已发送。',
+                'success-verify-email-unsent' => '成功！验证邮件未发送。',
+                'unable-to-sent'              => '无法发送邮件。',
+
+                'index'   => [
+                    'create-btn' => '创建请求',
+                    'html'       => 'HTML',
+                    'pdf'        => 'PDF',
+                    'title'      => 'GDPR数据请求',
+
+                    'modal' => [
+                        'message' => '信息',
+                        'save'    => '保存',
+                        'title'   => '创建新请求',
+
+                        'type'    => [
+                            'choose' => '选择',
+                            'delete' => '删除',
+                            'title'  => '类型',
+                            'update' => '更新',
+                        ],
+                    ],
+
+                    'datagrid' => [
+                        'completed'  => '已完成',
+                        'date'       => '日期',
+                        'declined'   => '已拒绝',
+                        'delete'     => '删除',
+                        'id'         => 'ID',
+                        'message'    => '消息',
+                        'pending'    => '待处理',
+                        'processing' => '处理中',
+                        'revoke-btn' => '撤销',
+                        'revoked'    => '已撤销',
+                        'status'     => '状态',
+                        'type'       => '类型',
+                        'update'     => '更新',
+                    ],
+                ],
+
+                'pdf' => [
+                    'title' => '默认商店视图',
+
+                    'account-info' => [
+                        'dob'          => '出生日期',
+                        'email'        => '电子邮件',
+                        'first-name'   => '名字',
+                        'gender'       => '性别',
+                        'last-name'    => '姓氏',
+                        'phone'        => '电话',
+                        'title'        => '账户信息',
+                    ],
+
+                    'address-info' => [
+                        'address'    => '地址',
+                        'address1'   => '地址 1',
+                        'address2'   => '地址 2',
+                        'city'       => '城市',
+                        'company'    => '公司',
+                        'country'    => '国家',
+                        'first-name' => '名字',
+                        'last-name'  => '姓氏',
+                        'phone'      => '电话',
+                        'postcode'   => '邮编',
+                        'state'      => '州',
+                        'title'      => '地址信息',
+                        'vat-id'     => '增值税号',
+                    ],
+
+                    'order-info' => [
+                        'amount'       => '金额',
+                        'order-id'     => '订单号',
+                        'product-name' => '产品名称',
+                        'qty'          => '数量',
+                        'shipping'     => '运费',
+                        'sku'          => 'SKU',
+                        'status'       => '状态',
+                        'title'        => '订单信息',
+                        'type'         => '类型',
+                    ],
+                ],
+            ],
         ],
     ],
 
@@ -387,39 +474,59 @@ return [
         ],
 
         'media' => [
-            'add-attachments' => '添加附件',
+            'index' => [
+                'add-attachments' => '添加附件',
+                'add-image'       => '添加图片/视频',
+            ],
         ],
 
         'layouts' => [
             'header' => [
-                'account'           => '账户',
-                'bagisto'           => '巴基斯托',
-                'cart'              => '购物车',
-                'compare'           => '比较',
-                'dropdown-text'     => '管理购物车、订单和心愿单',
-                'logout'            => '登出',
-                'no-category-found' => '未找到类别。',
-                'orders'            => '订单',
-                'profile'           => '个人资料',
-                'search'            => '搜索',
-                'search-text'       => '在此搜索产品',
-                'sign-in'           => '登录',
-                'sign-up'           => '注册',
-                'submit'            => '提交',
-                'title'             => '账户',
-                'welcome'           => '欢迎',
-                'welcome-guest'     => '欢迎访客',
-                'wishlist'          => '心愿单',
-
                 'desktop' => [
                     'top' => [
-                        'default-locale' => '默认区域设置',
+                        'default-locale' => '默认语言',
+                    ],
+
+                    'bottom' => [
+                        'all'           => '全部',
+                        'back-button'   => '返回主菜单',
+                        'bagisto'       => 'Bagisto',
+                        'categories'    => '分类',
+                        'compare'       => '比较',
+                        'dropdown-text' => '管理购物车、订单和愿望清单',
+                        'logout'        => '登出',
+                        'orders'        => '订单',
+                        'profile'       => '个人资料',
+                        'search'        => '搜索',
+                        'search-text'   => '在这里搜索商品',
+                        'sign-in'       => '登录',
+                        'sign-up'       => '注册',
+                        'submit'        => '提交',
+                        'welcome'       => '欢迎',
+                        'welcome-guest' => '欢迎访问者',
+                        'wishlist'      => '愿望清单',
                     ],
                 ],
 
                 'mobile' => [
-                    'currencies' => '货币',
-                    'locales'    => '语言',
+                    'account'       => '账户',
+                    'back-button'   => '返回主菜单',
+                    'bagisto'       => 'Bagisto',
+                    'compare'       => '比较',
+                    'currencies'    => '货币',
+                    'dropdown-text' => '管理购物车、订单和愿望清单',
+                    'locales'       => '语言',
+                    'login'         => '注册或登录',
+                    'logout'        => '登出',
+                    'orders'        => '订单',
+                    'profile'       => '个人资料',
+                    'search'        => '搜索',
+                    'search-text'   => '在这里搜索商品',
+                    'sign-in'       => '登录',
+                    'sign-up'       => '注册',
+                    'welcome'       => '欢迎',
+                    'welcome-guest' => '欢迎访问者',
+                    'wishlist'      => '愿望清单',
                 ],
             ],
 
@@ -441,6 +548,25 @@ return [
                 'subscribe-newsletter'   => '订阅新闻通讯',
                 'subscribe-stay-touch'   => '订阅以保持联系。',
                 'whats-new'              => '新消息',
+            ],
+
+            'cookie' => [
+                'index' => [
+                    'privacy-policy'           => '隐私政策',
+                    'reject'                   => '拒绝',
+                    'accept'                   => '接受',
+                    'learn-more-and-customize' => '了解更多并自定义',
+                ],
+
+                'consent' => [
+                    'your-cookie-consent-preferences'         => '您的 Cookie 同意偏好',
+                    'save-and-continue'                       => '保存并继续',
+                    'strictly-necessary'                      => '严格必要',
+                    'basic-interactions'                      => '基本交互和功能',
+                    'experience-enhancement'                  => '体验增强',
+                    'measurements'                            => '测量',
+                    'targeting-and-advertising'               => '目标和广告',
+                ],
             ],
         ],
 
@@ -563,6 +689,13 @@ return [
 
         'view' => [
             'type' => [
+                'simple' => [
+                    'customizable-options' => [
+                        'none'         => '无',
+                        'total-amount' => '总金额',
+                    ],
+                ],
+
                 'configurable' => [
                     'select-options'       => '请选择一个选项',
                     'select-above-options' => '请选择以上选项',
@@ -581,6 +714,62 @@ return [
 
                 'grouped' => [
                     'name' => '名称',
+                ],
+
+                'booking' => [
+                    'location'    => '位置',
+                    'view-on-map' => '在地图上查看',
+
+                    'default' => [
+                        'slot-duration-in-minutes' => ':minutes 分钟',
+                        'slot-duration'            => '时段持续时间',
+                    ],
+
+                    'appointment' => [
+                        'closed'                   => '关闭',
+                        'see-details'              => '查看详情',
+                        'slot-duration'            => '时段持续时间',
+                        'slot-duration-in-minutes' => ':minutes 分钟',
+                        'today-availability'       => '今日可用性',
+                    ],
+
+                    'event' => [
+                        'book-your-ticket' => '预订您的票',
+                        'title'            => '活动于 :',
+                    ],
+
+                    'rental'      => [
+                        'choose-rent-option' => '选择租赁选项',
+                        'daily-basis'        => '按天计算',
+                        'from'               => '从',
+                        'hourly-basis'       => '按小时计算',
+                        'rent-an-item'       => '租一个物品',
+                        'select-date'        => '选择日期',
+                        'select-rent-time'   => '选择租赁时间',
+                        'select-slot'        => '选择时段',
+                        'select-time-slot'   => '选择时间段',
+                        'slot'               => '时段',
+                        'no-slots-available' => '没有可用时段',
+                        'to'                 => '到',
+                    ],
+
+                    'table'       => [
+                        'book-a-table'             => '预订桌位',
+                        'closed'                   => '关闭',
+                        'slot-duration'            => '时段持续时间',
+                        'slot-duration-in-minutes' => ':minutes 分钟',
+                        'slots-for-all-days'       => '显示所有天的时段',
+                        'special-notes'            => '特别请求/备注',
+                        'today-availability'       => '今日可用性',
+                    ],
+
+                    'slots' => [
+                        'book-an-appointment' => '预约',
+                        'date'                => '日期',
+                        'no-slots-available'  => '没有可用时段',
+                        'select-slot'         => '选择时段',
+                        'title'               => '时段',
+                    ],
                 ],
             ],
 
@@ -627,6 +816,38 @@ return [
                 'offers' => '购买 :qty 件，每件 :price，节省 :discount',
             ],
         ],
+
+        'booking' => [
+            'closed' => '关闭',
+
+            'cart'             => [
+                'booking-from' => '预订从',
+                'booking-till' => '预订到',
+                'daily'        => '按天计算',
+                'event-from'   => '活动从',
+                'event-ticket' => '活动票',
+                'event-till'   => '活动到',
+                'hourly'       => '按小时计算',
+
+                'integrity'    => [
+                    'event'                  => [
+                        'expired' => '此活动已过期。',
+                    ],
+
+                    'missing_options'        => '此产品缺少选项。',
+                    'inventory_warning'      => '请求的数量不可用，请稍后再试。',
+                    'select_hourly_duration' => '选择一小时的时段。',
+                ],
+
+                'rent-from'    => '租赁从',
+                'rent-till'    => '租赁到',
+                'rent-type'    => '租赁类型',
+                'renting_type' => '租赁类型',
+                'special-note' => '特别请求/备注',
+            ],
+
+            'per-ticket-price' => ':price 每张票',
+        ],
     ],
 
     'categories' => [
@@ -634,6 +855,15 @@ return [
             'clear-all' => '清除所有',
             'filter'    => '筛选',
             'filters'   => '筛选条件：',
+
+            'search' => [
+                'load-more'            => '加载更多',
+                'loading'              => '加载中...',
+                'no-options-available' => '没有可用的选项。',
+                'results-info'         => '显示 :currentCount 个，共 :totalCount 个选项',
+                'title'                => '搜索',
+            ],
+
             'sort'      => '排序',
         ],
 
@@ -650,7 +880,8 @@ return [
     ],
 
     'search' => [
-        'title'   => '搜索结果为：:query',
+        'title'   => '这是 :query 的搜索结果',
+        'suggest' => '改为搜索',
         'results' => '搜索结果',
 
         'images' => [
@@ -799,6 +1030,7 @@ return [
                 'street-address'         => '街道地址',
                 'telephone'              => '电话',
                 'title'                  => '地址',
+                'vat-id'                 => 'VAT号码',
             ],
 
             'index' => [
@@ -869,9 +1101,12 @@ return [
         ],
 
         'index' => [
-            'offer'               => '首次下单立减40%，现在开始购物',
-            'resend-verify-email' => '重新发送验证电子邮件',
-            'verify-email'        => '验证您的电子邮件帐户',
+            'categories-carousel' => '分类轮播',
+            'image-carousel'      => '图片轮播',
+            'offer'               => '首单最高可享40%折扣，立即购买',
+            'product-carousel'    => '产品轮播',
+            'resend-verify-email' => '重新发送验证邮件',
+            'verify-email'        => '验证您的邮箱账户',
         ],
 
         'thanks-for-contact' => '感谢您与我们联系，提供您的意见和问题。我们会尽快回复您。',
@@ -879,7 +1114,9 @@ return [
 
     'partials' => [
         'pagination' => [
+            'next-page'          => '下一页',
             'pagination-showing' => '显示 :total 个条目中的 :firstItem 到 :lastItem',
+            'prev-page'          => '上一页',
         ],
     ],
 
@@ -915,6 +1152,7 @@ return [
     'layouts' => [
         'address'               => '地址',
         'downloadable-products' => '可下载产品',
+        'gdpr-request'          => 'GDPR 请求',
         'my-account'            => '我的帐户',
         'orders'                => '订单',
         'profile'               => '个人资料',
@@ -973,6 +1211,33 @@ return [
                 'greeting'    => '欢迎加入我们的新闻通讯！',
                 'subject'     => '您！订阅我们的新闻通讯',
                 'unsubscribe' => '取消订阅',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => '新的数据删除请求',
+                'new-update-request' => '新的数据更新请求',
+
+                'new-request' => [
+                    'delete-summary' => '删除请求摘要',
+                    'message'        => '信息 : ',
+                    'request-status' => '请求状态 : ',
+                    'request-type'   => '请求类型 : ',
+                    'update-summary' => '更新请求摘要',
+                ],
+
+                'status-update' => [
+                    'subject'        => '您的GDPR请求已更新',
+                    'summary'        => '您的GDPR请求状态已更新',
+                    'request-status' => '请求状态:',
+                    'request-type'   => '请求类型:',
+                    'message'        => '信息:',
+                ],
+            ],
+
+            'reminder' => [
+                'already-paid'    => '如果您已经付款，请忽略此消息。',
+                'invoice-overdue' => '这是一个友好的提醒，您的发票已逾期。请尽快付款。',
+                'subject'         => '发票提醒',
             ],
         ],
 

@@ -7,9 +7,11 @@ return [
                 'qty-missing'   => 'Minstens één product moet meer dan 1 hoeveelheid hebben.',
             ],
 
-            'inventory-warning' => 'De gevraagde hoeveelheid is niet beschikbaar, probeer het later opnieuw.',
-            'missing-links'     => 'Downloadbare links ontbreken voor dit product.',
-            'missing-options'   => 'Opties ontbreken voor dit product.',
+            'invalid-file-extension'   => 'Ongeldige bestandsextensie gevonden.',
+            'inventory-warning'        => 'De gevraagde hoeveelheid is niet beschikbaar, probeer het later opnieuw.',
+            'missing-links'            => 'Downloadbare links ontbreken voor dit product.',
+            'missing-options'          => 'Opties ontbreken voor dit product.',
+            'selected-products-simple' => 'Geselecteerde producten moeten van het type eenvoudig zijn.',
         ],
     ],
 
@@ -40,6 +42,7 @@ return [
         ],
 
         'bundle'       => 'Bundel',
+        'booking'      => 'Boeking',
         'configurable' => 'Configureerbaar',
         'downloadable' => 'Downloadbaar',
         'grouped'      => 'Gegroepeerd',

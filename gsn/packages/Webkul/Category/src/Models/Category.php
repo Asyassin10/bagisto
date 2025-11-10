@@ -72,9 +72,7 @@ class Category extends TranslatableModel implements CategoryContract
      */
     public function filterableAttributes(): BelongsToMany
     {
-        return $this->belongsToMany(related: AttributeProxy::modelClass(), table: 'category_filterable_attributes')
-            ->orderBy('position_filter', 'desc')
-           ->orderBy('category_filterable_attributes.id') // Ordering by 'id' in the pivot table
+        return $this->belongsToMany(AttributeProxy::modelClass(), 'category_filterable_attributes')
             ->with([
                 'options' => function ($query) {
                     $query->orderBy('sort_order');

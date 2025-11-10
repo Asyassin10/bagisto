@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Webkul\Admin\Http\Controllers\Sales\BookingController;
 use Webkul\Admin\Http\Controllers\Sales\CartController;
 use Webkul\Admin\Http\Controllers\Sales\InvoiceController;
 use Webkul\Admin\Http\Controllers\Sales\OrderController;
@@ -11,99 +12,105 @@ use Webkul\Admin\Http\Controllers\Sales\TransactionController;
 /**
  * Sales routes.
  */
-Route::group(['middleware' => ['admin'], 'prefix' => config('app.admin_url')], function () {
-    Route::prefix('sales')->group(function () {
-        /**
-         * Invoices routes.
-         */
-        Route::controller(InvoiceController::class)->prefix('invoices')->group(function () {
-            Route::get('', 'index')->name('admin.sales.invoices.index');
+Route::prefix('sales')->group(function () {
+    /**
+     * Invoices routes.
+     */
+    Route::controller(InvoiceController::class)->prefix('invoices')->group(function () {
+        Route::get('', 'index')->name('admin.sales.invoices.index');
 
-            Route::post('create/{order_id}', 'store')->name('admin.sales.invoices.store');
+        Route::post('create/{order_id}', 'store')->name('admin.sales.invoices.store');
 
-            Route::get('view/{id}', 'view')->name('admin.sales.invoices.view');
+        Route::get('view/{id}', 'view')->name('admin.sales.invoices.view');
 
-            Route::post('send-duplicate-email/{id}', 'sendDuplicateEmail')->name('admin.sales.invoices.send_duplicate_email');
+        Route::post('send-duplicate-email/{id}', 'sendDuplicateEmail')->name('admin.sales.invoices.send_duplicate_email');
 
-            Route::get('print/{id}', 'printInvoice')->name('admin.sales.invoices.print');
-        });
+        Route::get('print/{id}', 'printInvoice')->name('admin.sales.invoices.print');
 
-        /**
-         * Orders routes.
-         */
-        Route::controller(OrderController::class)->prefix('orders')->group(function () {
-            Route::get('', 'index')->name('admin.sales.orders.index');
+        Route::post('mass-update/state', 'massUpdateState')->name('admin.sales.invoices.mass_update.state');
+    });
 
-            Route::get('create/{cartId}', 'create')->name('admin.sales.orders.create');
+    /**
+     * Orders routes.
+     */
+    Route::controller(OrderController::class)->prefix('orders')->group(function () {
+        Route::get('', 'index')->name('admin.sales.orders.index');
 
-            Route::post('create/{cartId}', 'store')->name('admin.sales.orders.store');
+        Route::get('create/{cartId}', 'create')->name('admin.sales.orders.create');
 
-            Route::get('view/{id}', 'view')->name('admin.sales.orders.view');
+        Route::post('create/{cartId}', 'store')->name('admin.sales.orders.store');
 
-            Route::post('cancel/{id}', 'cancel')->name('admin.sales.orders.cancel');
+        Route::get('view/{id}', 'view')->name('admin.sales.orders.view');
 
-            Route::get('reorder/{id}', 'reorder')->name('admin.sales.orders.reorder');
+        Route::post('cancel/{id}', 'cancel')->name('admin.sales.orders.cancel');
 
-            Route::post('comment/{order_id}', 'comment')->name('admin.sales.orders.comment');
+        Route::get('reorder/{id}', 'reorder')->name('admin.sales.orders.reorder');
 
-            Route::get('search', 'search')->name('admin.sales.orders.search');
-        });
+        Route::post('comment/{order_id}', 'comment')->name('admin.sales.orders.comment');
 
-        /**
-         * Refunds routes.
-         */
-        Route::controller(RefundController::class)->prefix('refunds')->group(function () {
-            Route::get('', 'index')->name('admin.sales.refunds.index');
+        Route::get('search', 'search')->name('admin.sales.orders.search');
+    });
 
-            Route::post('create/{order_id}', 'store')->name('admin.sales.refunds.store');
+    /**
+     * Refunds routes.
+     */
+    Route::controller(RefundController::class)->prefix('refunds')->group(function () {
+        Route::get('', 'index')->name('admin.sales.refunds.index');
 
-            Route::post('update-totals/{order_id}', 'updateTotals')->name('admin.sales.refunds.update_totals');
+        Route::post('create/{order_id}', 'store')->name('admin.sales.refunds.store');
 
-            Route::get('view/{id}', 'view')->name('admin.sales.refunds.view');
-        });
+        Route::post('update-totals/{order_id}', 'updateTotals')->name('admin.sales.refunds.update_totals');
 
-        /**
-         * Shipments routes.
-         */
-        Route::controller(ShipmentController::class)->prefix('shipments')->group(function () {
-            Route::get('', 'index')->name('admin.sales.shipments.index');
+        Route::get('view/{id}', 'view')->name('admin.sales.refunds.view');
+    });
 
-            Route::post('create/{order_id}', 'store')->name('admin.sales.shipments.store');
+    /**
+     * Shipments routes.
+     */
+    Route::controller(ShipmentController::class)->prefix('shipments')->group(function () {
+        Route::get('', 'index')->name('admin.sales.shipments.index');
 
-            Route::get('view/{id}', 'view')->name('admin.sales.shipments.view');
-        });
+        Route::post('create/{order_id}', 'store')->name('admin.sales.shipments.store');
 
-        /**
-         * Transactions routes.
-         */
-        Route::controller(TransactionController::class)->prefix('transactions')->group(function () {
-            Route::get('', 'index')->name('admin.sales.transactions.index');
+        Route::get('view/{id}', 'view')->name('admin.sales.shipments.view');
+    });
 
-            Route::post('create', 'store')->name('admin.sales.transactions.store');
+    /**
+     * Transactions routes.
+     */
+    Route::controller(TransactionController::class)->prefix('transactions')->group(function () {
+        Route::get('', 'index')->name('admin.sales.transactions.index');
 
-            Route::get('view/{id}', 'view')->name('admin.sales.transactions.view');
-        });
+        Route::post('create', 'store')->name('admin.sales.transactions.store');
 
-        Route::controller(CartController::class)->prefix('cart')->group(function () {
-            Route::get('{id}', 'index')->name('admin.sales.cart.index');
+        Route::get('view/{id}', 'view')->name('admin.sales.transactions.view');
+    });
 
-            Route::post('create', 'store')->name('admin.sales.cart.store');
+    Route::controller(CartController::class)->prefix('cart')->group(function () {
+        Route::get('{id}', 'index')->name('admin.sales.cart.index');
 
-            Route::post('{id}/items', 'storeItem')->name('admin.sales.cart.items.store');
+        Route::post('create', 'store')->name('admin.sales.cart.store');
 
-            Route::put('{id}/items', 'updateItem')->name('admin.sales.cart.items.update');
+        Route::post('{id}/items', 'storeItem')->name('admin.sales.cart.items.store');
 
-            Route::delete('{id}/items', 'destroyItem')->name('admin.sales.cart.items.destroy');
+        Route::put('{id}/items', 'updateItem')->name('admin.sales.cart.items.update');
 
-            Route::post('{id}/addresses', 'storeAddress')->name('admin.sales.cart.addresses.store');
+        Route::delete('{id}/items', 'destroyItem')->name('admin.sales.cart.items.destroy');
 
-            Route::post('{id}/shipping-methods', 'storeShippingMethod')->name('admin.sales.cart.shipping_methods.store');
+        Route::post('{id}/addresses', 'storeAddress')->name('admin.sales.cart.addresses.store');
 
-            Route::post('{id}/payment-methods', 'storePaymentMethod')->name('admin.sales.cart.payment_methods.store');
+        Route::post('{id}/shipping-methods', 'storeShippingMethod')->name('admin.sales.cart.shipping_methods.store');
 
-            Route::post('{id}/coupon', 'storeCoupon')->name('admin.sales.cart.store_coupon');
+        Route::post('{id}/payment-methods', 'storePaymentMethod')->name('admin.sales.cart.payment_methods.store');
 
-            Route::delete('{id}/coupon', 'destroyCoupon')->name('admin.sales.cart.remove_coupon');
-        });
+        Route::post('{id}/coupon', 'storeCoupon')->name('admin.sales.cart.store_coupon');
+
+        Route::delete('{id}/coupon', 'destroyCoupon')->name('admin.sales.cart.remove_coupon');
+    });
+
+    Route::controller(BookingController::class)->prefix('bookings')->group(function () {
+        Route::get('', 'index')->name('admin.sales.bookings.index');
+
+        Route::get('get', 'get')->name('admin.sales.bookings.get');
     });
 });

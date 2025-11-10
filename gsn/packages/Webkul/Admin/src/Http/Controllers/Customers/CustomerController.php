@@ -14,6 +14,7 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
 use Webkul\Admin\Http\Requests\MassUpdateRequest;
 use Webkul\Admin\Mail\Customer\NewCustomerNotification;
+use Webkul\Core\Rules\PhoneNumber;
 use Webkul\Customer\Repositories\CustomerGroupRepository;
 use Webkul\Customer\Repositories\CustomerNoteRepository;
 use Webkul\Customer\Repositories\CustomerRepository;
@@ -78,7 +79,7 @@ class CustomerController extends Controller
             'gender'        => 'required',
             'email'         => 'required|unique:customers,email',
             'date_of_birth' => 'date|before:today',
-            'phone'         => 'unique:customers,phone',
+            'phone'         => ['unique:customers,phone', new PhoneNumber],
         ]);
 
         $password = rand(100000, 10000000);
@@ -104,15 +105,21 @@ class CustomerController extends Controller
             $data['phone'] = null;
         }
 
+        Event::dispatch('customer.create.before');
+
         $customer = $this->customerRepository->create($data);
 
-        if (core()->getConfigData('emails.general.notifications.emails.general.notifications.customer')) {
+        if (core()->getConfigData('emails.general.notifications.emails.general.notifications.customer_account_credentials')) {
             try {
                 Mail::queue(new NewCustomerNotification($customer, $password));
             } catch (\Exception $e) {
                 report($e);
             }
         }
+
+        Event::dispatch('customer.create.after', $customer);
+
+        Event::dispatch('customer.registration.after', $customer);
 
         return new JsonResponse([
             'data'    => $customer,
@@ -133,7 +140,7 @@ class CustomerController extends Controller
             'gender'        => 'required',
             'email'         => 'required|unique:customers,email,'.$id,
             'date_of_birth' => 'date|before:today',
-            'phone'         => 'unique:customers,phone,'.$id,
+            'phone'         => ['unique:customers,phone,'.$id, new PhoneNumber],
         ]);
 
         $data = request()->only([

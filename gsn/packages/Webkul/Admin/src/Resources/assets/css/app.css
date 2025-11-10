@@ -10,7 +10,6 @@
     font-display: block;
 }
 
-
 @layer components {
     ::selection {
         background-color: rgba(0, 68, 242, .2);
@@ -66,6 +65,18 @@
     
     .box-shadow {
         @apply border-[1px] dark:border-gray-800 shadow-[0px_0px_0px_0px_rgba(0,0,0,0.03),0px_1px_1px_0px_rgba(0,0,0,0.03),0px_3px_3px_0px_rgba(0,0,0,0.03),0px_6px_4px_0px_rgba(0,0,0,0.02),0px_11px_4px_0px_rgba(0,0,0,0.00),0px_17px_5px_0px_rgba(0,0,0,0.00)];
+    }
+
+    .icon-phone:before {
+        content: "\e94f";
+    }
+
+    .icon-list:before {
+        content: "\e950";
+    }
+
+    .icon-admin-export:before {
+        content: "\e95d";
     }
 
     .icon-magic:before {
@@ -374,18 +385,6 @@
 
     .icon-play:before {
         content: "\e945";
-    }
-
-    .icon-import:before {
-        content: "\e943";
-        transform: rotate(90deg);
-        display: inline-block;
-    }
-
-    .icon-export:before {
-        content: "\e943";
-        transform: rotate(270deg);
-        display: inline-block;
     }
       
     p {

@@ -447,23 +447,24 @@
                  *
                  * @returns {void}
                  */
-                 updateExportComponent() {
+                updateExportComponent() {
                     /**
                      * This event should be fired whenever new results appear. This allows the export feature to
                      * listen to it and update its properties accordingly.
                      */
                      this.$emitter.emit('change-datagrid', {
+                        src: this.src,
                         available: this.available,
                         applied: this.applied
                     });
                 },
 
                 //=======================================================================================
-                // Support for previous applied values in datagrids. All code is based on local storage.
+                // Support for previous applied values in datagrid's. All code is based on local storage.
                 //=======================================================================================
 
                 /**
-                 * Updates the datagrids stored in local storage with the latest data.
+                 * Updates the datagrid's stored in local storage with the latest data.
                  *
                  * @returns {void}
                  */
@@ -479,7 +480,6 @@
                                     return {
                                         ...datagrid,
                                         requestCount: ++datagrid.requestCount,
-                                        available: this.available,
                                         applied: this.applied,
                                     };
                                 }
@@ -505,15 +505,14 @@
                     return {
                         src: this.src,
                         requestCount: 0,
-                        available: this.available,
                         applied: this.applied,
                     };
                 },
 
                 /**
-                 * Returns the storage key for datagrids in local storage.
+                 * Returns the storage key for datagrid's in local storage.
                  *
-                 * @returns {string} Storage key for datagrids.
+                 * @returns {string} Storage key for datagrid's.
                  */
                 getDatagridsStorageKey() {
                     return 'datagrids';
@@ -533,9 +532,9 @@
                 },
 
                 /**
-                 * Sets the datagrids in local storage.
+                 * Sets the datagrid's in local storage.
                  *
-                 * @param {Array} datagrids - Datagrids to be stored in local storage.
+                 * @param {Array} datagrids - Datagrid's to be stored in local storage.
                  * @returns {void}
                  */
                 setDatagrids(datagrids) {

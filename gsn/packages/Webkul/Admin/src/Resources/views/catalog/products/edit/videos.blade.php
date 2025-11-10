@@ -1,4 +1,4 @@
-{{-- {!! view_render_event('bagisto.admin.catalog.product.edit.form.videos.before', ['product' => $product]) !!}
+{!! view_render_event('bagisto.admin.catalog.product.edit.form.videos.before', ['product' => $product]) !!}
 
 <div class="box-shadow relative rounded bg-white p-4 dark:bg-gray-900">
     <!-- Panel Header -->
@@ -24,4 +24,4 @@
     <x-admin::form.control-group.error control-name='videos.files[0]' />
 </div>
 
-{!! view_render_event('bagisto.admin.catalog.product.edit.form.videos.after', ['product' => $product]) !!}  --}}
+{!! view_render_event('bagisto.admin.catalog.product.edit.form.videos.after', ['product' => $product]) !!}

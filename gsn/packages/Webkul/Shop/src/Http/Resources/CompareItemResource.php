@@ -38,14 +38,6 @@ class CompareItemResource extends JsonResource
         $data = (new ProductResource($this->resource))
             ->toArray($this->resource);
 
-            if ($this->resource->categories) {
-                $data['categories'] = $this->resource->categories->map(function ($category) {
-                    return [
-                        'id' => $category ,
-                    ];
-                });
-            }
-
         foreach (self::$comparableAttributes as $attribute) {
             if (in_array($attribute->code, ['name', 'price'])) {
                 continue;

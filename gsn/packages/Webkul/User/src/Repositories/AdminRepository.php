@@ -25,12 +25,6 @@ class AdminRepository extends Repository
             ->get()
             ->count();
     }
-    public function checkIfAdminExistsByEmail(string $email)
-    {
-        return $this->getModel()
-            ->where('email', $email)
-            ->exists();
-    }
 
     /**
      * Count admins with all access and active status.

@@ -34,13 +34,11 @@ module.exports = {
                 darkGreen: '#40994A',
                 darkBlue: '#0044F2',
                 darkPink: '#F85156',
-                regalblue: '#2A354F',
             },
 
             fontFamily: {
-                poppins: ["Poppins"],
-                Urbanist: ["Urbanist"],
-                dmserif: ["DM Serif Display"],
+                poppins: ["Poppins", "sans-serif"],
+                dmserif: ["DM Serif Display", "serif"],
             },
         }
     },

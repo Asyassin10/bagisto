@@ -9,7 +9,6 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Rules\Code;
-use Illuminate\Support\Str;
 
 class AttributeFamilyController extends Controller
 {
@@ -46,7 +45,8 @@ class AttributeFamilyController extends Controller
     {
         $attributeFamily = $this->attributeFamilyRepository->with(['attribute_groups.custom_attributes'])->findOneByField('code', 'default');
 
-        $customAttributes = $this->attributeRepository->all(['id', 'code', 'admin_name', "max_length", 'type', 'is_user_defined']);
+        $customAttributes = $this->attributeRepository->all(['id', 'code', 'admin_name', 'type', 'is_user_defined']);
+
         return view('admin::catalog.families.create', compact('attributeFamily', 'customAttributes'));
     }
 
@@ -58,21 +58,18 @@ class AttributeFamilyController extends Controller
     public function store()
     {
         $this->validate(request(), [
-            //  'code'                      => ['required', 'unique:attribute_families,code', new Code],
+            'code'                      => ['required', 'unique:attribute_families,code', new Code],
             'name'                      => 'required',
             'attribute_groups.*.code'   => 'required',
             'attribute_groups.*.name'   => 'required',
             'attribute_groups.*.column' => 'required|in:1,2',
         ]);
-        // code
-        $uniqueKey = Str::random(16);
 
         Event::dispatch('catalog.attribute_family.create.before');
 
         $attributeFamily = $this->attributeFamilyRepository->create([
             'attribute_groups' => request('attribute_groups'),
-            //  'code'             => request('code'),
-            'code'             => $uniqueKey,
+            'code'             => request('code'),
             'name'             => request('name'),
         ]);
 
@@ -80,7 +77,7 @@ class AttributeFamilyController extends Controller
 
         session()->flash('success', trans('admin::app.catalog.families.create-success'));
 
-        return redirect()->route(route: 'admin.catalog.families.index');
+        return redirect()->route('admin.catalog.families.index');
     }
 
     /**
@@ -92,7 +89,8 @@ class AttributeFamilyController extends Controller
     {
         $attributeFamily = $this->attributeFamilyRepository->with(['attribute_groups.custom_attributes'])->findOrFail($id, ['*']);
 
-        $customAttributes = $this->attributeRepository->all(['id', 'code', 'admin_name', "max_length", 'type', 'is_user_defined']);
+        $customAttributes = $this->attributeRepository->all(['id', 'code', 'admin_name', 'type', 'is_user_defined']);
+
         return view('admin::catalog.families.edit', compact('attributeFamily', 'customAttributes'));
     }
 
@@ -104,7 +102,7 @@ class AttributeFamilyController extends Controller
     public function update(int $id)
     {
         $this->validate(request(), [
-            //   'code'                      => ['required', 'unique:attribute_families,code,' . $id, new Code],
+            'code'                      => ['required', 'unique:attribute_families,code,'.$id, new Code],
             'name'                      => 'required',
             'attribute_groups.*.code'   => 'required',
             'attribute_groups.*.name'   => 'required',
@@ -115,7 +113,7 @@ class AttributeFamilyController extends Controller
 
         $attributeFamily = $this->attributeFamilyRepository->update([
             'attribute_groups' => request('attribute_groups'),
-            //'code'             => request('code'),
+            'code'             => request('code'),
             'name'             => request('name'),
         ], $id);
 

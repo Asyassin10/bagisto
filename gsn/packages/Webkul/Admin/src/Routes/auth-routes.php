@@ -5,8 +5,6 @@ use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Controllers\User\ForgetPasswordController;
 use Webkul\Admin\Http\Controllers\User\ResetPasswordController;
 use Webkul\Admin\Http\Controllers\User\SessionController;
-use Webkul\Admin\Http\Controllers\User\AccountController;
-
 
 /**
  * Auth routes.
@@ -16,12 +14,6 @@ Route::group(['prefix' => config('app.admin_url')], function () {
      * Redirect route.
      */
     Route::get('/', [Controller::class, 'redirectToLogin']);
-    Route::get('/register', [AccountController::class, 'redirectToRegister']);
-    Route::post('/register/store', [AccountController::class, 'register'])->name('admin.register');
-
-    Route::get('email/verify/{id}/{hash}', [AccountController::class, 'verify'])
-     ->name('verification.verify');
-     Route::get('/admin/resend-verification', [SessionController::class, 'resendVerification'])->name('admin.resend.verification');
 
     Route::controller(SessionController::class)->prefix('login')->group(function () {
         /**

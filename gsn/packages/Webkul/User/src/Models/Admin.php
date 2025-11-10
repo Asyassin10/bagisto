@@ -2,7 +2,6 @@
 
 namespace Webkul\User\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,7 +12,7 @@ use Webkul\Admin\Mail\Admin\ResetPasswordNotification;
 use Webkul\User\Contracts\Admin as AdminContract;
 use Webkul\User\Database\Factories\AdminFactory;
 
-class Admin extends Authenticatable implements AdminContract, MustVerifyEmail
+class Admin extends Authenticatable implements AdminContract
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -30,9 +29,6 @@ class Admin extends Authenticatable implements AdminContract, MustVerifyEmail
         'api_token',
         'role_id',
         'status',
-        'is_valid',
-        'is_congrate_partner',
-        "parent_id"
     ];
 
     /**
@@ -51,7 +47,7 @@ class Admin extends Authenticatable implements AdminContract, MustVerifyEmail
      */
     public function image_url()
     {
-        if (!$this->image) {
+        if (! $this->image) {
             return;
         }
 
@@ -98,7 +94,7 @@ class Admin extends Authenticatable implements AdminContract, MustVerifyEmail
     {
         if (
             $this->role->permission_type == 'custom'
-            && !$this->role->permissions
+            && ! $this->role->permissions
         ) {
             return false;
         }
@@ -123,12 +119,5 @@ class Admin extends Authenticatable implements AdminContract, MustVerifyEmail
     protected static function newFactory(): Factory
     {
         return AdminFactory::new();
-    }
-    public function markEmailAsVerified()
-    {
-        $this->is_valid = true;
-        $this->save();
-
-        return true;
     }
 }

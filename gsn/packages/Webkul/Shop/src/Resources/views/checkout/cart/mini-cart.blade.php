@@ -1,6 +1,10 @@
 <!-- Mini Cart Vue Component -->
 <v-mini-cart>
-    <span class="icon-cart cursor-pointer text-2xl" role="button" aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"></span>
+    <span
+        class="icon-cart cursor-pointer text-2xl"
+        role="button"
+        aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
+    ></span>
 </v-mini-cart>
 
 @pushOnce('scripts')
@@ -22,22 +26,22 @@
                             role="button"
                             aria-label="@lang('shop::app.checkout.cart.mini-cart.shopping-cart')"
                             tabindex="0"
+                            @click="getCart"
                         ></span>
 
                         @if (core()->getConfigData('sales.checkout.my_cart.summary') == 'display_item_quantity')
                             <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
-                                v-if="cart?.items_count"
-                            >
-                                @{{ cart.items_count }}
-                            </span>
-
-                        @else
-                            <span
-                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:ltr:left-4 max-md:rtl:right-4"
                                 v-if="cart?.items_qty"
                             >
                                 @{{ cart.items_qty }}
+                            </span>
+                        @else
+                            <span
+                                class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
+                                v-if="cart?.items_count"
+                            >
+                                @{{ cart.items_count }}
                             </span>
                         @endif
                     </span>
@@ -82,7 +86,7 @@
                                 <a :href="`{{ route('shop.product_or_category.index', '') }}/${item.product_url_key}`">
                                     <img
                                         :src="item.base_image.small_image_url"
-                                        class="max-h-28 max-w-28 rounded-xl max-md:max-h-20 max-md:max-w-[76px]"
+                                        class="max-w-28 max-h-28 rounded-xl max-md:max-h-20 max-md:max-w-[76px]"
                                     />
                                 </a>
                             </div>
@@ -163,14 +167,27 @@
                                         class="grid gap-2"
                                         v-show="item.option_show"
                                     >
-                                        <template v-for="option in item.options">
+                                        <template v-for="attribute in item.options">
                                             <div class="max-md:grid max-md:gap-0.5">
                                                 <p class="text-sm font-medium text-zinc-500 max-md:font-normal max-sm:text-xs">
-                                                    @{{ option.attribute_name + ':' }}
+                                                    @{{ attribute.attribute_name + ':' }}
                                                 </p>
 
                                                 <p class="text-sm max-sm:text-xs">
-                                                    @{{ option.option_label }}
+                                                    <template v-if="attribute?.attribute_type === 'file'">
+                                                        <a
+                                                            :href="attribute.file_url"
+                                                            class="text-blue-700"
+                                                            target="_blank"
+                                                            :download="attribute.file_name"
+                                                        >
+                                                            @{{ attribute.file_name }}
+                                                        </a>
+                                                    </template>
+
+                                                    <template v-else>
+                                                        @{{ attribute.option_label }}
+                                                    </template>
                                                 </p>
                                             </div>
                                         </template>
@@ -184,6 +201,7 @@
 
                                 <!-- Cart Item Quantity Changer -->
                                 <x-shop::quantity-changer
+                                    v-if="item.can_change_qty"
                                     class="max-h-9 max-w-[150px] gap-x-2.5 rounded-[54px] px-3.5 py-1.5 max-md:gap-x-2 max-md:px-1 max-md:py-0.5"
                                     name="quantity"
                                     ::value="item?.quantity"
@@ -217,7 +235,9 @@
                         <div class="b-0 grid place-items-center gap-y-5 max-md:gap-y-0">
                             <img
                                 class="max-md:h-[100px] max-md:w-[100px]"
-                                src="{{ asset('ShopImages/empty-folder.png') }}" style="max-width: 40%;"
+                                src="{{ bagisto_asset('images/thank-you.png') }}"
+                                loading="lazy"
+                                decoding="async"
                             >
 
                             <p
@@ -343,7 +363,7 @@
                         ></span>
 
                         <span
-                            class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white max-md:px-2 max-md:py-1.5 ltr:left-5 max-md:ltr:left-4 rtl:right-5 max-md:rtl:right-4"
+                            class="absolute -top-4 rounded-[44px] bg-navyBlue px-2 py-1.5 text-xs font-semibold leading-[9px] text-white ltr:left-5 rtl:right-5 max-md:px-2 max-md:py-1.5 max-md:ltr:left-4 max-md:rtl:right-4"
                             v-if="cart?.items_qty"
                         >
                             @{{ cart.items_qty }}
@@ -362,10 +382,10 @@
             template: '#v-mini-cart-template',
 
             data() {
-                return {
+                return  {
                     cart: null,
 
-                    isLoading: false,
+                    isLoading:false,
 
                     displayTax: {
                         prices: "{{ core()->getConfigData('sales.taxes.shopping_cart.display_prices') }}",
@@ -375,11 +395,11 @@
             },
 
             mounted() {
-                this.getCart();
+                if (!this.cart) {
+                    this.getCart();
+                }
 
                 /**
-                 * To Do: Implement this.
-                 *
                  * Action.
                  */
                 this.$emitter.on('update-mini-cart', (cart) => {
@@ -403,17 +423,12 @@
 
                     qty[item.id] = quantity;
 
-                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', {
-                            qty
-                        })
+                    this.$axios.put('{{ route('shop.api.checkout.cart.update') }}', { qty })
                         .then(response => {
                             if (response.data.message) {
                                 this.cart = response.data.data;
                             } else {
-                                this.$emitter.emit('add-flash', {
-                                    type: 'warning',
-                                    message: response.data.data.message
-                                });
+                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
                             }
 
                             this.isLoading = false;
@@ -426,27 +441,21 @@
                             this.isLoading = true;
 
                             this.$axios.post('{{ route('shop.api.checkout.cart.destroy') }}', {
-                                    '_method': 'DELETE',
-                                    'cart_item_id': itemId,
-                                })
-                                .then(response => {
-                                    this.cart = response.data.data;
+                                '_method': 'DELETE',
+                                'cart_item_id': itemId,
+                            })
+                            .then(response => {
+                                this.cart = response.data.data;
 
-                                    this.$emitter.emit('add-flash', {
-                                        type: 'success',
-                                        message: response.data.message
-                                    });
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
-                                    this.isLoading = false;
-                                })
-                                .catch(error => {
-                                    this.$emitter.emit('add-flash', {
-                                        type: 'error',
-                                        message: response.data.message
-                                    });
+                                this.isLoading = false;
+                            })
+                            .catch(error => {
+                                this.$emitter.emit('add-flash', { type: 'error', message: response.data.message });
 
-                                    this.isLoading = false;
-                                });
+                                this.isLoading = false;
+                            });
                         }
                     });
                 },

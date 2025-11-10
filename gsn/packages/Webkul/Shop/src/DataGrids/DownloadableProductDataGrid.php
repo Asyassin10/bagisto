@@ -27,14 +27,14 @@ class DownloadableProductDataGrid extends DataGrid
      *
      * @return void
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('downloadable_link_purchased')
             ->distinct()
             ->leftJoin('orders', 'downloadable_link_purchased.order_id', '=', 'orders.id')
             ->leftJoin('invoices', 'downloadable_link_purchased.order_id', '=', 'invoices.order_id')
             ->addSelect('downloadable_link_purchased.*', 'invoices.state as invoice_state', 'orders.increment_id')
-            ->addSelect(DB::raw('(' . DB::getTablePrefix() . 'downloadable_link_purchased.download_bought - ' . DB::getTablePrefix() . 'downloadable_link_purchased.download_canceled - ' . DB::getTablePrefix() . 'downloadable_link_purchased.download_used) as remaining_downloads'))
+            ->addSelect(DB::raw('('.DB::getTablePrefix().'downloadable_link_purchased.download_bought - '.DB::getTablePrefix().'downloadable_link_purchased.download_canceled - '.DB::getTablePrefix().'downloadable_link_purchased.download_used) as remaining_downloads'))
             ->where('downloadable_link_purchased.customer_id', auth()->guard('customer')->user()->id);
 
         $this->addFilter('status', 'downloadable_link_purchased.status');
@@ -75,7 +75,7 @@ class DownloadableProductDataGrid extends DataGrid
                     return $row->product_name;
                 }
 
-                return '<a class="text-blue-600" href="' . route('shop.customers.account.downloadable_products.download', $row->id) . '" target="_blank">' . $row->product_name . '</a>';
+                return '<a class="text-blue-600" href="'.route('shop.customers.account.downloadable_products.download', $row->id).'" target="_blank">'.$row->product_name.'</a>';
             },
         ]);
 
@@ -112,13 +112,13 @@ class DownloadableProductDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case self::STATUS_EXPIRED:
-                        return '<p class="label-closed">' . trans('shop::app.customers.account.downloadable-products.expired') . '</p>';
+                        return '<p class="label-closed">'.trans('shop::app.customers.account.downloadable-products.expired').'</p>';
 
                     case self::STATUS_PENDING:
-                        return '<p class="label-pending">' . trans('shop::app.customers.account.downloadable-products.pending') . '</p>';
+                        return '<p class="label-pending">'.trans('shop::app.customers.account.downloadable-products.pending').'</p>';
 
                     case self::STATUS_AVAILABLE:
-                        return '<p class="label-active">' . trans('shop::app.customers.account.downloadable-products.available') . '</p>';
+                        return '<p class="label-active">'.trans('shop::app.customers.account.downloadable-products.available').'</p>';
                 }
             },
         ]);

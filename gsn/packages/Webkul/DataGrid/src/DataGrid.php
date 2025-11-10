@@ -3,15 +3,12 @@
 namespace Webkul\DataGrid;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Maatwebsite\Excel\Facades\Excel;
-use Webkul\Admin\Exports\DataGridExport;
 use Webkul\DataGrid\Enums\ColumnTypeEnum;
-use Webkul\User\Models\Admin;
+use Webkul\DataGrid\Exports\DataGridExport;
 
 abstract class DataGrid
 {
@@ -89,14 +86,19 @@ abstract class DataGrid
     protected bool $exportable = false;
 
     /**
-     * Export meta information.
+     * Export file name.
      */
-    protected mixed $exportFile = null;
+    protected string $exportFileName;
+
+    /**
+     * Export file format.
+     */
+    protected string $exportFileExtension = 'csv';
 
     /**
      * Prepare query builder.
      */
-    abstract public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false);
+    abstract public function prepareQueryBuilder();
 
     /**
      * Prepare columns.
@@ -106,39 +108,99 @@ abstract class DataGrid
     /**
      * Prepare actions.
      */
-    public function prepareActions()
-    {
-    }
+    public function prepareActions() {}
 
     /**
      * Prepare mass actions.
      */
-    public function prepareMassActions()
+    public function prepareMassActions() {}
+
+    /**
+     * Set primary column.
+     */
+    public function setPrimaryColumn(string $primaryColumn): void
     {
+        $this->primaryColumn = $primaryColumn;
     }
 
     /**
-     * Get columns.
+     * Get primary column.
      */
-    public function getColumns(): array
+    public function getPrimaryColumn(): string
     {
-        return $this->columns;
+        return $this->primaryColumn;
     }
 
     /**
-     * Get actions.
+     * Set sort column.
      */
-    public function getActions(): array
+    public function setSortColumn(string $sortColumn): void
     {
-        return $this->actions;
+        $this->sortColumn = $sortColumn;
     }
 
     /**
-     * Get mass actions.
+     * Get sort column.
      */
-    public function getMassActions(): array
+    public function getSortColumn(): ?string
     {
-        return $this->massActions;
+        return $this->sortColumn;
+    }
+
+    /**
+     * Set sort order.
+     */
+    public function setSortOrder(string $sortOrder): void
+    {
+        $this->sortOrder = $sortOrder;
+    }
+
+    /**
+     * Get sort order.
+     */
+    public function getSortOrder(): string
+    {
+        return $this->sortOrder;
+    }
+
+    /**
+     * Set items per page.
+     */
+    public function setItemsPerPage(int $itemsPerPage): void
+    {
+        $this->itemsPerPage = $itemsPerPage;
+    }
+
+    /**
+     * Get items per page.
+     */
+    public function getItemsPerPage(): int
+    {
+        return $this->itemsPerPage;
+    }
+
+    /**
+     * Set per page options.
+     */
+    public function setPerPageOptions(array $perPageOptions): void
+    {
+        $this->perPageOptions = $perPageOptions;
+    }
+
+    /**
+     * Get per page options.
+     */
+    public function getPerPageOptions(): array
+    {
+        return $this->perPageOptions;
+    }
+
+    /**
+     * Set columns.
+     */
+    public function setColumns(array $columns): void
+    {
+        $this->columns = $columns;
     }
 
     /**
@@ -151,6 +213,22 @@ abstract class DataGrid
         $this->columns[] = Column::resolveType($column);
 
         $this->dispatchEvent('columns.add.after', [$this, $this->columns[count($this->columns) - 1]]);
+    }
+
+    /**
+     * Get columns.
+     */
+    public function getColumns(): array
+    {
+        return $this->columns;
+    }
+
+    /**
+     * Set actions.
+     */
+    public function setActions(array $actions): void
+    {
+        $this->actions = $actions;
     }
 
     /**
@@ -172,6 +250,22 @@ abstract class DataGrid
     }
 
     /**
+     * Get actions.
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    /**
+     * Set mass actions.
+     */
+    public function setMassActions(array $massActions): void
+    {
+        $this->massActions = $massActions;
+    }
+
+    /**
      * Add mass action.
      */
     public function addMassAction(array $massAction): void
@@ -190,18 +284,21 @@ abstract class DataGrid
     }
 
     /**
+     * Get mass actions.
+     */
+    public function getMassActions(): array
+    {
+        return $this->massActions;
+    }
+
+    /**
      * Set query builder.
      *
      * @param  mixed  $queryBuilder
      */
-    public function setQueryBuilder($queryBuilder = null, bool $is_filter_by_editeur_active = false): void
+    public function setQueryBuilder($queryBuilder): void
     {
-        $this->dispatchEvent('query_builder.set.before', [$this, $queryBuilder]);
-
-        // $this->queryBuilder = $queryBuilder ?: $this->prepareQueryBuilder($is_filter_by_editeur_active);
-        $this->queryBuilder = $queryBuilder ?: $this->prepareQueryBuilder();
-
-        $this->dispatchEvent('query_builder.set.after', $this);
+        $this->queryBuilder = $queryBuilder;
     }
 
     /**
@@ -235,11 +332,7 @@ abstract class DataGrid
      */
     public function setExportable(bool $exportable): void
     {
-        $this->dispatchEvent('exportable.set.before', [$this, $exportable]);
-
         $this->exportable = $exportable;
-
-        $this->dispatchEvent('exportable.set.after', $this);
     }
 
     /**
@@ -251,20 +344,59 @@ abstract class DataGrid
     }
 
     /**
-     * Set export file.
-     *
-     * @param  string  $format
-     * @return void
+     * Is exportable.
      */
-    public function setExportFile($format = 'csv')
+    public function isExportable(): bool
     {
-        $this->dispatchEvent('export_file.set.before', [$this, $format]);
+        return $this->getExportable();
+    }
 
-        $this->setExportable(true);
+    /**
+     * Set export file name.
+     */
+    public function setExportFileName(string $exportFileName): void
+    {
+        $this->exportFileName = $exportFileName;
+    }
 
-        $this->exportFile = Excel::download(new DataGridExport($this), Str::random(36) . '.' . $format);
+    /**
+     * Get export file name.
+     */
+    public function getExportFileName(): string
+    {
+        return $this->exportFileName;
+    }
 
-        $this->dispatchEvent('export_file.set.after', $this);
+    /**
+     * Set export file extension.
+     */
+    public function setExportFileExtension(string $exportFileExtension = 'csv'): void
+    {
+        $this->exportFileExtension = $exportFileExtension;
+    }
+
+    /**
+     * Get export file extension.
+     */
+    public function getExportFileExtension(): string
+    {
+        return $this->exportFileExtension;
+    }
+
+    /**
+     * Get exporter.
+     */
+    public function getExporter()
+    {
+        return new DataGridExport($this);
+    }
+
+    /**
+     * Get export file name with extension.
+     */
+    public function getExportFileNameWithExtension(): string
+    {
+        return $this->getExportFileName().'.'.$this->getExportFileExtension();
     }
 
     /**
@@ -274,7 +406,7 @@ abstract class DataGrid
      */
     public function downloadExportFile()
     {
-        return $this->exportFile;
+        return Excel::download($this->getExporter(), $this->getExportFileNameWithExtension());
     }
 
     /**
@@ -284,15 +416,9 @@ abstract class DataGrid
      */
     public function process()
     {
-        // $admin = Auth::guard("admin")->user();
-        /* if ($admin->role_id == 1) {
-            $this->prepare();
-        } else {
-            $this->prepare(true);
-        } */
         $this->prepare();
 
-        if ($this->getExportable()) {
+        if ($this->isExportable()) {
             return $this->downloadExportFile();
         }
 
@@ -309,13 +435,7 @@ abstract class DataGrid
      */
     public function toJson()
     {
-        $this->prepare();
-
-        if ($this->getExportable()) {
-            return $this->downloadExportFile();
-        }
-
-        return response()->json($this->formatData());
+        return $this->process();
     }
 
     /**
@@ -324,59 +444,45 @@ abstract class DataGrid
     protected function validatedRequest(): array
     {
         request()->validate([
-            'filters' => ['sometimes', 'required', 'array'],
-            'sort' => ['sometimes', 'required', 'array'],
-            'pagination' => ['sometimes', 'required', 'array'],
-            'export' => ['sometimes', 'required', 'boolean'],
-            'format' => ['sometimes', 'required', 'in:csv,xls,xlsx'],
+            'filters'     => ['sometimes', 'required', 'array'],
+            'sort'        => ['sometimes', 'required', 'array'],
+            'pagination'  => ['sometimes', 'required', 'array'],
+            'export'      => ['sometimes', 'required', 'boolean'],
+            'format'      => ['sometimes', 'required', 'in:csv,xls,xlsx'],
         ]);
 
         return request()->only(['filters', 'sort', 'pagination', 'export', 'format']);
     }
 
     /**
-     * Process all requested filters.
+     * Process requested filters.
      *
      * @return \Illuminate\Database\Query\Builder
      */
     protected function processRequestedFilters(array $requestedFilters)
     {
-
-        // add where admin_id
+        $this->dispatchEvent('process_request.filters.before', $this);
 
         foreach ($requestedFilters as $requestedColumn => $requestedValues) {
             if ($requestedColumn === 'all') {
                 $this->queryBuilder->where(function ($scopeQueryBuilder) use ($requestedValues) {
-
                     foreach ($requestedValues as $value) {
-
-                        $admin_ids = Admin::where("name", "LIKE", "%" . $value . "%")
-                            ->orWhere("email", "LIKE", "%" . $value . "%")
-                            ->pluck('id')
-                            ->toArray();
-                        if (count($admin_ids) > 0) {
-                            $scopeQueryBuilder->whereIn('p.admin_id', $admin_ids);
-                        }
-
-                        collect(value: $this->columns)
-                            ->filter(fn($column) => $column->getSearchable() && !in_array($column->getType(), [
+                        collect($this->columns)
+                            ->filter(fn ($column) => $column->getSearchable() && ! in_array($column->getType(), [
                                 ColumnTypeEnum::BOOLEAN->value,
                                 ColumnTypeEnum::AGGREGATE->value,
                             ]))
-                            ->reject(fn($column) => $column->getIndex() === "is_valid_by_admin")
-
-                            ->each(fn($column) => $scopeQueryBuilder->orWhere($column->getColumnName(), 'LIKE', '%' . $value . '%'));
+                            ->each(fn ($column) => $scopeQueryBuilder->orWhere($column->getColumnName(), 'LIKE', '%'.$value.'%'));
                     }
                 });
             } else {
                 collect($this->columns)
-                    //  ->reject(fn($column) => $column->getIndex() === "is_valid_by_admin")
-                    ->first(fn($column) => $column->getIndex() === $requestedColumn)
+                    ->first(fn ($column) => $column->getIndex() === $requestedColumn)
                     ->processFilter($this->queryBuilder, $requestedValues);
             }
         }
 
-        return $this->queryBuilder;
+        $this->dispatchEvent('process_request.filters.after', $this);
     }
 
     /**
@@ -386,46 +492,46 @@ abstract class DataGrid
      */
     protected function processRequestedSorting($requestedSort)
     {
-        if (!$this->sortColumn) {
+        $this->dispatchEvent('process_request.sorting.before', $this);
+
+        if (! $this->sortColumn) {
             $this->sortColumn = $this->primaryColumn;
         }
 
-        return $this->queryBuilder->orderBy($requestedSort['column'] ?? $this->sortColumn, $requestedSort['order'] ?? $this->sortOrder);
+        $this->queryBuilder->orderBy($requestedSort['column'] ?? $this->sortColumn, $requestedSort['order'] ?? $this->sortOrder);
+
+        $this->dispatchEvent('process_request.sorting.after', $this);
     }
 
     /**
      * Process requested pagination.
      */
-    protected function processRequestedPagination($requestedPagination): LengthAwarePaginator
+    protected function processRequestedPagination(array $requestedPagination): void
     {
-        return $this->queryBuilder->paginate(
+        $this->dispatchEvent('process_request.paginated.before', $this);
+
+        $this->paginator = $this->queryBuilder->paginate(
             $requestedPagination['per_page'] ?? $this->itemsPerPage,
             ['*'],
             'page',
             $requestedPagination['page'] ?? 1
         );
-    }
-
-    /**
-     * Process paginated request.
-     */
-    protected function processPaginatedRequest(array $requestedParams): void
-    {
-        $this->dispatchEvent('process_request.paginated.before', $this);
-
-        $this->paginator = $this->processRequestedPagination($requestedParams['pagination'] ?? []);
 
         $this->dispatchEvent('process_request.paginated.after', $this);
     }
 
     /**
-     * Process export request.
+     * Process requested export.
      */
-    protected function processExportRequest(array $requestedParams): void
+    protected function processRequestedExport(string $exportFileExtension = 'csv'): void
     {
         $this->dispatchEvent('process_request.export.before', $this);
 
-        $this->setExportFile($requestedParams['format']);
+        $this->setExportable(true);
+
+        $this->setExportFileName(Str::random(36));
+
+        $this->setExportFileExtension($exportFileExtension);
 
         $this->dispatchEvent('process_request.export.after', $this);
     }
@@ -442,17 +548,17 @@ abstract class DataGrid
          */
         $requestedParams = $this->validatedRequest();
 
-        $this->queryBuilder = $this->processRequestedFilters($requestedParams['filters'] ?? []);
+        $this->processRequestedFilters($requestedParams['filters'] ?? []);
 
-        $this->queryBuilder = $this->processRequestedSorting($requestedParams['sort'] ?? []);
+        $this->processRequestedSorting($requestedParams['sort'] ?? []);
 
         /**
          * The `export` parameter is validated as a boolean in the `validatedRequest`. An `empty` function will not work,
          * as it will always be treated as true because of "0" and "1".
          */
         isset($requestedParams['export']) && (bool) $requestedParams['export']
-            ? $this->processExportRequest($requestedParams)
-            : $this->processPaginatedRequest($requestedParams);
+            ? $this->processRequestedExport($requestedParams['format'] ?? null)
+            : $this->processRequestedPagination($requestedParams['pagination'] ?? []);
 
         $this->dispatchEvent('process_request.after', $this);
     }
@@ -468,7 +574,7 @@ abstract class DataGrid
         $tempRow = json_decode(json_encode($row), true);
 
         foreach ($tempRow as $column => $value) {
-            if (!is_string($tempRow[$column])) {
+            if (! is_string($tempRow[$column])) {
                 continue;
             }
 
@@ -488,7 +594,7 @@ abstract class DataGrid
     protected function formatColumns(): array
     {
         return collect($this->columns)
-            ->map(fn($column) => $column->toArray())
+            ->map(fn ($column) => $column->toArray())
             ->toArray();
     }
 
@@ -498,7 +604,7 @@ abstract class DataGrid
     protected function formatActions(): array
     {
         return collect($this->actions)
-            ->map(fn($action) => $action->toArray())
+            ->map(fn ($action) => $action->toArray())
             ->toArray();
     }
 
@@ -508,7 +614,7 @@ abstract class DataGrid
     protected function formatMassActions(): array
     {
         return collect($this->massActions)
-            ->map(fn($massAction) => $massAction->toArray())
+            ->map(fn ($massAction) => $massAction->toArray())
             ->toArray();
     }
 
@@ -532,11 +638,11 @@ abstract class DataGrid
                 $getUrl = $action->url;
 
                 $record->actions[] = [
-                    'index' => !empty($action->index) ? $action->index : 'action_' . $index + 1,
-                    'icon' => $action->icon,
-                    'title' => $action->title,
+                    'index'  => ! empty($action->index) ? $action->index : 'action_'.$index + 1,
+                    'icon'   => $action->icon,
+                    'title'  => $action->title,
                     'method' => $action->method,
-                    'url' => $getUrl($record),
+                    'url'    => $getUrl($record),
                 ];
             }
         }
@@ -550,22 +656,22 @@ abstract class DataGrid
     protected function formatData(): array
     {
         $paginator = $this->paginator->toArray();
-        //  return $paginator;
+
         return [
-            'id' => Crypt::encryptString(get_called_class()),
-            'columns' => $this->formatColumns(),
-            'actions' => $this->formatActions(),
+            'id'           => Crypt::encryptString(get_called_class()),
+            'columns'      => $this->formatColumns(),
+            'actions'      => $this->formatActions(),
             'mass_actions' => $this->formatMassActions(),
-            'records' => $this->formatRecords($paginator['data']),
-            'meta' => [
-                'primary_column' => $this->primaryColumn,
-                'from' => $paginator['from'],
-                'to' => $paginator['to'],
-                'total' => $paginator['total'],
+            'records'      => $this->formatRecords($paginator['data']),
+            'meta'         => [
+                'primary_column'   => $this->primaryColumn,
+                'from'             => $paginator['from'],
+                'to'               => $paginator['to'],
+                'total'            => $paginator['total'],
                 'per_page_options' => $this->perPageOptions,
-                'per_page' => $paginator['per_page'],
-                'current_page' => $paginator['current_page'],
-                'last_page' => $paginator['last_page'],
+                'per_page'         => $paginator['per_page'],
+                'current_page'     => $paginator['current_page'],
+                'last_page'        => $paginator['last_page'],
             ],
         ];
     }
@@ -585,30 +691,49 @@ abstract class DataGrid
     /**
      * Prepare all the setup for datagrid.
      */
-    protected function prepare(bool $is_filter_by_editeur_active = false): void
+    protected function prepare(): void
     {
         $this->dispatchEvent('prepare.before', $this);
+
+        /**
+         * Prepare columns.
+         */
+        $this->dispatchEvent('columns.prepare.before', $this);
 
         $this->prepareColumns();
 
         $this->dispatchEvent('columns.prepare.after', $this);
 
+        /**
+         * Prepare actions.
+         */
+        $this->dispatchEvent('actions.prepare.before', $this);
+
         $this->prepareActions();
 
         $this->dispatchEvent('actions.prepare.after', $this);
 
+        /**
+         * Prepare mass actions.
+         */
+        $this->dispatchEvent('mass_actions.prepare.before', $this);
+
         $this->prepareMassActions();
 
         $this->dispatchEvent('mass_actions.prepare.after', $this);
-        /* if ($is_filter_by_editeur_active == true) {
-            $this->setQueryBuilder(null, $is_filter_by_editeur_active);
-        } else {
-            $this->setQueryBuilder();
-        } */
-        $this->setQueryBuilder();
+
+        /**
+         * Prepare query builder.
+         */
+        $this->dispatchEvent('query_builder.prepare.before', $this);
+
+        $this->setQueryBuilder($this->prepareQueryBuilder());
 
         $this->dispatchEvent('query_builder.prepare.after', $this);
 
+        /**
+         * Process request.
+         */
         $this->processRequest();
 
         $this->dispatchEvent('prepare.after', $this);

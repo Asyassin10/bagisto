@@ -89,26 +89,38 @@
                             </p>
 
                             <!-- Id -->
-                            <p>@{{ record.id }}</p>
+                            <p class="break-words">
+                                @{{ record.id }}
+                            </p>
 
                             <!-- For -->
-                            <p>@{{ record.entity_type }}</p>
+                            <p class="break-words">
+                                @{{ record.entity_type }}
+                            </p>
 
                             <!-- Request Path -->
-                            <p>@{{ record.request_path }}</p>
+                            <p class="break-words">
+                                @{{ record.request_path }}
+                            </p>
 
                             <!-- Target Path -->
-                            <p>@{{ record.target_path }}</p>
+                            <p class="break-words">
+                                @{{ record.target_path }}
+                            </p>
 
                             <!-- Redirect Type -->
-                            <p>@{{ record.redirect_type }}</p>
+                            <p class="break-words">
+                                @{{ record.redirect_type }}
+                            </p>
 
                             <!-- Locale -->
-                            <p>@{{ record.locale }}</p>
+                            <p class="break-words">
+                                @{{ record.locale }}
+                            </p>
 
                             <!-- Actions -->
                             <div class="flex justify-end">
-                                @if (bouncer()->hasPermission('marketing.url_rewrites.edit'))
+                                @if (bouncer()->hasPermission('marketing.search_seo.url_rewrites.edit'))
                                     <a @click="selectedSitemap=1; editModal(record)">
                                         <span
                                             :class="record.actions.find(action => action.index === 'edit')?.icon"
@@ -118,7 +130,7 @@
                                     </a>
                                 @endif
 
-                                @if (bouncer()->hasPermission('marketing.url_rewrites.delete'))
+                                @if (bouncer()->hasPermission('marketing.search_seo.url_rewrites.delete'))
                                     <a @click="performAction(record.actions.find(action => action.index === 'delete'))">
                                         <span
                                             :class="record.actions.find(action => action.index === 'delete')?.icon"
@@ -285,9 +297,14 @@
 
                         <!-- Modal Footer -->
                         <x-slot:footer>
-                            <button class="primary-button">
-                                @lang('admin::app.marketing.search-seo.url-rewrites.index.create.save-btn')
-                            </button>
+                            <!-- Save Button -->
+                            <x-admin::button
+                                button-type="submit"
+                                class="primary-button"
+                                :title="trans('admin::app.marketing.search-seo.url-rewrites.index.create.save-btn')"
+                                ::loading="isLoading"
+                                ::disabled="isLoading"
+                            />
                         </x-slot>
                     </x-admin::modal>
                 </form>
@@ -301,6 +318,8 @@
                 data() {
                     return {
                         selectedSitemap: 0,
+
+                        isLoading: false,
                     }
                 },
 
@@ -322,6 +341,8 @@
 
                 methods: {
                     updateOrCreate(params, { resetForm, setErrors }) {
+                        this.isLoading = true;
+
                         let formData = new FormData(this.$refs.sitemapCreateForm);
 
                         if (params.id) {
@@ -337,8 +358,12 @@
                                 this.$refs.datagrid.get();
 
                                 resetForm();
+
+                                this.isLoading = false;
                             })
                             .catch(error => {
+                                this.isLoading = false;
+
                                 if (error.response.status == 422) {
                                     setErrors(error.response.data.errors);
                                 }

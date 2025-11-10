@@ -19,7 +19,7 @@ class CategoryDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('categories')
             ->select(
@@ -29,9 +29,11 @@ class CategoryDataGrid extends DataGrid
                 'categories.status',
                 'category_translations.locale',
             )
-            ->addSelect(DB::raw('COUNT(DISTINCT ' . DB::getTablePrefix() . 'product_categories.product_id) as count'))
-            ->leftJoin('category_translations', 'categories.id', '=', 'category_translations.category_id')
-            ->leftJoin('product_categories', 'categories.id', '=', 'product_categories.category_id')
+            ->leftJoin('category_translations', function ($join) {
+                $join->on('categories.id', '=', 'category_translations.category_id')
+                    ->where('category_translations.locale', '=', app()->getLocale());
+            })
+            ->where('category_translations.locale', app()->getLocale())
             ->groupBy('categories.id');
 
         $this->addFilter('category_id', 'categories.id');
@@ -72,25 +74,28 @@ class CategoryDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.catalog.categories.index.datagrid.status'),
-            'type'       => 'boolean',
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.catalog.categories.index.datagrid.status'),
+            'type'               => 'boolean',
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.catalog.categories.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.catalog.categories.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
             'closure'    => function ($value) {
                 if ($value->status) {
-                    return '<span class="badge badge-md badge-success">' . trans('admin::app.catalog.categories.index.datagrid.active') . '</span>';
+                    return '<span class="badge badge-md badge-success">'.trans('admin::app.catalog.categories.index.datagrid.active').'</span>';
                 }
 
-                return '<span class="badge badge-md badge-danger">' . trans('admin::app.catalog.categories.index.datagrid.inactive') . '</span>';
+                return '<span class="badge badge-md badge-danger">'.trans('admin::app.catalog.categories.index.datagrid.inactive').'</span>';
             },
-        ]);
-
-        $this->addColumn([
-            'index'      => 'count',
-            'label'      => trans('admin::app.catalog.categories.index.datagrid.no-of-products'),
-            'type'       => 'integer',
-            'sortable'   => true,
         ]);
     }
 
@@ -140,8 +145,7 @@ class CategoryDataGrid extends DataGrid
                     [
                         'label' => trans('admin::app.catalog.categories.index.datagrid.active'),
                         'value' => 1,
-                    ],
-                    [
+                    ], [
                         'label' => trans('admin::app.catalog.categories.index.datagrid.inactive'),
                         'value' => 0,
                     ],

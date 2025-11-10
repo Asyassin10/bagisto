@@ -72,10 +72,7 @@
                                 <x-shop::form.control-group.error control-name="rating" />
                             </x-shop::form.control-group>
 
-                            @if (
-                                core()->getConfigData('catalog.products.review.guest_review')
-                                && ! auth()->guard('customer')->user()
-                            )
+                            @if (core()->getConfigData('catalog.products.review.guest_review') && !auth()->guard('customer')->user())
                                 <x-shop::form.control-group>
                                     <x-shop::form.control-group.label class="required">
                                         @lang('shop::app.products.view.reviews.name')
@@ -208,17 +205,17 @@
                                 <!-- Create Button -->
                                 @if(core()->getConfigData('catalog.products.review.customer_review'))
                                     @if (
-                                        core()->getConfigData('catalog.products.review.guest_review')
-                                        || auth()->guard('customer')->user()
-                                    )
-                                        <div
-                                            class="flex cursor-pointer items-center justify-center gap-x-4 rounded-xl border border-navyBlue px-4 py-3 max-sm:rounded-lg max-sm:py-1.5"
-                                            @click="canReview = true"
-                                        >
-                                            <span class="icon-pen text-2xl"></span>
+                                            core()->getConfigData('catalog.products.review.guest_review')
+                                            || auth()->guard('customer')->user()
+                                        )
+                                            <div
+                                                class="flex cursor-pointer items-center justify-center gap-x-4 rounded-xl border border-navyBlue px-4 py-3 max-sm:rounded-lg max-sm:py-1.5"
+                                                @click="canReview = true"
+                                            >
+                                                <span class="icon-pen text-2xl"></span>
 
-                                            @lang('shop::app.products.view.reviews.write-a-review')
-                                        </div>
+                                                @lang('shop::app.products.view.reviews.write-a-review')
+                                            </div>
                                     @endif
                                 @endif
                             </div>
@@ -232,9 +229,8 @@
                                 ></v-product-review-item>
 
                                 <button
-                                    class="mx-auto block  w-max hover:underline rounded-2xl border border-navyBlue bg-white px-11 py-3 text-center text-base font-medium text-navyBlue"
+                                    class="mx-auto block w-max rounded-2xl border border-navyBlue bg-white px-11 py-3 text-center text-base font-medium text-navyBlue"
                                     v-if="links?.next"
-                             style="font-size: 17px !important;font-family:MarkPro !important;font-weight:500 !important;"
                                     @click="get()"
                                 >
                                     @lang('shop::app.products.view.reviews.load-more')
@@ -259,17 +255,17 @@
 
                             @if(core()->getConfigData('catalog.products.review.customer_review'))
                                 @if (
-                                    core()->getConfigData('catalog.products.review.guest_review')
-                                    || auth()->guard('customer')->user()
-                                )
-                                    <div
-                                        class="mt-8 flex cursor-pointer items-center gap-x-4 rounded-xl border border-navyBlue px-4 py-2.5 max-sm:mt-5 max-sm:gap-x-1.5 max-sm:rounded-lg max-sm:py-1.5 max-sm:text-sm"
-                                        @click="canReview = true"
-                                    >
-                                        <span class="icon-pen text-2xl max-sm:text-lg"></span>
+                                        core()->getConfigData('catalog.products.review.guest_review')
+                                        || auth()->guard('customer')->user()
+                                    )
+                                        <div
+                                            class="mt-8 flex cursor-pointer items-center gap-x-4 rounded-xl border border-navyBlue px-4 py-2.5 max-sm:mt-5 max-sm:gap-x-1.5 max-sm:rounded-lg max-sm:py-1.5 max-sm:text-sm"
+                                            @click="canReview = true"
+                                        >
+                                            <span class="icon-pen text-2xl max-sm:text-lg"></span>
 
-                                        @lang('shop::app.products.view.reviews.write-a-review')
-                                    </div>
+                                            @lang('shop::app.products.view.reviews.write-a-review')
+                                        </div>
                                 @endif
                             @endif
                         </div>
@@ -334,26 +330,28 @@
                     @{{ review.comment }}
                 </p>
 
-                <button
-                    class="secondary-button min-h-[34px] rounded-lg px-2 py-1 text-sm max-md:rounded-lg"
-                    @click="translate"
-                >
-                    <!-- Spinner -->
-                    <template v-if="isLoading">
-                        <img
-                            class="h-5 w-5 animate-spin text-blue-600"
-                            src="{{ bagisto_asset('images/spinner.svg') }}"
-                        />
+                @if ((bool) core()->getConfigData('general.magic_ai.review_translation.enabled'))
+                    <button
+                        class="secondary-button min-h-[34px] rounded-lg px-2 py-1 text-sm max-md:rounded-lg"
+                        @click="translate"
+                    >
+                        <!-- Spinner -->
+                        <template v-if="isLoading">
+                            <img
+                                class="h-5 w-5 animate-spin text-blue-600"
+                                src="{{ bagisto_asset('images/spinner.svg') }}"
+                            />
 
-                        @lang('shop::app.products.view.reviews.translating')
-                    </template>
+                            @lang('shop::app.products.view.reviews.translating')
+                        </template>
 
-                    <template v-else>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
+                        <template v-else>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
 
-                        @lang('shop::app.products.view.reviews.translate')
-                    </template>
-                </button>
+                            @lang('shop::app.products.view.reviews.translate')
+                        </template>
+                    </button>
+                @endif
 
                 <!-- Review Attachments -->
                 <div
@@ -451,26 +449,28 @@
                         @{{ review.comment }}
                     </p>
 
-                    <button
-                        class="secondary-button mt-2.5 min-h-[34px] rounded-lg px-4 py-2.5 text-base max-md:rounded-lg max-sm:px-3 max-sm:py-1 max-sm:text-xs"
-                        @click="translate"
-                    >
-                        <!-- Spinner -->
-                        <template v-if="isLoading">
-                            <img
-                                class="h-5 w-5 animate-spin text-blue-600"
-                                src="{{ bagisto_asset('images/spinner.svg') }}"
-                            />
+                    @if ((bool) core()->getConfigData('general.magic_ai.review_translation.enabled'))
+                        <button
+                            class="secondary-button mt-2.5 min-h-[34px] rounded-lg px-4 py-2.5 text-base max-md:rounded-lg max-sm:px-3 max-sm:py-1 max-sm:text-xs"
+                            @click="translate"
+                        >
+                            <!-- Spinner -->
+                            <template v-if="isLoading">
+                                <img
+                                    class="h-5 w-5 animate-spin text-blue-600"
+                                    src="{{ bagisto_asset('images/spinner.svg') }}"
+                                />
 
-                            @lang('shop::app.products.view.reviews.translating')
-                        </template>
+                                @lang('shop::app.products.view.reviews.translating')
+                            </template>
 
-                        <template v-else>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
+                            <template v-else>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" role="presentation"> <g clip-path="url(#clip0_3148_2242)"> <path fill-rule="evenodd" clip-rule="evenodd" d="M12.1484 9.31989L9.31995 12.1483L19.9265 22.7549L22.755 19.9265L12.1484 9.31989ZM12.1484 10.7341L10.7342 12.1483L13.5626 14.9767L14.9768 13.5625L12.1484 10.7341Z" fill="#060C3B"/> <path d="M11.0877 3.30949L13.5625 4.44748L16.0374 3.30949L14.8994 5.78436L16.0374 8.25924L13.5625 7.12124L11.0877 8.25924L12.2257 5.78436L11.0877 3.30949Z" fill="#060C3B"/> <path d="M2.39219 2.39217L5.78438 3.95197L9.17656 2.39217L7.61677 5.78436L9.17656 9.17655L5.78438 7.61676L2.39219 9.17655L3.95198 5.78436L2.39219 2.39217Z" fill="#060C3B"/> <path d="M3.30947 11.0877L5.78434 12.2257L8.25922 11.0877L7.12122 13.5626L8.25922 16.0374L5.78434 14.8994L3.30947 16.0374L4.44746 13.5626L3.30947 11.0877Z" fill="#060C3B"/> </g> <defs> <clipPath id="clip0_3148_2242"> <rect width="24" height="24" fill="white"/> </clipPath> </defs> </svg>
 
-                            @lang('shop::app.products.view.reviews.translate')
-                        </template>
-                    </button>
+                                @lang('shop::app.products.view.reviews.translate')
+                            </template>
+                        </button>
+                    @endif
                 </div>
 
                 <!-- Review Attachments -->
@@ -532,16 +532,34 @@
                     },
 
                     meta: {},
+
+                    observer: null,
+
                 }
             },
 
             mounted() {
-                this.get();
+                this.observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            this.get();
+                            this.observer.disconnect();
+                        }
+                    });
+                });
+
+                this.observer.observe(this.$el);
+            },
+
+            beforeUnmount() {
+                if (this.observer) {
+                    this.observer.disconnect();
+                }
             },
 
             methods: {
                 get() {
-                    if (!this.links?.next) {
+                    if (! this.links?.next) {
                         return;
                     }
 
@@ -558,17 +576,12 @@
                         .catch(error => {});
                 },
 
-                store(params, {
-                    resetForm,
-                    setErrors
-                }) {
-                    let selectedFiles = this.$refs.reviewImages.uploadedFiles.filter(obj => obj
-                        .file instanceof File).map(obj => obj.file);
+                store(params, { resetForm, setErrors }) {
+                    let selectedFiles = this.$refs.reviewImages.uploadedFiles
+                        .filter(obj => obj.file instanceof File)
+                        .map(obj => obj.file);
 
-                    params.attachments = {
-                        ...params.attachments,
-                        ...selectedFiles
-                    };
+                    params.attachments = selectedFiles;
 
                     this.$axios.post('{{ route('shop.api.products.reviews.store', $product->id) }}', params, {
                             headers: {
@@ -576,19 +589,14 @@
                             }
                         })
                         .then(response => {
-                            this.$emitter.emit('add-flash', {
-                                type: 'success',
-                                message: response.data.data.message
-                            });
+                            this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
 
                             resetForm();
 
                             this.canReview = false;
                         })
                         .catch(error => {
-                            setErrors({
-                                'attachments': ["@lang('shop::app.products.view.reviews.failed-to-upload')"]
-                            });
+                            setErrors({'attachments': ["@lang('shop::app.products.view.reviews.failed-to-upload')"]});
 
                             this.$refs.reviewImages.uploadedFiles.forEach(element => {
                                 setTimeout(() => {
@@ -625,16 +633,14 @@
                     });
 
                     return data;
-                }
+                },
             },
 
             methods: {
                 translate() {
                     this.isLoading = true;
 
-                    this.$axios.get(
-                            "{{ route('shop.api.products.reviews.translate', ['id' => $product->id, 'review_id' => ':reviewId']) }}"
-                            .replace(':reviewId', this.review.id))
+                    this.$axios.get("{{ route('shop.api.products.reviews.translate', ['id' => $product->id, 'review_id' => ':reviewId']) }}".replace(':reviewId', this.review.id))
                         .then(response => {
                             this.isLoading = false;
 
@@ -643,10 +649,7 @@
                         .catch(error => {
                             this.isLoading = false;
 
-                            this.$emitter.emit('add-flash', {
-                                type: 'error',
-                                message: error.response.data.message
-                            });
+                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
                         });
                 },
             },

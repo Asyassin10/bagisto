@@ -7,7 +7,8 @@
         </div>
 
         <div class="grid content-start gap-2.5 max-sm:gap-1">
-
+            <p class="shimmer h-4 w-3/4"></p>
+            <p class="shimmer h-4 w-[55%]"></p>
 
             <!-- Needs to implement that in future -->
             <div class="mt-3 flex hidden gap-4">

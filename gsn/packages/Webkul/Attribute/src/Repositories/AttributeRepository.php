@@ -4,10 +4,16 @@ namespace Webkul\Attribute\Repositories;
 
 use Illuminate\Container\Container;
 use Webkul\Attribute\Contracts\Attribute;
+use Webkul\Attribute\Enums\AttributeTypeEnum;
 use Webkul\Core\Eloquent\Repository;
 
 class AttributeRepository extends Repository
 {
+    /**
+     * Attributes.
+     *
+     * @var array
+     */
     protected $attributes = [];
 
     /**
@@ -45,7 +51,11 @@ class AttributeRepository extends Repository
 
         $attribute = $this->model->create($data);
 
-        if (in_array($attribute->type, ['select', 'multiselect', 'checkbox'])) {
+        if (in_array($attribute->type, [
+            AttributeTypeEnum::CHECKBOX->value,
+            AttributeTypeEnum::SELECT->value,
+            AttributeTypeEnum::MULTISELECT->value,
+        ])) {
             foreach ($options as $optionInputs) {
                 $this->attributeOptionRepository->create(array_merge([
                     'attribute_id' => $attribute->id,
@@ -71,11 +81,15 @@ class AttributeRepository extends Repository
 
         $attribute->update($data);
 
-        if (!in_array($attribute->type, ['select', 'multiselect', 'checkbox'])) {
+        if (! in_array($attribute->type, [
+            AttributeTypeEnum::CHECKBOX->value,
+            AttributeTypeEnum::SELECT->value,
+            AttributeTypeEnum::MULTISELECT->value,
+        ])) {
             return $attribute;
         }
 
-        if (!isset($data['options'])) {
+        if (! isset($data['options'])) {
             return $attribute;
         }
 
@@ -112,11 +126,20 @@ class AttributeRepository extends Repository
             $data['value_per_channel'] = $data['value_per_locale'] = 0;
         }
 
-        if (!in_array($data['type'], ['select', 'multiselect', 'price', 'checkbox'])) {
+        if (! in_array($data['type'], [
+            AttributeTypeEnum::CHECKBOX->value,
+            AttributeTypeEnum::SELECT->value,
+            AttributeTypeEnum::MULTISELECT->value,
+            AttributeTypeEnum::BOOLEAN->value,
+        ])) {
             $data['is_filterable'] = 0;
         }
 
-        if (in_array($data['type'], ['select', 'multiselect', 'boolean'])) {
+        if (in_array($data['type'], [
+            AttributeTypeEnum::SELECT->value,
+            AttributeTypeEnum::MULTISELECT->value,
+            AttributeTypeEnum::BOOLEAN->value,
+        ])) {
             unset($data['value_per_locale']);
         }
 
@@ -130,7 +153,7 @@ class AttributeRepository extends Repository
      */
     public function getFilterableAttributes()
     {
-        return $this->model->with(['options', 'options.translations'])->where('is_filterable', 1)->get();
+        return $this->model->where('is_filterable', 1)->get();
     }
 
     /**
@@ -152,8 +175,8 @@ class AttributeRepository extends Repository
         ];
 
         if (
-            !is_array($codes)
-            && !$codes
+            ! is_array($codes)
+            && ! $codes
         ) {
             return $this->findWhereIn('code', [
                 'name',
@@ -201,19 +224,22 @@ class AttributeRepository extends Repository
 
         $trimmed = [];
 
-        foreach ($attributes as $key => $attribute) {
+        foreach ($attributes as $attribute) {
             if (
                 $attribute->code != 'tax_category_id'
                 && (
-                    in_array($attribute->type, ['select', 'multiselect'])
+                    in_array($attribute->type, [
+                        AttributeTypeEnum::SELECT->value,
+                        AttributeTypeEnum::MULTISELECT->value,
+                    ])
                     || $attribute->code == 'sku'
                 )
             ) {
                 array_push($trimmed, [
-                    'id' => $attribute->id,
-                    'name' => $attribute->admin_name,
-                    'type' => $attribute->type,
-                    'code' => $attribute->code,
+                    'id'      => $attribute->id,
+                    'name'    => $attribute->admin_name,
+                    'type'    => $attribute->type,
+                    'code'    => $attribute->code,
                     'options' => $attribute->options,
                 ]);
             }

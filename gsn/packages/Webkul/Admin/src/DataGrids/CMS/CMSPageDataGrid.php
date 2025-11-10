@@ -12,7 +12,7 @@ class CMSPageDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $currentLocale = app()->getLocale();
 
@@ -23,7 +23,7 @@ class CMSPageDataGrid extends DataGrid
                 'cms_page_translations.url_key',
                 'cms_page_translations.locale'
             )
-            ->addSelect(DB::raw('GROUP_CONCAT(DISTINCT channels.code) as channel'))
+            ->addSelect(DB::raw('GROUP_CONCAT(DISTINCT code) as channel'))
             ->join('cms_page_translations', function ($join) use ($currentLocale) {
                 $join->on('cms_pages.id', '=', 'cms_page_translations.cms_page_id')
                     ->where('cms_page_translations.locale', '=', $currentLocale);
@@ -61,7 +61,7 @@ class CMSPageDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => collect(core()->getAllChannels())
-                ->map(fn($channel) => ['label' => $channel->name, 'value' => $channel->id])
+                ->map(fn ($channel) => ['label' => $channel->name, 'value' => $channel->id])
                 ->values()
                 ->toArray(),
             'sortable'   => true,

@@ -32,15 +32,19 @@
                             class="h-[110px] w-[110px] rounded-full bg-zinc-100 max-md:h-20 max-md:w-20 max-sm:h-[60px] max-sm:w-[60px]"
                             :aria-label="category.name"
                         >
-                            <template v-if="category.logo?.large_image_url">
-                                <x-shop::media.images.lazy
-                                    ::src="category.logo.large_image_url"
-                                    width="110"
-                                    height="110"
-                                    class="rounded-full max-sm:h-[60px] max-sm:w-[60px]"
-                                    ::alt="category.name"
-                                />
-                            </template>
+                            <x-shop::media.images.lazy
+                                ::src="category.logo?.small_image_url || fallback"
+                                ::srcset="`
+                                    ${(category.logo?.small_image_url || fallback)} 60w,
+                                    ${(category.logo?.medium_image_url || fallback)} 110w,
+                                    ${(category.logo?.large_image_url || fallback)} 300w
+                                `"
+                                sizes="(max-width: 640px) 60px, 110px"
+                                width="110"
+                                height="110"
+                                class="w-full rounded-full max-sm:h-[60px] max-sm:w-[60px]"
+                                ::alt="category.name"
+                            />
                         </a>
 
                         <a
@@ -102,6 +106,8 @@
                     categories: [],
 
                     offset: 323,
+
+                    fallback: "{{ bagisto_asset('images/small-product-placeholder.webp') }}"
                 };
             },
 

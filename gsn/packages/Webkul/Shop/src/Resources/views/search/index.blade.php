@@ -1,30 +1,20 @@
-@php
-    if (request()->has('query')) {
-        $title = trans('shop::app.search.title', ['query' => request()->query('query')]);
-    } else {
-        $title = trans('shop::app.search.results');
-    }
-@endphp
-
+<?php
+    $searchTitle = $suggestion ?? $query;
+    $title = $searchTitle ? trans('shop::app.search.title', ['query' => $searchTitle]) : trans('shop::app.search.results');
+    $searchInstead = $suggestion ? $query : null;
+?>
 <!-- SEO Meta Content -->
 @push('meta')
-    <meta name="description" content="{{ $title }}" />
+    <meta
+        name="description"
+        content="{{ $title }}"
+    />
 
-    <meta name="keywords" content="{{ $title }}" />
+    <meta
+        name="keywords"
+        content="{{ $title }}"
+    />
 @endPush
-<style>
-    @media (max-width: 1280px) and (max-height: 700px) {
-        .custom-grid {
-            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        }
-    }
-
-    @media (max-width: 1098px) and (max-height: 363px) {
-        .custom-grid {
-            grid-template-columns: repeat(1, minmax(0, 1fr)) !important;
-        }
-    }
-</style>
 
 <x-shop::layouts :has-feature="false">
     <!-- Page Title -->
@@ -32,6 +22,51 @@
         {{ $title }}
     </x-slot>
 
+    <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
+        @if (request()->has('image-search'))
+            @include('shop::search.images.results')
+        @endif
+
+        <div class="mt-8 flex items-center justify-between max-md:mt-5">
+            <h2 class="text-2xl font-medium max-sm:text-base">
+                <span v-text="'{{ preg_replace('/[,\\"\\\']+/', '', $title) }}'" ></span>
+            </h2>
+        </div>
+
+        @if ($searchInstead)
+            <form
+                action="{{ route('shop.search.index', ['suggest' => false]) }}"
+                class="flex max-w-[445px] items-center"
+                role="search"
+            >
+                <input
+                    type="text"
+                    name="query"
+                    class="hidden"
+                    value="{{ $searchInstead }}"
+                >
+
+                <input
+                    type="text"
+                    name="suggest"
+                    class="hidden"
+                    value="0"
+                >
+
+                <p class="mt-1 text-sm text-gray-600">
+                    {{ trans('shop::app.search.suggest') }}
+
+                    <button
+                        type="submit"
+                        class="text-blue-600 hover:text-blue-800 hover:underline"
+                        aria-label="{{ trans('shop::app.components.layouts.header.desktop.bottom.submit') }}"
+                    >
+                        {{ $searchInstead }}
+                    </button>
+                </p>
+            </form>
+        @endif
+    </div>
 
     <!-- Product Listing -->
     <v-search>
@@ -43,24 +78,9 @@
             type="text/x-template"
             id="v-search-template"
         >
-         <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
-            @if (request()->has('image-search'))
-                @include('shop::search.images.results')
-            @endif
-
-            <div class="mt-8 flex items-center justify-start max-md:mt-5" style="margin-top: 0%;   ">
-                <h1 class="text-2xl font-medium max-sm:text-base" v-text="`{{ addslashes($title) }}`" style="margin-top: 5%;font-weight:bold;">
-                </h1>
-                <h1 class="text-2xl mx-8 font-medium max-sm:text-base" style="margin-top: 5%;font-weight:bold;">
-                    @{{ products.length }} solutions sélectionnées
-                </h1>
-            </div>
-        </div>
-
             <div class="container px-[60px] max-lg:px-8 max-sm:px-4">
                 <div class="flex items-start gap-10 max-lg:gap-5 md:mt-10">
                     <!-- Product Listing Filters -->
-
                     @include('shop::categories.filters')
 
                     <!-- Product Listing Container -->
@@ -73,7 +93,7 @@
                         <!-- Product List Card Container -->
                         <div
                             class="mt-8 grid grid-cols-1 gap-6"
-                            v-if="filters.toolbar.mode === 'list'"
+                            v-if="(filters.toolbar.applied.mode ?? filters.toolbar.default.mode) === 'list'"
                         >
                             <!-- Product Card Shimmer Effect -->
                             <template v-if="isLoading">
@@ -94,8 +114,10 @@
                                     <div class="m-auto grid w-full place-content-center items-center justify-items-center py-32 text-center">
                                         <img
                                             class="max-sm:h-[100px] max-sm:w-[100px]"
-                                            src="{{ asset('ShopImages/empty-folder.png') }}" style="max-width: 40%;"
+                                            src="{{ bagisto_asset('images/thank-you.png') }}"
                                             alt="Empty result"
+                                            loading="lazy"
+                                            decoding="async"
                                         />
 
                                         <p
@@ -121,7 +143,7 @@
                             <!-- Product Card Listing -->
                             <template v-else>
                                 <template v-if="products.length">
-                                    <div class="custom-grid mt-8 grid grid-cols-3 gap-12 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5 div-grid-card">
+                                    <div class="mt-8 grid grid-cols-3 gap-8 max-1060:grid-cols-2 max-md:mt-5 max-md:justify-items-center max-md:gap-x-4 max-md:gap-y-5">
                                         <x-shop::products.card
                                             ::mode="'grid'"
                                             v-for="product in products"
@@ -135,8 +157,10 @@
                                     <div class="m-auto grid w-full place-content-center items-center justify-items-center py-32 text-center">
                                         <img
                                             class="max-sm:h-[100px] max-sm:w-[100px]"
-                                            src="{{ asset('ShopImages/empty-folder.png') }}" style="max-width: 40%;"
+                                            src="{{ bagisto_asset('images/thank-you.png') }}"
                                             alt="Empty result"
+                                            loading="lazy"
+                                            decoding="async"
                                         />
 
                                         <p
@@ -151,24 +175,16 @@
                         </div>
 
                         <!-- Load More Button -->
-                          <button
-                            class=" mx-auto hover:underline flex mt-[60px] items-center w-max rounded-2xl px-11 py-3 text-center text-base max-md:rounded-lg max-md:text-sm max-sm:mt-7 max-sm:px-7 max-sm:py-2"
+                        <button
+                            class="secondary-button mx-auto mt-[60px] block w-max rounded-2xl px-11 py-3 text-center text-base max-md:rounded-lg max-md:text-sm max-sm:mt-7 max-sm:px-7 max-sm:py-2"
                             @click="loadMoreProducts"
                             v-if="links.next"
-
                         >
-                        <span class="mx-3 px-3 font-medium" style="font-size: 17px !important;font-family:MarkPro !important;font-weight:500 !important;">
-                             @lang('shop::app.categories.view.load-more')
-                            </span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="14.456" height="8.942" viewBox="0 0 14.456 8.942">
-                                <path id="suivant" d="M0,0,4.936,5.321,10.215,0" transform="translate(2.12 2.121)" fill="none" stroke="#444a5a" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-                            </svg>
-
+                            @lang('shop::app.categories.view.load-more')
                         </button>
                     </div>
                 </div>
             </div>
-
     </script>
 
         <script type="module">
@@ -188,7 +204,11 @@
                         },
 
                         filters: {
-                            toolbar: {},
+                            toolbar: {
+                                default: {},
+
+                                applied: {},
+                            },
 
                             filter: {},
                         },
@@ -201,7 +221,7 @@
 
                 computed: {
                     queryParams() {
-                        let queryParams = Object.assign({}, this.filters.filter, this.filters.toolbar);
+                        let queryParams = Object.assign({}, this.filters.filter, this.filters.toolbar.applied);
 
                         return this.removeJsonEmptyValues(queryParams);
                     },
@@ -238,8 +258,8 @@
                         };
 
                         this.$axios.get(("{{ route('shop.api.products.index') }}"), {
-                                params: this.queryParams
-                            })
+                            params: this.queryParams
+                        })
                             .then(response => {
                                 this.isLoading = false;
 
@@ -264,8 +284,8 @@
                     },
 
                     removeJsonEmptyValues(params) {
-                        Object.keys(params).forEach(function(key) {
-                            if ((!params[key] && params[key] !== undefined)) {
+                        Object.keys(params).forEach(function (key) {
+                            if ((! params[key] && params[key] !== undefined)) {
                                 delete params[key];
                             }
 
@@ -290,5 +310,4 @@
             });
         </script>
     @endPushOnce
-    @include('shop::compare.modal')
 </x-shop::layouts>

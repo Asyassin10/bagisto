@@ -34,7 +34,7 @@ class UpdateCreateSearchTerm implements ShouldQueue
     {
         app(SearchTermRepository::class)->updateOrCreate([
             'term'       => $this->data['term'],
-            'channel_id' => core()->getCurrentChannel()->id,
+            'channel_id' => $this->data['channel_id'],
             'locale'     => $this->data['locale'],
         ], [
             'uses'    => DB::raw('uses + 1'),

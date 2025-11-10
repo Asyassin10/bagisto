@@ -1,4 +1,4 @@
-{{-- {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.before', ['product' => $product]) !!}
+{!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.before', ['product' => $product]) !!}
 
 <!-- Panel -->
 <div class="box-shadow rounded bg-white p-4 dark:bg-gray-900">
@@ -7,9 +7,7 @@
         @lang('admin::app.catalog.products.edit.categories.title')
     </p>
 
-    {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.controls.before', [
-        'product' => $product,
-    ]) !!}
+    {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.controls.before', ['product' => $product]) !!}
 
     <!-- Panel Content -->
     <div class="mb-5 text-sm text-gray-600 dark:text-gray-300">
@@ -20,9 +18,7 @@
 
     </div>
 
-    {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.controls.after', [
-        'product' => $product,
-    ]) !!}
+    {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.controls.after', ['product' => $product]) !!}
 </div>
 
 {!! view_render_event('bagisto.admin.catalog.product.edit.form.categories.after', ['product' => $product]) !!}
@@ -87,4 +83,3 @@
         });
     </script>
 @endpushOnce
- --}}

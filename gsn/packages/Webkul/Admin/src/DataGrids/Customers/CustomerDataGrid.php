@@ -29,7 +29,7 @@ class CustomerDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $tablePrefix = DB::getTablePrefix();
 
@@ -50,15 +50,15 @@ class CustomerDataGrid extends DataGrid
                 'customer_groups.name as group',
                 'customers.channel_id',
             )
-            ->addSelect(DB::raw('COUNT(DISTINCT ' . $tablePrefix . 'addresses.id) as address_count'))
-            ->addSelect(DB::raw('COUNT(DISTINCT ' . $tablePrefix . 'orders.id) as order_count'))
-            ->addSelect(DB::raw('CONCAT(' . $tablePrefix . 'customers.first_name, " ", ' . $tablePrefix . 'customers.last_name) as full_name'))
+            ->addSelect(DB::raw('COUNT(DISTINCT '.$tablePrefix.'addresses.id) as address_count'))
+            ->addSelect(DB::raw('COUNT(DISTINCT '.$tablePrefix.'orders.id) as order_count'))
+            ->addSelect(DB::raw('CONCAT('.$tablePrefix.'customers.first_name, " ", '.$tablePrefix.'customers.last_name) as full_name'))
             ->groupBy('customers.id');
 
         $this->addFilter('channel_id', 'customers.channel_id');
         $this->addFilter('customer_id', 'customers.id');
         $this->addFilter('email', 'customers.email');
-        $this->addFilter('full_name', DB::raw('CONCAT(' . $tablePrefix . 'customers.first_name, " ", ' . $tablePrefix . 'customers.last_name)'));
+        $this->addFilter('full_name', DB::raw('CONCAT('.$tablePrefix.'customers.first_name, " ", '.$tablePrefix.'customers.last_name)'));
         $this->addFilter('group', 'customer_groups.name');
         $this->addFilter('phone', 'customers.phone');
         $this->addFilter('status', 'customers.status');
@@ -80,7 +80,7 @@ class CustomerDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => collect(core()->getAllChannels())
-                ->map(fn($channel) => ['label' => $channel->name, 'value' => $channel->id])
+                ->map(fn ($channel) => ['label' => $channel->name, 'value' => $channel->id])
                 ->values()
                 ->toArray(),
             'sortable'   => true,
@@ -120,10 +120,20 @@ class CustomerDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.customers.customers.index.datagrid.status'),
-            'type'       => 'boolean',
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.customers.customers.index.datagrid.status'),
+            'type'               => 'boolean',
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.customers.customers.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.customers.customers.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
         ]);
 

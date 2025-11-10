@@ -31,25 +31,12 @@ class Themes
     protected $laravelViewsPath;
 
     /**
-     * Contains default theme code.
-     *
-     * @var string
-     */
-    protected $defaultThemeCode = 'default';
-
-    /**
      * Create a new themes instance.
      *
      * @return void
      */
     public function __construct()
     {
-        if (! Str::contains(request()->url(), config('app.admin_url').'/')) {
-            $this->defaultThemeCode = Config::get('themes.admin-default', null);
-        } else {
-            $this->defaultThemeCode = Config::get('themes.shop-default', null);
-        }
-
         $this->laravelViewsPath = Config::get('view.paths');
 
         $this->loadThemes();
@@ -118,7 +105,25 @@ class Themes
     {
         $parentThemes = [];
 
-        if (Str::contains(request()->url(), config('app.admin_url').'/')) {
+        /**
+         * Octane safety: Handle request context more safely.
+         */
+        $isAdmin = false;
+
+        try {
+            $currentRequest = request();
+
+            if ($currentRequest && $currentRequest->url()) {
+                $isAdmin = Str::contains($currentRequest->url(), config('app.admin_url').'/');
+            }
+        } catch (\Exception $e) {
+            /**
+             * Fallback if request context is not available.
+             */
+            $isAdmin = false;
+        }
+
+        if ($isAdmin) {
             $themes = config('themes.admin', []);
         } else {
             $themes = config('themes.shop', []);
@@ -130,6 +135,7 @@ class Themes
                 $data['name'] ?? '',
                 $data['assets_path'] ?? '',
                 $data['views_path'] ?? '',
+                $data['views_namespace'] ?? null,
                 $data['vite'] ?? [],
             );
 
@@ -243,7 +249,18 @@ class Themes
          * detect the theme and provide Vite assets based on the current theme.
          */
         if (empty($namespace)) {
-            return $this->current()->url($url);
+            $currentTheme = $this->current();
+
+            /**
+             * Octane safety: Initialize theme if not set.
+             */
+            if (! $currentTheme) {
+                $this->ensureThemeInitialized();
+
+                $currentTheme = $this->current();
+            }
+
+            return $currentTheme->url($url);
         }
 
         /**
@@ -276,7 +293,18 @@ class Themes
          * detect the theme and provide Vite assets based on the current theme.
          */
         if (empty($namespace)) {
-            return $this->current()->setBagistoVite($entryPoints);
+            $currentTheme = $this->current();
+
+            /**
+             * Octane safety: Initialize theme if not set.
+             */
+            if (! $currentTheme) {
+                $this->ensureThemeInitialized();
+
+                $currentTheme = $this->current();
+            }
+
+            return $currentTheme->setBagistoVite($entryPoints);
         }
 
         /**
@@ -292,5 +320,29 @@ class Themes
         return Vite::useHotFile($viters[$namespace]['hot_file'])
             ->useBuildDirectory($viters[$namespace]['build_directory'])
             ->withEntryPoints($entryPoints);
+    }
+
+    /**
+     * Ensure theme is properly initialized (Octane Safety).
+     *
+     * @return void
+     */
+    protected function ensureThemeInitialized()
+    {
+        if (! $this->activeTheme) {
+            /**
+             * Reload themes based on current request context.
+             */
+            $this->loadThemes();
+
+            /**
+             * Set default theme if no theme is set.
+             */
+            if (! $this->activeTheme && ! empty($this->themes)) {
+                $defaultTheme = $this->themes[0];
+
+                $this->set($defaultTheme->code);
+            }
+        }
     }
 }

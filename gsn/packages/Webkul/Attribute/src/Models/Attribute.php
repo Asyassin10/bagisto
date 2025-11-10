@@ -20,7 +20,6 @@ class Attribute extends TranslatableModel implements AttributeContract
         'code',
         'admin_name',
         'type',
-        "max_length",
         'enable_wysiwyg',
         'position',
         'is_required',
@@ -36,8 +35,6 @@ class Attribute extends TranslatableModel implements AttributeContract
         'is_user_defined',
         'swatch_type',
         'is_comparable',
-        'backup_code',
-        "is_alpha_numeric"
     ];
 
     /**
@@ -46,17 +43,17 @@ class Attribute extends TranslatableModel implements AttributeContract
      * @var array
      */
     public $attributeTypeFields = [
-        'text' => 'text_value',
-        'textarea' => 'text_value',
-        'price' => 'float_value',
-        'boolean' => 'boolean_value',
-        'select' => 'integer_value',
+        'text'        => 'text_value',
+        'textarea'    => 'text_value',
+        'price'       => 'float_value',
+        'boolean'     => 'boolean_value',
+        'select'      => 'integer_value',
         'multiselect' => 'text_value',
-        'datetime' => 'datetime_value',
-        'date' => 'date_value',
-        'file' => 'text_value',
-        'image' => 'text_value',
-        'checkbox' => 'text_value',
+        'datetime'    => 'datetime_value',
+        'date'        => 'date_value',
+        'file'        => 'text_value',
+        'image'       => 'text_value',
+        'checkbox'    => 'text_value',
     ];
 
     /**
@@ -99,15 +96,6 @@ class Attribute extends TranslatableModel implements AttributeContract
         if ($this->is_required) {
             $validations[] = 'required: true';
         }
-        if ($this->max_length && $this->max_length > 0) {
-            if ($this->validation && str_contains($this->validation, 'numeric')) {
-                // $count = strlen(strval($this->max_length));
-                $validations[] = 'max_value: ' . $this->max_length;
-            } else {
-                //  $count = strlen(strval($this->max_length));
-                $validations[] = 'max: ' . $this->max_length;
-            }
-        }
 
         if ($this->type == 'price') {
             $validations[] = 'decimal: true';
@@ -117,7 +105,7 @@ class Attribute extends TranslatableModel implements AttributeContract
             $retVal = core()->getConfigData('catalog.products.attribute.file_attribute_upload_size') ?? '2048';
 
             if ($retVal) {
-                $validations[] = 'size:' . $retVal;
+                $validations[] = 'size:'.$retVal;
             }
         }
 
@@ -125,17 +113,17 @@ class Attribute extends TranslatableModel implements AttributeContract
             $retVal = core()->getConfigData('catalog.products.attribute.image_attribute_upload_size') ?? '2048';
 
             if ($retVal) {
-                $validations[] = 'size:' . $retVal . ', mimes: ["image/bmp", "image/jpeg", "image/jpg", "image/png", "image/webp"]';
+                $validations[] = 'size:'.$retVal.', mimes: ["image/bmp", "image/jpeg", "image/jpg", "image/png", "image/webp"]';
             }
         }
 
         if ($this->validation == 'regex') {
-            $validations[] = 'regex: ' . $this->regex;
+            $validations[] = 'regex: '.$this->regex;
         } elseif ($this->validation) {
-            $validations[] = $this->validation . ': true';
+            $validations[] = $this->validation.': true';
         }
 
-        $validations = '{ ' . implode(', ', array_filter($validations)) . ' }';
+        $validations = '{ '.implode(', ', array_filter($validations)).' }';
 
         return $validations;
     }
@@ -146,9 +134,5 @@ class Attribute extends TranslatableModel implements AttributeContract
     protected static function newFactory(): Factory
     {
         return AttributeFactory::new();
-    }
-    public function group()
-    {
-        return $this->belongsToMany(AttributeGroup::class, "attribute_group_mappings", "attribute_id");
     }
 }

@@ -6,19 +6,19 @@
 
     <div class="flex h-[100vh] items-center justify-center">
         <div class="flex flex-col items-center gap-5">
-            <!-- Logo -->
+            <!-- Logo -->            
             @if ($logo = core()->getConfigData('general.design.admin_logo.logo_image'))
-            <img class="h-10 w-[110px]" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/7f/c3/2f/7fc32f0cad524d76710896113d54ab0f6b10a8ff.jpg?rule=ad-image" alt="GuideSolution" style="
-            width: 43%;
-            height: 13% !important;
-            border-radius: 10%;
-        ">
+                <img
+                    class="h-10 w-[110px]"
+                    src="{{ Storage::url($logo) }}"
+                    alt="{{ config('app.name') }}"
+                />
             @else
-            <img class="h-10 w-[110px]" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/7f/c3/2f/7fc32f0cad524d76710896113d54ab0f6b10a8ff.jpg?rule=ad-image" alt="GuideSolution" style="
-            width: 43%;
-            height: 13% !important;
-            border-radius: 10%;
-        ">
+                <img
+                    class="w-max" 
+                    src="{{ bagisto_asset('images/logo.svg') }}"
+                    alt="{{ config('app.name') }}"
+                />
             @endif
 
             <div class="box-shadow flex min-w-[300px] flex-col rounded-md bg-white dark:bg-gray-900">
@@ -35,12 +35,12 @@
                                 @lang('admin::app.users.sessions.email')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control
-                                type="email"
-                                class="w-[254px] max-w-full"
+                            <x-admin::form.control-group.control 
+                                type="email" 
+                                class="w-[254px] max-w-full" 
                                 id="email"
-                                name="email"
-                                rules="required|email"
+                                name="email" 
+                                rules="required|email" 
                                 :label="trans('admin::app.users.sessions.email')"
                                 :placeholder="trans('admin::app.users.sessions.email')"
                             />
@@ -53,18 +53,18 @@
                             <x-admin::form.control-group.label class="required">
                                 @lang('admin::app.users.sessions.password')
                             </x-admin::form.control-group.label>
-
-                            <x-admin::form.control-group.control
-                                type="password"
-                                class="w-[254px] max-w-full ltr:pr-10 rtl:pl-10"
+                    
+                            <x-admin::form.control-group.control 
+                                type="password" 
+                                class="w-[254px] max-w-full ltr:pr-10 rtl:pl-10" 
                                 id="password"
-                                name="password"
-                                rules="required|min:6"
+                                name="password" 
+                                rules="required|min:6" 
                                 :label="trans('admin::app.users.sessions.password')"
                                 :placeholder="trans('admin::app.users.sessions.password')"
                             />
-
-                            <span
+                    
+                            <span 
                                 class="icon-view absolute top-[42px] -translate-y-2/4 cursor-pointer text-2xl ltr:right-2 rtl:left-2"
                                 onclick="switchVisibility()"
                                 id="visibilityIcon"
@@ -72,19 +72,14 @@
                                 tabindex="0"
                             >
                             </span>
-
+                    
                             <x-admin::form.control-group.error control-name="password" />
                         </x-admin::form.control-group>
-                        @if (session('danger'))
-                        <div class="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
-                            {!! session('danger') !!}
-                        </div>
-                    @endif
                     </div>
 
                     <div class="flex items-center justify-between p-4">
                         <!-- Forgot Password Link -->
-                        <a
+                        <a 
                             class="cursor-pointer text-xs font-semibold leading-6 text-blue-600"
                             href="{{ route('admin.forget_password.create') }}"
                         >
@@ -100,6 +95,14 @@
                         </button>
                     </div>
                 </x-admin::form>
+            </div>
+
+            <!-- Powered By -->
+            <div class="text-sm font-normal">
+                @lang('admin::app.users.sessions.powered-by-description', [
+                    'bagisto' => '<a class="text-blue-600 hover:underline" href="https://bagisto.com/en/">Bagisto</a>',
+                    'webkul' => '<a class="text-blue-600 hover:underline" href="https://webkul.com/">Webkul</a>',
+                ])
             </div>
         </div>
     </div>

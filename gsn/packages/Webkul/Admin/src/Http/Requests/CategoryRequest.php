@@ -27,7 +27,7 @@ class CategoryRequest extends FormRequest
         $locale = core()->getRequestedLocaleCode();
 
         $rules = [
-            'position'      => 'required',
+            'position'      => 'required|integer',
             'logo_path'     => 'array',
             'logo_path.*'   => 'mimes:bmp,jpeg,jpg,png,webp',
             'banner_path'   => 'array',
@@ -44,7 +44,7 @@ class CategoryRequest extends FormRequest
             return $rules;
         }
 
-        $rules['slug'] = ['required', new ProductCategoryUniqueSlug];
+        $rules['slug'] = ['required', new ProductCategoryUniqueSlug('category_translations')];
         $rules['name'] = 'required';
         $rules['description'] = 'required_if:display_mode,==,description_only,products_and_description';
 

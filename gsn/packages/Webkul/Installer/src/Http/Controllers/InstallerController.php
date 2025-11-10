@@ -4,12 +4,15 @@ namespace Webkul\Installer\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 use Webkul\Installer\Helpers\DatabaseManager;
 use Webkul\Installer\Helpers\EnvironmentManager;
 use Webkul\Installer\Helpers\ServerRequirements;
+use Webkul\Product\Console\Commands\Indexer;
 
 class InstallerController extends Controller
 {
@@ -142,6 +145,10 @@ class InstallerController extends Controller
             'default_currency'   => $defaultCurrency,
             'allowed_currencies' => $allowedCurrencies,
         ]);
+
+        Artisan::registerCommand(app(Indexer::class));
+
+        Artisan::call('indexer:index', ['--mode' => ['full']]);
     }
 
     /**
@@ -168,7 +175,9 @@ class InstallerController extends Controller
 
             return true;
         } catch (\Throwable $th) {
-            dd($th);
+            Log::error('Error in Admin installer config setup'.$th->getMessage());
+
+            return false;
         }
     }
 

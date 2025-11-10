@@ -7,10 +7,12 @@ use Illuminate\Support\Facades\Event;
 use Webkul\Admin\DataGrids\Catalog\AttributeDataGrid;
 use Webkul\Admin\Http\Controllers\Controller;
 use Webkul\Admin\Http\Requests\MassDestroyRequest;
+use Webkul\Attribute\Enums\AttributeTypeEnum;
+use Webkul\Attribute\Enums\SwatchTypeEnum;
+use Webkul\Attribute\Enums\ValidationEnum;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Core\Rules\Code;
 use Webkul\Product\Repositories\ProductRepository;
-use Illuminate\Support\Str;
 
 class AttributeController extends Controller
 {
@@ -47,7 +49,13 @@ class AttributeController extends Controller
     {
         $locales = core()->getAllLocales();
 
-        return view('admin::catalog.attributes.create', compact('locales'));
+        $attributeTypes = AttributeTypeEnum::getValues();
+
+        $swatchTypes = SwatchTypeEnum::getValues();
+
+        $validations = ValidationEnum::getValues();
+
+        return view('admin::catalog.attributes.create', compact('locales', 'attributeTypes', 'swatchTypes', 'validations'));
     }
 
     /**
@@ -57,20 +65,19 @@ class AttributeController extends Controller
      */
     public function store()
     {
-        //dd(request()->all());
-        $this->validate(request(), [
-            // 'code'          => ['required', 'not_in:type,attribute_family_id', 'unique:attributes,code', new Code()],
+        $rules = [
+            'code'          => ['required', 'not_in:type,attribute_family_id', 'unique:attributes,code', new Code],
             'admin_name'    => 'required',
             'type'          => 'required',
-            'default_value' => 'integer',
-            'max_length' => 'integer',
-            'is_alpha_numeric' => 'integer',
-        ]);
+        ];
+
+        if (request('type') === 'boolean') {
+            $rules['default_value'] = 'in:0,1';
+        }
+
+        $this->validate(request(), $rules);
 
         $requestData = request()->all();
-        $uniqueKey = Str::random(16);
-
-        $requestData['code'] = $uniqueKey;
 
         $requestData['default_value'] ??= null;
 
@@ -96,7 +103,13 @@ class AttributeController extends Controller
 
         $locales = core()->getAllLocales();
 
-        return view('admin::catalog.attributes.edit', compact('attribute', 'locales'));
+        $attributeTypes = AttributeTypeEnum::getValues();
+
+        $swatchTypes = SwatchTypeEnum::getValues();
+
+        $validations = ValidationEnum::getValues();
+
+        return view('admin::catalog.attributes.edit', compact('attribute', 'locales', 'attributeTypes', 'swatchTypes', 'validations'));
     }
 
     /**
@@ -118,23 +131,21 @@ class AttributeController extends Controller
      */
     public function update(int $id)
     {
-        $this->validate(request(), [
-            //'code'          => ['required', 'unique:attributes,code,' . $id, new Code],
+        $rules = [
+            'code'          => ['required', 'unique:attributes,code,'.$id, new Code],
             'admin_name'    => 'required',
             'type'          => 'required',
-            'default_value' => 'integer',
-            'max_length' => 'integer',
-            'is_alpha_numeric' => 'integer',
-        ]);
+        ];
+
+        if (request('type') === 'boolean') {
+            $rules['default_value'] = 'in:0,1';
+        }
+
+        $this->validate(request(), $rules);
 
         $requestData = request()->all();
-        //   $uniqueKey = Str::random(16);
 
-        // $requestData['code'] = $uniqueKey;
-
-        if (!$requestData['default_value']) {
-            $requestData['default_value'] = null;
-        }
+        $requestData['default_value'] ??= null;
 
         Event::dispatch('catalog.attribute.update.before', $id);
 
@@ -152,13 +163,13 @@ class AttributeController extends Controller
      */
     public function destroy(int $id): JsonResponse
     {
-        //$attribute = $this->attributeRepository->findOrFail($id);
+        $attribute = $this->attributeRepository->findOrFail($id);
 
-        /*   if (!$attribute->is_user_defined) {
+        if (! $attribute->is_user_defined) {
             return response()->json([
                 'message' => trans('admin::app.catalog.attributes.user-define-error'),
             ], 400);
-        } */
+        }
 
         try {
             Event::dispatch('catalog.attribute.delete.before', $id);
@@ -186,26 +197,32 @@ class AttributeController extends Controller
         $indices = $massDestroyRequest->input('indices');
 
         foreach ($indices as $index) {
-            //$attribute = $this->attributeRepository->find($index);
+            $attribute = $this->attributeRepository->find($index);
 
-            /*    if (!$attribute->is_user_defined) {
+            if (! $attribute->is_user_defined) {
                 return response()->json([
                     'message' => trans('admin::app.catalog.attributes.delete-failed'),
                 ], 422);
-            } */
+            }
         }
 
-        foreach ($indices as $index) {
-            Event::dispatch('catalog.attribute.delete.before', $index);
+        try {
+            foreach ($indices as $index) {
+                Event::dispatch('catalog.attribute.delete.before', $index);
 
-            $this->attributeRepository->delete($index);
+                $this->attributeRepository->delete($index);
 
-            Event::dispatch('catalog.attribute.delete.after', $index);
+                Event::dispatch('catalog.attribute.delete.after', $index);
+            }
+
+            return new JsonResponse([
+                'message' => trans('admin::app.catalog.attributes.index.datagrid.mass-delete-success'),
+            ]);
+        } catch (\Exception $exception) {
+            return new JsonResponse([
+                'message' => trans('admin::app.catalog.attributes.delete-failed'),
+            ], 500);
         }
-
-        return new JsonResponse([
-            'message' => trans('admin::app.catalog.attributes.index.datagrid.mass-delete-success'),
-        ]);
     }
 
     /**

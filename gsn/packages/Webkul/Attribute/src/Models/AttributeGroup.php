@@ -26,9 +26,4 @@ class AttributeGroup extends Model implements AttributeGroupContract
             ->withPivot('position')
             ->orderBy('pivot_position', 'asc');
     }
-    public function attributesComparable()
-    {
-        // where("is_comparable", 1)
-        return $this->belongsToMany(Attribute::class, "attribute_group_mappings", "attribute_id");
-    }
 }
