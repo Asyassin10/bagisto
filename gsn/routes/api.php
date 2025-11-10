@@ -22,6 +22,5 @@ use Webkul\Product\Models\Product;
 /* Route::controller(controller: CompareController::class)->prefix(prefix: 'compare-items')->group(function () {});
  */
 
- Route::get('/smart-search', [JsonSearchController::class, 'search']);
- Route::get('/test-search', [JsonSearchController::class, 'testSearch']);
+// Smart search routes are now handled by GSN package
 

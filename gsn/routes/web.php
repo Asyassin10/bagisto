@@ -1,22 +1,7 @@
 <?php
 
-use App\Notifications\CustomApiNotification;
-use Illuminate\Support\Facades\Notification;
-use Webkul\User\Models\Admin;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ChatbotController;
-use App\Notifications\AdminVerifyEmailNotification;
-use Illuminate\Http\Request;
-use Subfission\Cas\Facades\Cas;
-
-
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
-use Webkul\Attribute\Repositories\AttributeFamilyRepository;
-use Webkul\Attribute\Repositories\AttributeRepository;
- use Illuminate\Support\Facades\Response;
-use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Shop\Http\Controllers\ProductsCategoriesProxyController;
 
 /*
@@ -64,25 +49,7 @@ Route::get('/clean-cache', function () {
     return response()->json(['message' => 'Optimization cache cleared successfully!']);
 });
 
-Route::get('/cas/login', [AuthController::class, 'login'])->name('login');
-Route::get('/cas/logout', [AuthController::class, 'logout'])->name('logout.cas');
-Route::get('/cas/callback', [AuthController::class, 'handleCasCallback'])->name('cas.callback');
-
-
-Route::get('/test/cas', function () {
-    // Check if the user is authenticated with CAS
-    if (Cas::isAuthenticated()) {
-        $userAttributes = Cas::getAttributes(); // Retrieve CAS attributes
-
-        // Extract the 'uniquecsoecid' attribute
-        $uniquecsoecid = $userAttributes['uniquecsoecid'] ?? null;
-
-
-        return dd($uniquecsoecid);
-    } else {
-        return "CAS authentication failed.";
-    }
-})->name('test')->middleware('cas.auth');
+// CAS routes are now handled by GSN package
 
 
 
@@ -113,20 +80,7 @@ Route::get('/get-env', function () {
     ]);
 });
 
-Route::get('/mentions-legales', function () {
-    $filePath = public_path('documents/MentionsLegales_GuideDesSolutionsNumeriques.pdf');
-
-    if (file_exists($filePath)) {
-        return Response::file($filePath, [
-            'Content-Type' => 'application/pdf',
-            'Content-Disposition' => 'inline; filename="MentionsLegales_GuideDesSolutionsNumeriques.pdf"',
-        ]);
-    }
-
-    abort(404, 'Document not found');
-})->name('mentions-legales');
-
-Route::get('/ollama', [ChatbotController::class, 'chatbot']);
+// Mentions légales and chatbot routes are now handled by GSN package
 Route::get('/category', [ProductsCategoriesProxyController::class, 'testCategory']);
 
 
