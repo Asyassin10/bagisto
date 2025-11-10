@@ -2,12 +2,7 @@
 
 namespace Webkul\Admin\Http\Controllers\User;
 
-use Illuminate\Support\Facades\URL;
 use Webkul\Admin\Http\Controllers\Controller;
-use Webkul\User\Models\Admin;
-use Illuminate\Http\Request;
-use App\Notifications\AdminVerifyEmailNotification; // Import your notification class
-
 
 class SessionController extends Controller
 {
@@ -52,7 +47,6 @@ class SessionController extends Controller
 
             return redirect()->back();
         }
-        $user = auth()->guard('admin')->user();
 
         if (! auth()->guard('admin')->user()->status) {
             session()->flash('warning', trans('admin::app.settings.users.activate-warning'));
@@ -61,18 +55,20 @@ class SessionController extends Controller
 
             return redirect()->route('admin.session.create');
         }
-        // Check if the email is verified
-        if (!$user->is_valid) {
-            session()->flash('danger', "Votre email n'a pas encore été vérifié. Veuillez vérifier votre email ou <br> <a href='" . route('admin.resend.verification', ['email' => $user->email]) . "' class='text-blue-600 hover:underline'>renvoyer l'email de vérification</a>.");
 
-            auth()->guard('admin')->logout();
-            return redirect()->route('admin.session.create');
+        if (! bouncer()->hasPermission('dashboard')) {
+            $permissions = auth()->guard('admin')->user()->role->permissions;
+
+            foreach ($permissions as $permission) {
+                if (bouncer()->hasPermission($permission)) {
+                    $permissionDetails = collect(config('acl'))->firstWhere('key', $permission);
+
+                    return redirect()->route($permissionDetails['route']);
+                }
+            }
         }
-        if ($user->role_id == 1) {
-            return redirect()->route('admin.dashboard.index');
-        } else {
-            return redirect()->route('admin.catalog.products.index');
-        }
+
+        return redirect()->intended(route('admin.dashboard.index'));
     }
 
     /**
@@ -86,16 +82,5 @@ class SessionController extends Controller
         auth()->guard('admin')->logout();
 
         return redirect()->route('admin.session.create');
-    }
-    public function resendVerification(Request $request)
-    {
-        $admin = Admin::where('email', $request->email)->first();
-
-        if ($admin->is_valid) {
-            return redirect()->route('admin.session.create')->with('info', 'Votre email est déjà vérifié.');
-        }
-        // Generate a new verification URL
-        $admin->notify(new AdminVerifyEmailNotification());
-        return redirect()->route('admin.session.create')->with('success', "email de vérification a été renvoyé. Veuillez vérifier votre boîte de réception.");
     }
 }

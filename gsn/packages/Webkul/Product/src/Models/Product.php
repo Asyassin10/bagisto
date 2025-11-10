@@ -2,7 +2,6 @@
 
 namespace Webkul\Product\Models;
 
-use App\Societe;
 use Exception;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -15,15 +14,14 @@ use Shetabit\Visitor\Traits\Visitable;
 use Webkul\Attribute\Models\AttributeFamilyProxy;
 use Webkul\Attribute\Models\AttributeProxy;
 use Webkul\Attribute\Repositories\AttributeRepository;
+use Webkul\BookingProduct\Models\BookingProductProxy;
 use Webkul\CatalogRule\Models\CatalogRuleProductPriceProxy;
 use Webkul\Category\Models\CategoryProxy;
 use Webkul\Core\Models\ChannelProxy;
 use Webkul\Inventory\Models\InventorySourceProxy;
 use Webkul\Product\Contracts\Product as ProductContract;
-use Webkul\Product\Database\Eloquent\Builder;
 use Webkul\Product\Database\Factories\ProductFactory;
 use Webkul\Product\Type\AbstractType;
-use Webkul\User\Models\Admin;
 
 class Product extends Model implements ProductContract
 {
@@ -37,9 +35,6 @@ class Product extends Model implements ProductContract
         'attribute_family_id',
         'sku',
         'parent_id',
-        "is_valid_by_admin",
-        "is_congrate_partner",
-        "admin_id"
     ];
 
     /**
@@ -47,7 +42,6 @@ class Product extends Model implements ProductContract
      */
     protected $casts = [
         'additional' => 'array',
-        'is_congrate_partner' => 'boolean',
     ];
 
     /**
@@ -210,6 +204,15 @@ class Product extends Model implements ProductContract
     }
 
     /**
+     * Get the customizable options.
+     */
+    public function customizable_options(): HasMany
+    {
+        return $this->hasMany(ProductCustomizableOptionProxy::modelClass())
+            ->orderBy('sort_order');
+    }
+
+    /**
      * Get the product variants that owns the product.
      */
     public function variants(): HasMany
@@ -223,6 +226,14 @@ class Product extends Model implements ProductContract
     public function grouped_products(): HasMany
     {
         return $this->hasMany(ProductGroupedProductProxy::modelClass());
+    }
+
+    /**
+     * Get the grouped products that owns the product.
+     */
+    public function booking_products(): HasMany
+    {
+        return $this->hasMany(BookingProductProxy::modelClass());
     }
 
     /**
@@ -342,7 +353,7 @@ class Product extends Model implements ProductContract
             return $this->typeInstance;
         }
 
-        $this->typeInstance = app(config('product_types.' . $this->type . '.class'));
+        $this->typeInstance = app(config('product_types.'.$this->type.'.class'));
 
         if (! $this->typeInstance instanceof AbstractType) {
             throw new Exception("Please ensure the product type '{$this->type}' is configured in your application.");
@@ -373,8 +384,7 @@ class Product extends Model implements ProductContract
      */
     public function getAttribute($key)
     {
-        if (
-            ! method_exists(static::class, $key)
+        if (! method_exists(static::class, $key)
             && ! in_array($key, [
                 'pivot',
                 'parent_id',
@@ -505,29 +515,10 @@ class Product extends Model implements ProductContract
     }
 
     /**
-     * Overrides the default Eloquent query builder.
-     *
-     * @param  \Illuminate\Database\Query\Builder  $query
-     * @return \Webkul\Product\Database\Eloquent\Builder
-     */
-    public function newEloquentBuilder($query)
-    {
-        return new Builder($query);
-    }
-
-    /**
      * Create a new factory instance for the model.
      */
     protected static function newFactory(): Factory
     {
         return ProductFactory::new();
-    }
-    public function societe()
-    {
-        return $this->belongsTo(Societe::class, 'admin_id', 'admin_id'); // Adjust the foreign key if necessary
-    }
-    public function admin()
-    {
-        return $this->belongsTo(Admin::class, 'admin_id'); // Adjust the foreign key if necessary
     }
 }

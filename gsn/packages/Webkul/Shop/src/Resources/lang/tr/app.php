@@ -50,6 +50,7 @@ return [
             'account-exists'              => 'Zaten bir hesabınız var mı?',
             'bagisto'                     => 'Bagisto',
             'button-title'                => 'Kaydol',
+            'click-here'                  => 'Buraya Tıklayın',
             'confirm-pass'                => 'Parolayı Onayla',
             'email'                       => 'E-posta',
             'first-name'                  => 'Ad',
@@ -62,8 +63,8 @@ return [
             'subscribe-to-newsletter'     => 'Bültenimize abone olun',
             'success'                     => 'Hesap başarıyla oluşturuldu.',
             'success-verify'              => 'Hesap başarıyla oluşturuldu, doğrulama için bir e-posta gönderildi.',
-            'success-verify-email-unsent' => 'Hesap başarıyla oluşturuldu, ancak doğrulama e-postası gönderilemedi.',
             'verification-not-sent'       => 'Hata! Doğrulama e-postası gönderme sorunu, lütfen daha sonra tekrar deneyin.',
+            'terms-conditions'            => 'Şartlar ve Koşullar',
             'verification-sent'           => 'Doğrulama e-postası gönderildi',
             'verified'                    => 'Hesabınız doğrulandı, şimdi giriş yapmayı deneyin.',
             'verify-failed'               => 'E-posta hesabınızı doğrulayamıyoruz.',
@@ -373,6 +374,92 @@ return [
                 'success'            => 'Ürün Başarıyla Dilek Listesine Eklendi',
                 'title'              => 'Dilek Listesi',
             ],
+
+            'gdpr' => [
+                'create-success'              => 'Talep başarıyla oluşturuldu',
+                'revoked-successfully'        => 'Talep başarıyla iptal edildi',
+                'success-verify'              => 'Başarılı! Doğrulama e-postası gönderildi.',
+                'success-verify-email-unsent' => 'Başarılı! Doğrulama e-postası gönderilmedi.',
+                'unable-to-sent'              => 'E-posta gönderilemedi.',
+
+                'index'   => [
+                    'create-btn' => 'Talep Oluştur',
+                    'html'       => 'HTML',
+                    'pdf'        => 'PDF',
+                    'title'      => 'GDPR Veri Talepleri',
+
+                    'modal' => [
+                        'message' => 'Mesaj',
+                        'save'    => 'Kaydet',
+                        'title'   => 'Yeni Talep Oluştur',
+
+                        'type'    => [
+                            'choose' => 'Seçiniz',
+                            'delete' => 'Sil',
+                            'title'  => 'Tür',
+                            'update' => 'Güncelle',
+                        ],
+                    ],
+
+                    'datagrid' => [
+                        'completed'  => 'Tamamlandı',
+                        'date'       => 'Tarih',
+                        'declined'   => 'Reddedildi',
+                        'delete'     => 'Sil',
+                        'id'         => 'ID',
+                        'message'    => 'Mesaj',
+                        'pending'    => 'Beklemede',
+                        'processing' => 'İşleniyor',
+                        'revoke-btn' => 'İptal Et',
+                        'revoked'    => 'İptal Edildi',
+                        'status'     => 'Durum',
+                        'type'       => 'Tür',
+                        'update'     => 'Güncelle',
+                    ],
+                ],
+
+                'pdf' => [
+                    'title' => 'Varsayılan Mağaza Görünümü',
+
+                    'account-info' => [
+                        'dob'          => 'Doğum Tarihi',
+                        'email'        => 'E-posta',
+                        'first-name'   => 'Ad',
+                        'gender'       => 'Cinsiyet',
+                        'last-name'    => 'Soyad',
+                        'phone'        => 'Telefon',
+                        'title'        => 'Hesap Bilgileri',
+                    ],
+
+                    'address-info' => [
+                        'address'    => 'Adres',
+                        'address1'   => 'Adres 1',
+                        'address2'   => 'Adres 2',
+                        'city'       => 'Şehir',
+                        'company'    => 'Şirket',
+                        'country'    => 'Ülke',
+                        'first-name' => 'Ad',
+                        'last-name'  => 'Soyad',
+                        'phone'      => 'Telefon',
+                        'postcode'   => 'Posta Kodu',
+                        'state'      => 'Eyalet',
+                        'title'      => 'Adres Bilgileri',
+                        'vat-id'     => 'KDV Kimlik No',
+                    ],
+
+                    'order-info' => [
+                        'amount'       => 'Tutar',
+                        'order-id'     => 'Sipariş ID',
+                        'product-name' => 'Ürün Adı',
+                        'qty'          => 'Adet',
+                        'shipping'     => 'Kargo',
+                        'sku'          => 'SKU',
+                        'status'       => 'Durum',
+                        'title'        => 'Sipariş Bilgileri',
+                        'type'         => 'Tür',
+                    ],
+                ],
+            ],
         ],
     ],
 
@@ -387,39 +474,59 @@ return [
         ],
 
         'media' => [
-            'add-attachments' => 'Ek Dosyalar Ekle',
+            'index' => [
+                'add-attachments' => 'Ek Dosyalar Ekle',
+                'add-image'       => 'Resim/Video Ekle',
+            ],
         ],
 
         'layouts' => [
             'header' => [
-                'account'           => 'Hesap',
-                'bagisto'           => 'Bagisto',
-                'cart'              => 'Sepet',
-                'compare'           => 'Karşılaştır',
-                'dropdown-text'     => 'Sepeti Yönet, Siparişleri ve İstek Listesini Görüntüle',
-                'logout'            => 'Çıkış Yap',
-                'no-category-found' => 'Kategori bulunamadı.',
-                'orders'            => 'Siparişler',
-                'profile'           => 'Profil',
-                'search'            => 'Ara',
-                'search-text'       => 'Ürünleri burada ara',
-                'sign-in'           => 'Giriş Yap',
-                'sign-up'           => 'Kaydol',
-                'submit'            => 'Gönder',
-                'title'             => 'Hesap',
-                'welcome'           => 'Hoş geldiniz',
-                'welcome-guest'     => 'Hoş geldiniz Misafir',
-                'wishlist'          => 'İstek Listesi',
-
                 'desktop' => [
                     'top' => [
                         'default-locale' => 'Varsayılan dil',
                     ],
+
+                    'bottom' => [
+                        'all'           => 'Tümü',
+                        'back-button'   => 'Ana Menüye Geri Dön',
+                        'bagisto'       => 'Bagisto',
+                        'categories'    => 'Kategoriler',
+                        'compare'       => 'Karşılaştır',
+                        'dropdown-text' => 'Sepet, Siparişler ve İstek Listesini Yönet',
+                        'logout'        => 'Çıkış yap',
+                        'orders'        => 'Siparişler',
+                        'profile'       => 'Profil',
+                        'search'        => 'Ara',
+                        'search-text'   => 'Ürünleri burada ara',
+                        'sign-in'       => 'Giriş Yap',
+                        'sign-up'       => 'Kaydol',
+                        'submit'        => 'Gönder',
+                        'welcome'       => 'Hoşgeldiniz',
+                        'welcome-guest' => 'Misafir Hoşgeldiniz',
+                        'wishlist'      => 'İstek Listesi',
+                    ],
                 ],
 
                 'mobile' => [
-                    'currencies' => 'Para Birimleri',
-                    'locales'    => 'Yerel Ayarlar',
+                    'account'       => 'Hesap',
+                    'back-button'   => 'Ana Menüye Geri Dön',
+                    'bagisto'       => 'Bagisto',
+                    'compare'       => 'Karşılaştır',
+                    'currencies'    => 'Para Birimleri',
+                    'dropdown-text' => 'Sepet, Siparişler ve İstek Listesini Yönet',
+                    'locales'       => 'Diller',
+                    'login'         => 'Kaydol veya Giriş Yap',
+                    'logout'        => 'Çıkış yap',
+                    'orders'        => 'Siparişler',
+                    'profile'       => 'Profil',
+                    'search'        => 'Ara',
+                    'search-text'   => 'Ürünleri burada ara',
+                    'sign-in'       => 'Giriş Yap',
+                    'sign-up'       => 'Kaydol',
+                    'welcome'       => 'Hoşgeldiniz',
+                    'welcome-guest' => 'Misafir Hoşgeldiniz',
+                    'wishlist'      => 'İstek Listesi',
                 ],
             ],
 
@@ -441,6 +548,25 @@ return [
                 'subscribe-newsletter'   => 'Bültenimize Abone Ol',
                 'subscribe-stay-touch'   => 'İletişimde kalmak için abone olun.',
                 'whats-new'              => 'Yenilikler',
+            ],
+
+            'cookie' => [
+                'index' => [
+                    'privacy-policy'           => 'Gizlilik Politikası',
+                    'reject'                   => 'Reddet',
+                    'accept'                   => 'Kabul Et',
+                    'learn-more-and-customize' => 'Daha Fazla Bilgi ve Özelleştirme',
+                ],
+
+                'consent' => [
+                    'your-cookie-consent-preferences'         => 'Çerez İzin Tercihleriniz',
+                    'save-and-continue'                       => 'Kaydet ve Devam Et',
+                    'strictly-necessary'                      => 'Kesinlikle Gerekli',
+                    'basic-interactions'                      => 'Temel Etkileşimler ve İşlevler',
+                    'experience-enhancement'                  => 'Deneyim Geliştirme',
+                    'measurements'                            => 'Ölçüm',
+                    'targeting-and-advertising'               => 'Hedefleme ve Reklam',
+                ],
             ],
         ],
 
@@ -563,6 +689,13 @@ return [
 
         'view' => [
             'type' => [
+                'simple' => [
+                    'customizable-options' => [
+                        'none'         => 'Hiçbiri',
+                        'total-amount' => 'Toplam Tutar',
+                    ],
+                ],
+
                 'configurable' => [
                     'select-options'       => 'Lütfen bir seçenek seçin',
                     'select-above-options' => 'Lütfen yukarıdaki seçenekleri seçin',
@@ -581,6 +714,62 @@ return [
 
                 'grouped' => [
                     'name' => 'Ad',
+                ],
+
+                'booking' => [
+                    'location'    => 'Konum',
+                    'view-on-map' => 'Haritada Görüntüle',
+
+                    'default' => [
+                        'slot-duration-in-minutes' => ':minutes Dakika',
+                        'slot-duration'            => 'Zaman Aralığı',
+                    ],
+
+                    'appointment' => [
+                        'closed'                   => 'Kapalı',
+                        'see-details'              => 'Detayları Gör',
+                        'slot-duration'            => 'Zaman Aralığı',
+                        'slot-duration-in-minutes' => ':minutes Dakika',
+                        'today-availability'       => 'Bugünkü Uygunluk',
+                    ],
+
+                    'event' => [
+                        'book-your-ticket' => 'Biletinizi Ayırtın',
+                        'title'            => 'Etkinlik :',
+                    ],
+
+                    'rental'      => [
+                        'choose-rent-option' => 'Kiralama Seçeneğini Seçin',
+                        'daily-basis'        => 'Günlük',
+                        'from'               => 'Başlangıç',
+                        'hourly-basis'       => 'Saatlik',
+                        'rent-an-item'       => 'Bir Ürün Kiralayın',
+                        'select-date'        => 'Tarih Seçin',
+                        'select-rent-time'   => 'Kiralama Zamanını Seçin',
+                        'select-slot'        => 'Zaman Aralığını Seçin',
+                        'select-time-slot'   => 'Zaman Dilimini Seçin',
+                        'slot'               => 'Zaman Aralığı',
+                        'no-slots-available' => 'Uygun zaman aralığı yok',
+                        'to'                 => 'Bitiş',
+                    ],
+
+                    'table'       => [
+                        'book-a-table'             => 'Masa Ayırtın',
+                        'closed'                   => 'Kapalı',
+                        'slot-duration'            => 'Zaman Aralığı',
+                        'slot-duration-in-minutes' => ':minutes Dakika',
+                        'slots-for-all-days'       => 'Tüm günler için göster',
+                        'special-notes'            => 'Özel İstek/Notlar',
+                        'today-availability'       => 'Bugünkü Uygunluk',
+                    ],
+
+                    'slots' => [
+                        'book-an-appointment' => 'Randevu Ayırtın',
+                        'date'                => 'Tarih',
+                        'no-slots-available'  => 'Uygun zaman aralığı yok',
+                        'select-slot'         => 'Zaman Aralığını Seçin',
+                        'title'               => 'Zaman Aralığı',
+                    ],
                 ],
             ],
 
@@ -627,6 +816,38 @@ return [
                 'offers' => ':qty adet için :price her biri ve :discount tasarruf edin',
             ],
         ],
+
+        'booking' => [
+            'closed' => 'Kapalı',
+
+            'cart'             => [
+                'booking-from' => 'Rezervasyon Başlangıcı',
+                'booking-till' => 'Rezervasyon Bitişi',
+                'daily'        => 'Günlük',
+                'event-from'   => 'Etkinlik Başlangıcı',
+                'event-ticket' => 'Etkinlik Bileti',
+                'event-till'   => 'Etkinlik Bitişi',
+                'hourly'       => 'Saatlik',
+
+                'integrity'    => [
+                    'event'                  => [
+                        'expired' => 'Bu etkinliğin süresi doldu.',
+                    ],
+
+                    'missing_options'        => 'Bu ürün için seçenekler eksik.',
+                    'inventory_warning'      => 'İstenen miktar mevcut değil, lütfen daha sonra tekrar deneyin.',
+                    'select_hourly_duration' => 'Bir saatlik süre aralığı seçin.',
+                ],
+
+                'rent-from'    => 'Kiralama Başlangıcı',
+                'rent-till'    => 'Kiralama Bitişi',
+                'rent-type'    => 'Kiralama Türü',
+                'renting_type' => 'Kiralama Türü',
+                'special-note' => 'Özel İstek/Notlar',
+            ],
+
+            'per-ticket-price' => ':price Bilet Başına',
+        ],
     ],
 
     'categories' => [
@@ -634,6 +855,15 @@ return [
             'clear-all' => 'Hepsini Temizle',
             'filter'    => 'Filtrele',
             'filters'   => 'Filtreler:',
+
+            'search' => [
+                'load-more'            => 'Daha fazla yükle',
+                'loading'              => 'Yükleniyor...',
+                'no-options-available' => 'Mevcut seçenek yok.',
+                'results-info'         => ':totalCount seçeneğin :currentCount gösteriliyor',
+                'title'                => 'Arama',
+            ],
+
             'sort'      => 'Sırala',
         ],
 
@@ -650,7 +880,8 @@ return [
     ],
 
     'search' => [
-        'title'   => ': :query için arama sonuçları',
+        'title'   => 'Bunlar :query için sonuçlar',
+        'suggest' => 'Bunun yerine ara',
         'results' => 'Arama sonuçları',
 
         'images' => [
@@ -799,6 +1030,7 @@ return [
                 'street-address'         => 'Sokak Adresi',
                 'telephone'              => 'Telefon',
                 'title'                  => 'Adres',
+                'vat-id'                 => 'KDV Numarası',
             ],
 
             'index' => [
@@ -869,8 +1101,11 @@ return [
         ],
 
         'index' => [
-            'offer'               => '1. siparişinizde %40\'a varan İNDİRİM ALIŞVERİŞ YAPIN',
-            'resend-verify-email' => 'Doğrulama E-postası Tekrar Gönder',
+            'categories-carousel' => 'Kategoriler Karuseli',
+            'image-carousel'      => 'Görüntü Karuseli',
+            'offer'               => 'İlk siparişinizde %40’a kadar indirim kazanın, ŞİMDİ ALIŞVERİŞ YAPIN',
+            'product-carousel'    => 'Ürün Karuseli',
+            'resend-verify-email' => 'Doğrulama e-postasını yeniden gönder',
             'verify-email'        => 'E-posta hesabınızı doğrulayın',
         ],
 
@@ -879,7 +1114,9 @@ return [
 
     'partials' => [
         'pagination' => [
+            'next-page'          => 'Sonraki Sayfa',
             'pagination-showing' => 'Toplam :total girdinin :firstItem ile :lastItem arası gösteriliyor',
+            'prev-page'          => 'Önceki Sayfa',
         ],
     ],
 
@@ -915,6 +1152,7 @@ return [
     'layouts' => [
         'address'               => 'Adres',
         'downloadable-products' => 'İndirilebilir Ürünler',
+        'gdpr-request'          => 'GDPR Talepleri',
         'my-account'            => 'Hesabım',
         'orders'                => 'Siparişler',
         'profile'               => 'Profil',
@@ -973,6 +1211,33 @@ return [
                 'greeting'    => 'Bültenimize hoş geldiniz!',
                 'subject'     => 'Bültenimize Abone Oldunuz',
                 'unsubscribe' => 'Aboneliği iptal et',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => 'Veri Silme için Yeni Talep',
+                'new-update-request' => 'Veri Güncelleme için Yeni Talep',
+
+                'new-request' => [
+                    'delete-summary' => 'Silme isteğinin özeti',
+                    'message'        => 'Mesaj : ',
+                    'request-status' => 'Talep Durumu : ',
+                    'request-type'   => 'Talep Türü : ',
+                    'update-summary' => 'Güncelleme isteğinin özeti',
+                ],
+
+                'status-update' => [
+                    'subject'        => 'GDPR Talebiniz Güncellendi',
+                    'summary'        => 'GDPR Talebinizin Durumu Güncellendi',
+                    'request-status' => 'Talep Durumu:',
+                    'request-type'   => 'Talep Türü:',
+                    'message'        => 'Mesaj:',
+                ],
+            ],
+
+            'reminder' => [
+                'already-paid'    => 'Eğer ödemeyi zaten yaptıysanız, lütfen bu mesajı dikkate almayın.',
+                'invoice-overdue' => 'Bu, faturanızın vadesinin geçtiğine dair nazik bir hatırlatmadır. Lütfen ödemeyi en kısa sürede yapınız.',
+                'subject'         => 'Fatura hatırlatma',
             ],
         ],
 

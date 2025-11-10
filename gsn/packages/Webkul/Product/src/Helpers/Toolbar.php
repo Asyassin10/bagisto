@@ -27,28 +27,28 @@ class Toolbar
                 'position' => 2,
             ],
             [
-                'title'    => "",
+                'title'    => trans('product::app.sort-by.options.latest-first'),
                 'value'    => 'created_at-desc',
                 'sort'     => 'created_at',
                 'order'    => 'desc',
                 'position' => 3,
             ],
             [
-                'title'    => "",
+                'title'    => trans('product::app.sort-by.options.oldest-first'),
                 'value'    => 'created_at-asc',
                 'sort'     => 'created_at',
                 'order'    => 'asc',
                 'position' => 4,
             ],
             [
-                'title'    => "",
-                'value'    => '',
-                'sort'     => '',
-                'order'    => '',
+                'title'    => trans('product::app.sort-by.options.cheapest-first'),
+                'value'    => 'price-asc',
+                'sort'     => 'price',
+                'order'    => 'asc',
                 'position' => 5,
             ],
             [
-                'title'    => "",
+                'title'    => trans('product::app.sort-by.options.expensive-first'),
                 'value'    => 'price-desc',
                 'sort'     => 'price',
                 'order'    => 'desc',
@@ -95,7 +95,7 @@ class Toolbar
             return collect($pages);
         }
 
-        return collect([24, 36, 48]);
+        return collect([12, 24, 36, 48]);
     }
 
     /**

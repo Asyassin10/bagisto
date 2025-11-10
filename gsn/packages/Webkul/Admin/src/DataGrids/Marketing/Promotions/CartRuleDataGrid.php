@@ -12,7 +12,7 @@ class CartRuleDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('cart_rules')
             ->distinct()
@@ -97,20 +97,28 @@ class CartRuleDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.marketing.promotions.cart-rules.index.datagrid.status'),
-            'type'       => 'boolean',
-            'searchable' => true,
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.marketing.promotions.cart-rules.index.datagrid.status'),
+            'type'               => 'boolean',
+            'searchable'         => true,
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.marketing.promotions.cart-rules.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.marketing.promotions.cart-rules.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
             'closure'    => function ($value) {
                 if ($value->status == 1) {
                     return trans('admin::app.marketing.promotions.cart-rules.index.datagrid.active');
-                } elseif ($value->status == 0) {
-                    return trans('admin::app.marketing.promotions.cart-rules.index.datagrid.inactive');
                 }
 
-                return trans('admin::app.marketing.promotions.cart-rules.index.datagrid.draft');
+                return trans('admin::app.marketing.promotions.cart-rules.index.datagrid.inactive');
             },
         ]);
 

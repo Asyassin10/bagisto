@@ -7,9 +7,11 @@ return [
                 'qty-missing'   => 'At least one product should have more than 1 quantity.',
             ],
 
-            'inventory-warning' => 'The requested quantity is not available, please try again later.',
-            'missing-links'     => 'Downloadable links are missing for this product.',
-            'missing-options'   => 'Options are missing for this product.',
+            'invalid-file-extension'   => 'Invalid file extension found.',
+            'inventory-warning'        => 'The requested quantity is not available, please try again later.',
+            'missing-links'            => 'Downloadable links are missing for this product.',
+            'missing-options'          => 'Options are missing for this product.',
+            'selected-products-simple' => 'Selected products must be of simple product type.',
         ],
     ],
 
@@ -40,6 +42,7 @@ return [
         ],
 
         'bundle'       => 'Bundle',
+        'booking'      => 'Booking',
         'configurable' => 'Configurable',
         'downloadable' => 'Downloadable',
         'grouped'      => 'Grouped',

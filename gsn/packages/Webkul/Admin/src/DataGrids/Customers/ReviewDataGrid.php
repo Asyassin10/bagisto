@@ -34,7 +34,7 @@ class ReviewDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('product_reviews')
             ->leftJoin('product_flat', 'product_reviews.product_id', '=', 'product_flat.product_id')
@@ -106,13 +106,13 @@ class ReviewDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->product_review_status) {
                     case self::STATUS_APPROVED:
-                        return '<p class="label-active">' . trans('admin::app.customers.reviews.index.datagrid.approved') . '</p>';
+                        return '<p class="label-active">'.trans('admin::app.customers.reviews.index.datagrid.approved').'</p>';
 
                     case self::STATUS_PENDING:
-                        return '<p class="label-pending">' . trans('admin::app.customers.reviews.index.datagrid.pending') . '</p>';
+                        return '<p class="label-pending">'.trans('admin::app.customers.reviews.index.datagrid.pending').'</p>';
 
                     case self::STATUS_DISAPPROVED:
-                        return '<p class="label-canceled">' . trans('admin::app.customers.reviews.index.datagrid.disapproved') . '</p>';
+                        return '<p class="label-canceled">'.trans('admin::app.customers.reviews.index.datagrid.disapproved').'</p>';
                 }
             },
         ]);

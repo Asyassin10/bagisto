@@ -1,7 +1,3 @@
-@php
-    $admin_user = Auth::guard('admin')->user();
-
-@endphp
 <x-admin::layouts>
     <x-slot:title>
         @lang('admin::app.settings.users.index.title')
@@ -16,11 +12,13 @@
             <div class="flex items-center gap-x-2.5">
                 <!-- Create Button -->
                 @if (bouncer()->hasPermission('settings.users.users.create'))
-                    <button type="button" class="primary-button">
+                    <button
+                        type="button"
+                        class="primary-button"
+                    >
                         @lang('admin::app.settings.users.index.create.title')
                     </button>
                 @endif
-
             </div>
         </div>
 
@@ -46,17 +44,6 @@
                         >
                             @lang('admin::app.settings.users.index.create.title')
                         </button>
-
-                    @endif
-                    @if (auth()->guard('admin')->user()->role_id == 1)
-
-                        <button
-                            type="button"
-                            class="primary-button"
-                            @click="resetForm();$refs.importCsvModal.open()"
-                        >
-                            Importer un csv
-                        </button>
                     @endif
                 </div>
             </div>
@@ -67,7 +54,7 @@
             >
                 @php
                     $hasPermission = bouncer()->hasPermission('settings.users.users.edit') || bouncer()->hasPermission('settings.users.users.delete');
-                    @endphp
+                @endphp
 
                 <template #header="{
                     isLoading,
@@ -97,6 +84,7 @@
                                         @{{ available.columns.find(columnTemp => columnTemp.index === columnGroup)?.label }}
                                     </span>
                                 </span>
+
                                 <!-- Filter Arrow Icon -->
                                 <i
                                     class="align-text-bottom text-base text-gray-800 dark:text-white ltr:ml-1.5 rtl:mr-1.5"
@@ -105,6 +93,7 @@
                                 ></i>
                             </p>
                         </div>
+                        
                         <!-- Actions -->
                         @if ($hasPermission)
                             <p class="flex justify-end gap-2.5">
@@ -130,7 +119,7 @@
                         <div
                             v-for="record in available.records"
                             class="row grid items-center gap-2.5 border-b px-4 py-4 text-gray-600 transition-all hover:bg-gray-50 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-950"
-                            :style="'grid-template-columns: repeat(' + (record.actions.length ? 6 : 5) + ', minmax(0, 1fr));'"
+                            :style="'grid-template-columns: repeat(' + (record.actions.length ? 6 : 5) + ', minmax(150px, 1fr));'"
                         >
                             <!-- ID -->
                             <p>@{{ record.user_id }}</p>
@@ -158,7 +147,7 @@
                                         </button>
                                     </div>
 
-                                    <div class="text-sm">
+                                    <div class="text-sm break-all">
                                         @{{ record.user_name }}
                                     </div>
                                 </div>
@@ -168,7 +157,7 @@
                             <p>@{{ record.status }}</p>
 
                             <!-- Email -->
-                            <p>@{{ record.email }}</p>
+                            <p class="break-words">@{{ record.email }}</p>
 
                             <!-- Role -->
                             <p>@{{ record.role_name }}</p>
@@ -183,13 +172,7 @@
                                     </span>
                                 </a>
 
-                          {{--   <p>@{{ record.role_name }}</p>
-                            <p>{{ $admin_user["role_id"] }}</p>
-                         <p v-if="record.user_id != {{ $admin_user['id'] }}">
-                            good
-                         </p> --}}
-
-                                <a @click="performAction(record.actions.find(action => action.index === 'delete'))"  v-if="record.user_id != {{ $admin_user['id'] }}">
+                                <a @click="performAction(record.actions.find(action => action.index === 'delete'))">
                                     <span
                                         :class="record.actions.find(action => action.index === 'delete')?.icon"
                                         class="cursor-pointer rounded-md p-1.5 text-2xl transition-all hover:bg-gray-200 dark:hover:bg-gray-800 max-sm:place-self-center"
@@ -321,7 +304,7 @@
 
                             <div class="flex gap-4">
                                 <!-- Role -->
-                                <x-admin::form.control-group class="w-full flex-1" v-if="!isUpdating">
+                                <x-admin::form.control-group class="w-full flex-1">
                                     <x-admin::form.control-group.label class="required">
                                         @lang('admin::app.settings.users.index.create.role')
                                     </x-admin::form.control-group.label>
@@ -334,7 +317,7 @@
                                     >
                                         <select
                                             name="role_id"
-                                            class="flex min-h-[39px] w-full rounded-md border px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
+                                            class="flex min-h-[39px] w-full rounded-md border bg-white px-3 py-2 text-sm text-gray-600 transition-all hover:border-gray-400 focus:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300 dark:hover:border-gray-400 dark:focus:border-gray-400"
                                             :class="[errors['options[sort]'] ? 'border border-red-600 hover:border-red-600' : '']"
                                             v-model="data.user.role_id"
                                         >
@@ -365,7 +348,7 @@
                                                 :value="1"
                                                 v-model="data.user.status"
                                                 :label="trans('admin::app.settings.users.index.create.status')"
-                                                ::checked=true
+                                                ::checked="data.user.status"
                                             />
 
                                             <x-admin::form.control-group.error control-name="status" />
@@ -382,9 +365,9 @@
                                 </template>
                             </div>
 
-                           {{--  <x-admin::form.control-group>
+                            <x-admin::form.control-group>
                                 <div class="hidden">
-                                    <x-admin::media.csv
+                                    <x-admin::media.images
                                         name="image"
                                         ::uploaded-images='data.images'
                                     />
@@ -399,142 +382,19 @@
                                 <p class="required my-3 text-sm text-gray-400">
                                     @lang('admin::app.settings.users.index.create.upload-image-info')
                                 </p>
-                            </x-admin::form.control-group> --}}
-                        </x-slot>
-
-                        <!-- Modal Footer -->
-                        <x-slot:footer>
-                            <div class="flex items-center gap-x-2.5">
-                                <button
-                                    type="submit"
-                                    class="primary-button"
-                                >
-                                    @lang('admin::app.settings.users.index.create.save-btn')
-                                </button>
-                            </div>
-                        </x-slot>
-                    </x-admin::modal>
-                </form>
-            </x-admin::form>
-            <x-admin::form
-                v-slot="{ meta, errors, handleSubmit }"
-                as="div"
-                ref="modalFormCsv"
-            >
-                <form
-                    @submit="handleSubmit($event, ImportCsv)"
-                    ref="importCsvModalRef"
-                >
-                    <!-- User Create Modal -->
-                    <x-admin::modal ref="importCsvModal">
-                        <!-- Modal Header -->
-                        <x-slot:header>
-                            <p
-                                class="text-lg font-bold text-gray-800 dark:text-white"
-                                v-if="isUpdating"
-                            >
-                                Importer des editeurs
-                            </p>
-
-                            <p
-                                class="text-lg font-bold text-gray-800 dark:text-white"
-                                v-else
-                            >
-                                Importer des editeurs
-                            </p>
-
-                        </x-slot>
-
-                        <!-- Modal Content -->
-                        <x-slot:content>
-
-
-
-
-
-                            <x-admin::form.control-group>
-                                <div class="hidden">
-                                    <x-admin::media.csv
-                                        name="image"
-                                        ::uploaded-images='data.images'
-                                    />
-                                </div>
-
-                                <v-media-images
-                                    name="image"
-                                    :uploaded-images='data.images'
-                                >
-                                </v-media-images>
-
-                                <p class="required my-3 text-sm text-gray-400">
-                                    Ajouter un csv file
-                                </p>
                             </x-admin::form.control-group>
                         </x-slot>
 
                         <!-- Modal Footer -->
                         <x-slot:footer>
-                            <div class="flex items-center gap-x-2.5">
-                                <button
-                                    type="submit"
-                                    class="primary-button"
-                                >
-                                    @lang('admin::app.settings.users.index.create.save-btn')
-                                </button>
-                            </div>
-                        </x-slot>
-                    </x-admin::modal>
-                </form>
-            </x-admin::form>
-
-            <!-- User Delete Password Form -->
-            <x-admin::form
-                v-slot="{ meta, errors, handleSubmit }"
-                as="div"
-            >
-                <form
-                    @submit="handleSubmit($event, UserConfirmModal)"
-                    ref="confirmPassword"
-                >
-                    <x-admin::modal ref="confirmPasswordModal">
-                        <!-- Modal Header -->
-                        <x-slot:header>
-                            <p class="text-lg font-bold text-gray-800 dark:text-white">
-                                @lang('Confirm Password Before DELETE')
-                            </p>
-                        </x-slot>
-
-                        <!-- Modal Content -->
-                        <x-slot:content>
-                            <!-- Password -->
-                            <x-admin::form.control-group class="mb-2.5">
-                                <x-admin::form.control-group.label class="required">
-                                    @lang('Enter Current Password')
-                                </x-admin::form.control-group.label>
-
-                                <x-admin::form.control-group.control
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    rules="required"
-                                    :label="trans('Password')"
-                                    :placeholder="trans('Password')"
-                                />
-
-                                <x-admin::form.control-group.error control-name="password" />
-                            </x-admin::form.control-group>
-                        </x-slot>
-
-                        <!-- Modal Footer -->
-                        <x-slot:footer>
-                            <div class="flex items-center gap-x-2.5">
-                                <button
-                                    type="submit"
-                                    class="primary-button"
-                                >
-                                    @lang('Confirm Delete This Account')
-                                </button>
-                            </div>
+                            <!-- Save Button -->
+                            <x-admin::button
+                                button-type="submit"
+                                class="primary-button justify-center"
+                                :title="trans('admin::app.settings.users.index.create.save-btn')"
+                                ::loading="isLoading"
+                                ::disabled="isLoading"
+                            />
                         </x-slot>
                     </x-admin::modal>
                 </form>
@@ -555,74 +415,42 @@
                             user: {},
                             images: [],
                         },
-                        csv: ["csv"],
+
+                        isLoading: false,
 
                         currentUserId: "{{ auth()->guard('admin')->user()->id }}",
                     }
                 },
 
                 methods: {
-                    updateOrCreate(params, {
-                        setErrors
-                    }) {
+                    updateOrCreate(params, { setErrors }) {
+                        this.isLoading = true;
+
                         let formData = new FormData(this.$refs.userCreateForm);
 
                         if (params.id) {
                             formData.append('_method', 'put');
                         }
 
-                        this.$axios.post(params.id ? "{{ route('admin.settings.users.update') }}" :
-                                "{{ route('admin.settings.users.store') }}", formData, {
-                                    headers: {
-                                        'Content-Type': 'multipart/form-data',
-                                    }
-                                })
-                            .then((response) => {
-                                this.$refs.userUpdateOrCreateModal.close();
-
-                                this.$refs.datagrid.get();
-
-                                this.$emitter.emit('add-flash', {
-                                    type: 'success',
-                                    message: response.data.message
-                                });
-
-                                this.resetForm();
-                            })
-                            .catch(error => {
-                                this.$emitter.emit('add-flash', {
-                                    type: 'error',
-                                    message: error.response.data.message
-                                });
-                                if (error.response.status == 422) {
-                                    setErrors(error.response.data.errors);
-                                }
-                            });
-                    },
-                    ImportCsv(params, {
-                        setErrors
-                    }) {
-                        let formData = new FormData(this.$refs.importCsvModalRef);
-                        formData.append('_method', 'post');
-
-                        this.$axios.post("{{ route('admin.editeur.import') }}", formData, {
+                        this.$axios.post(params.id ? "{{ route('admin.settings.users.update') }}" : "{{ route('admin.settings.users.store') }}", formData, {
                                 headers: {
                                     'Content-Type': 'multipart/form-data',
                                 }
                             })
                             .then((response) => {
-                                this.$refs.importCsvModal.close();
+                                this.isLoading = false;
+
+                                this.$refs.userUpdateOrCreateModal.close();
 
                                 this.$refs.datagrid.get();
 
-                                this.$emitter.emit('add-flash', {
-                                    type: 'success',
-                                    message: response.data.message
-                                });
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
                                 this.resetForm();
                             })
                             .catch(error => {
+                                this.isLoading = false;
+
                                 if (error.response.status == 422) {
                                     setErrors(error.response.data.errors);
                                 }
@@ -636,15 +464,14 @@
                             .then((response) => {
                                 this.data = {
                                     ...response.data,
-                                    images: response.data.user.image_url ? [{
-                                        id: 'image',
-                                        url: response.data.user.image_url
-                                    }] : [],
-                                    user: {
-                                        ...response.data.user,
-                                        password: '',
-                                        password_confirmation: '',
-                                    },
+                                        images: response.data.user.image_url
+                                        ? [{ id: 'image', url: response.data.user.image_url }]
+                                        : [],
+                                        user: {
+                                            ...response.data.user,
+                                            password:'',
+                                            password_confirmation:'',
+                                        },
                                 };
 
                                 this.$refs.modalForm.setValues(response.data.user);
@@ -652,33 +479,8 @@
                                 this.$refs.userUpdateOrCreateModal.toggle();
                             })
                             .catch(error => this.$emitter.emit('add-flash', {
-                                type: 'error',
-                                message: error.response.data.message
+                                type: 'error', message: error.response.data.message
                             }));
-                    },
-
-                    UserConfirmModal() {
-                        let formData = new FormData(this.$refs.confirmPassword);
-
-                        formData.append('_method', 'put');
-
-                        this.$axios.post("{{ route('admin.settings.users.destroy') }}", formData)
-                            .then((response) => {
-                                this.$emitter.emit('add-flash', {
-                                    type: 'success',
-                                    message: response.data.message
-                                });
-
-                                window.location.href = response.data.redirectUrl;
-                            })
-                            .catch(error => {
-                                this.$emitter.emit('add-flash', {
-                                    type: 'error',
-                                    message: error.response.data.message
-                                });
-
-                                this.$refs.confirmPasswordModal.toggle();
-                            });
                     },
 
                     resetForm() {

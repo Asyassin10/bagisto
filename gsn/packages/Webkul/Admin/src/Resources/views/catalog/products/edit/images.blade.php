@@ -15,8 +15,12 @@
     </div>
 
     <!-- Image Blade Component -->
-
-    <x-admin::media.images name="images[files]" allow-multiple="true" show-placeholders="true" :uploaded-images="$product->images" />
+    <x-admin::media.images
+        name="images[files]"
+        allow-multiple="true"
+        show-placeholders="true"
+        :uploaded-images="$product->images"
+    />
 
     <x-admin::form.control-group.error control-name='images.files[0]' />
 </div>

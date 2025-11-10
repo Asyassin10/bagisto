@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Webkul\Attribute\Contracts\AttributeFamily as AttributeFamilyContract;
 use Webkul\Attribute\Database\Factories\AttributeFamilyFactory;
-use Webkul\Product\Models\Product;
-
 use Webkul\Product\Models\ProductProxy;
 
 class AttributeFamily extends Model implements AttributeFamilyContract
@@ -44,16 +42,6 @@ class AttributeFamily extends Model implements AttributeFamilyContract
             ->select('attributes.*')
             ->where('attributes.is_comparable', 1)
             ->distinct()
-            ->get();
-    }
-    public function getComparableAttributesBelongsToFamilyWithCustomSelect()
-    {
-        return (AttributeProxy::modelClass())::join('attribute_group_mappings', 'attribute_group_mappings.attribute_id', '=', 'attributes.id')
-            ->select('attributes.id', 'attributes.code', 'attributes.type') // Select specific fields including code and type
-            ->where('attributes.is_comparable', 1)
-            //->whereIn('attributes.type', ["select", "checkbox", "multiselect"])
-            ->distinct()
-            ->with("options")
             ->get();
     }
 
@@ -98,9 +86,5 @@ class AttributeFamily extends Model implements AttributeFamilyContract
     protected static function newFactory(): Factory
     {
         return AttributeFamilyFactory::new();
-    }
-    public function products_reel(): HasMany
-    {
-        return $this->hasMany(Product::class);
     }
 }

@@ -103,7 +103,7 @@ class Cart
             return;
         }
 
-        $cartTemp = new \stdClass();
+        $cartTemp = new \stdClass;
         $cartTemp->id = $this->cart->id;
 
         session()->put('cart', $cartTemp);
@@ -241,7 +241,7 @@ class Cart
             try {
                 $this->addProduct($guestCartItem->product, $guestCartItem->additional);
             } catch (\Exception $e) {
-                //Ignore exception
+                // Ignore exception
             }
         }
 
@@ -261,7 +261,9 @@ class Cart
             $this->createCart([]);
         }
 
-        $cartProducts = $product->getTypeInstance()->prepareForCart($data);
+        $cartProducts = $product->getTypeInstance()->prepareForCart(array_merge([
+            'cart_id' => $this->cart->id,
+        ], $data));
 
         if (is_string($cartProducts)) {
             if (! $this->cart->all_items->count()) {
@@ -361,12 +363,16 @@ class Cart
 
             $this->cartItemRepository->update([
                 'quantity'            => $quantity,
-                'total'               => $total = core()->convertPrice($item->price_incl_tax * $quantity),
-                'total_incl_tax'      => $total,
-                'base_total'          => $item->price_incl_tax * $quantity,
+                'total'               => core()->convertPrice($item->base_price * $quantity),
+                'total_incl_tax'      => core()->convertPrice($item->base_price_incl_tax * $quantity),
+                'base_total'          => $item->base_price * $quantity,
                 'base_total_incl_tax' => $item->base_price_incl_tax * $quantity,
                 'total_weight'        => $item->weight * $quantity,
                 'base_total_weight'   => $item->weight * $quantity,
+                'additional'          => [
+                    ...$item->additional,
+                    'quantity' => $quantity,
+                ],
             ], $itemId);
 
             Event::dispatch('checkout.cart.update.after', $item);
@@ -386,11 +392,14 @@ class Cart
 
         foreach ($items as $item) {
             if ($item->getTypeInstance()->compareOptions($item->additional, $data['additional'])) {
-                if (! isset($data['additional']['parent_id'])) {
+                if (
+                    ! isset($data['additional']['parent_id'])
+                    && ! $item->parent_id
+                ) {
                     return $item;
                 }
 
-                if ($item->parent->getTypeInstance()->compareOptions($item->parent->additional, $parentData ?: request()->all())) {
+                if ($item->parent?->getTypeInstance()->compareOptions($item->parent->additional, $parentData ?: request()->all())) {
                     return $item;
                 }
             }
@@ -425,6 +434,7 @@ class Cart
                 'company_name',
                 'first_name',
                 'last_name',
+                'vat_id',
                 'email',
                 'address',
                 'country',
@@ -635,7 +645,11 @@ class Cart
         $result = $this->addProduct($wishlistItem->product, $additional);
 
         if ($result) {
+            Event::dispatch('customer.wishlist.delete.before', $wishlistItem->id);
+
             $this->wishlistRepository->delete($wishlistItem->id);
+
+            Event::dispatch('customer.wishlist.delete.after', $wishlistItem->id);
 
             return true;
         }
@@ -674,7 +688,9 @@ class Cart
         }
 
         if (! $found) {
-            $this->wishlistRepository->create([
+            Event::dispatch('customer.wishlist.create.before', $cartItem->product_id);
+
+            $wishlist = $this->wishlistRepository->create([
                 'channel_id'  => $this->cart->channel_id,
                 'customer_id' => $this->cart->customer_id,
                 'product_id'  => $cartItem->product_id,
@@ -683,6 +699,8 @@ class Cart
                     'quantity' => $quantity,
                 ],
             ]);
+
+            Event::dispatch('customer.wishlist.create.after', $wishlist);
         }
 
         if (! $this->cart->items->count()) {
@@ -753,6 +771,10 @@ class Cart
 
         if (core()->getConfigData('sales.order_settings.minimum_order.include_discount_amount')) {
             $minimumOrderAmount -= $this->cart->tax_total;
+
+            if ($this->cart->discount_amount) {
+                $minimumOrderAmount -= $this->cart->discount_amount;
+            }
         }
 
         return $minimumOrderAmount;

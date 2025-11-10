@@ -12,7 +12,7 @@ class URLRewriteDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('url_rewrites')
             ->select(
@@ -112,7 +112,7 @@ class URLRewriteDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => core()->getAllLocales()
-                ->map(fn($locale) => ['label' => $locale->name, 'value' => $locale->code])
+                ->map(fn ($locale) => ['label' => $locale->name, 'value' => $locale->code])
                 ->values()
                 ->toArray(),
             'sortable'   => true,
@@ -126,7 +126,7 @@ class URLRewriteDataGrid extends DataGrid
      */
     public function prepareActions()
     {
-        if (bouncer()->hasPermission('marketing.url_rewrites.edit')) {
+        if (bouncer()->hasPermission('marketing.search_seo.url_rewrites.edit')) {
             $this->addAction([
                 'index'  => 'edit',
                 'icon'   => 'icon-edit',
@@ -139,7 +139,7 @@ class URLRewriteDataGrid extends DataGrid
             ]);
         }
 
-        if (bouncer()->hasPermission('marketing.url_rewrites.delete')) {
+        if (bouncer()->hasPermission('marketing.search_seo.url_rewrites.delete')) {
             $this->addAction([
                 'index'  => 'delete',
                 'icon'   => 'icon-delete',
@@ -159,7 +159,7 @@ class URLRewriteDataGrid extends DataGrid
      */
     public function prepareMassActions()
     {
-        if (bouncer()->hasPermission('marketing.url_rewrites.delete')) {
+        if (bouncer()->hasPermission('marketing.search_seo.url_rewrites.delete')) {
             $this->addMassAction([
                 'title'  => trans('admin::app.marketing.search-seo.url-rewrites.index.datagrid.delete'),
                 'method' => 'POST',

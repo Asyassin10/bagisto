@@ -15,57 +15,81 @@ class ProductController extends APIController
      *
      * @return void
      */
-    public function __construct(protected CategoryRepository $categoryRepository, protected ProductRepository $productRepository)
-    {
-    }
+    public function __construct(
+        protected CategoryRepository $categoryRepository,
+        protected ProductRepository $productRepository
+    ) {}
 
     /**
      * Product listings.
      */
     public function index(): JsonResource
     {
+        $searchEngine = 'database';
+
         if (core()->getConfigData('catalog.products.search.engine') == 'elastic') {
             $searchEngine = core()->getConfigData('catalog.products.search.storefront_mode');
         }
 
-        $query = $this->productRepository
-            ->whereHas('product_flats', function ($query) {
-                $query->where('is_valid_by_admin', true);
-            });
+        $searchData = $this->resolveSearchQueryData($searchEngine);
 
-        // Add filter for congrate partner if requested
-        if (request()->has('is_congrate_partner') && request()->boolean('is_congrate_partner')) {
-            $query->where('products.is_congrate_partner', true);
-        }
+        $query = $searchData['effective_query'] ?? $searchData['original_query'];
 
-        $products = $query
-            ->orderBy('is_congrate_partner', 'desc')
-            //->setSearchEngine($searchEngine ?? 'database')
-            ->setSearchEngine('database')
-            ->getAll(
-                array_merge(request()->query(), [
-                    // 'channel_id' => core()->getCurrentChannel()->id,
-                    'status' => 1,
-                    'visible_individually' => 1,
-                ]),
-            );
+        $products = $this->productRepository
+            ->setSearchEngine($searchEngine)
+            ->getAll(array_merge(request()->query(), [
+                'query'                => $query,
+                'channel_id'           => core()->getCurrentChannel()->id,
+                'status'               => 1,
+                'visible_individually' => 1,
+            ]));
 
-        if (!empty(request()->query('query'))) {
+        if (! empty($query)) {
             /**
              * Update or create search term only if
              * there is only one filter that is query param
              */
             if (count(request()->except(['mode', 'sort', 'limit'])) == 1) {
                 UpdateCreateSearchTermJob::dispatch([
-                    'term' => request()->query('query'),
-                    'results' => $products->total(),
-                    //'channel_id' => core()->getCurrentChannel()->id,
-                    'locale' => app()->getLocale(),
+                    'term'       => $query,
+                    'results'    => $products->total(),
+                    'channel_id' => core()->getCurrentChannel()->id,
+                    'locale'     => app()->getLocale(),
                 ]);
             }
         }
 
         return ProductResource::collection($products);
+    }
+
+    /**
+     * Resolve search query data.
+     */
+    protected function resolveSearchQueryData($searchEngine): array
+    {
+        if (request()->query('suggest', '') === '0') {
+            return [
+                'original_query'  => request()->query('query', ''),
+                'effective_query' => null,
+            ];
+        }
+
+        $originalQuery = request()->query('query', '');
+
+        return [
+            'original_query'  => $originalQuery,
+            'effective_query' => $this->getEffectiveQuery($originalQuery, $searchEngine),
+        ];
+    }
+
+    /**
+     * It will return the effective query based on the search engine.
+     */
+    protected function getEffectiveQuery(string $originalQuery, string $searchEngine): ?string
+    {
+        $effectiveQuery = $this->productRepository->setSearchEngine($searchEngine)->getSuggestions($originalQuery);
+
+        return $effectiveQuery;
     }
 
     /**
@@ -77,7 +101,9 @@ class ProductController extends APIController
     {
         $product = $this->productRepository->findOrFail($id);
 
-        $relatedProducts = $product->related_products()->take(core()->getConfigData('catalog.products.product_view_page.no_of_related_products'))->get();
+        $relatedProducts = $product->related_products()
+            ->take(core()->getConfigData('catalog.products.product_view_page.no_of_related_products'))
+            ->get();
 
         return ProductResource::collection($relatedProducts);
     }
@@ -91,7 +117,9 @@ class ProductController extends APIController
     {
         $product = $this->productRepository->findOrFail($id);
 
-        $upSellProducts = $product->up_sells()->take(core()->getConfigData('catalog.products.product_view_page.no_of_up_sells_products'))->get();
+        $upSellProducts = $product->up_sells()
+            ->take(core()->getConfigData('catalog.products.product_view_page.no_of_up_sells_products'))
+            ->get();
 
         return ProductResource::collection($upSellProducts);
     }

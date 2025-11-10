@@ -38,7 +38,7 @@
 
                         <template v-for="product in option.products">
                             <div
-                                class="text-zinc-500 !leading-[1.625rem]"
+                                class="text-zinc-500"
                                 :key="product.id"
                                 v-if="product.is_default"
                             >
@@ -83,11 +83,31 @@
                                 v-for="product in option.products"
                                 :value="product.id"
                             >
-                                @{{ product.name + ' + ' + product.price.final.formatted_price }}
+                                @{{ product.name }}
+
+                                <div
+                                    class="flex gap-2.5"
+                                    v-if="product.price.regular.price != product.price.final.price"
+                                >
+                                    <span class="text-black">+</span>
+
+                                    <span class="text-zinc-500 line-through max-sm:text-sm">
+                                        (@{{ product.price.regular.formatted_price }})
+                                    </span>
+
+                                    <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                </div>
+
+                                <span
+                                    class="text-black"
+                                    v-else
+                                >
+                                    @{{ '+ ' + product.price.final.formatted_price }}
+                                </span>
                             </option>
                         </x-shop::form.control-group.control>
                     </template>
-
+                    
                     <template v-if="option.type == 'radio'">
                         <div class="grid gap-2 max-sm:gap-1">
                             <!-- None radio option if option is not required -->
@@ -131,12 +151,28 @@
                                 />
 
                                 <label
-                                    class="cursor-pointer text-zinc-500 max-sm:text-sm !leading-[1.625rem]"
+                                    class="flex cursor-pointer gap-2 text-zinc-500 max-sm:text-sm"
                                     :for="'bundle_options[' + option.id + '][' + index + ']'"
                                 >
                                     @{{ product.name }}
 
-                                    <span class="text-black">
+                                    <div
+                                        class="flex gap-2.5"
+                                        v-if="product.price.regular.price != product.price.final.price"
+                                    >
+                                        <span class="text-black">+</span>
+
+                                        <span class="text-zinc-500 line-through max-sm:text-sm">
+                                            @{{ product.price.regular.formatted_price }}
+                                        </span>
+    
+                                        <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                    </div>
+
+                                    <span
+                                        class="text-black"
+                                        v-else
+                                    >
                                         @{{ '+ ' + product.price.final.formatted_price }}
                                     </span>
                                 </label>
@@ -164,7 +200,27 @@
                                 :value="product.id"
                                 :selected="value && value.includes(product.id)"
                             >
-                                @{{ product.name + ' + ' + product.price.final.formatted_price }}
+                                @{{ product.name }}
+
+                                <div
+                                    class="flex gap-2.5"
+                                    v-if="product.price.regular.price != product.price.final.price"
+                                >
+                                    <span class="text-black">+</span>
+
+                                    <span class="text-zinc-500 line-through max-sm:text-sm">
+                                        (@{{ product.price.regular.formatted_price }})
+                                    </span>
+
+                                    <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                </div>
+
+                                <span
+                                    class="text-black"
+                                    v-else
+                                >
+                                    @{{ '+ ' + product.price.final.formatted_price }}
+                                </span>
                             </option>
                         </x-shop::form.control-group.control>
                     </template>
@@ -188,12 +244,28 @@
                                 />
 
                                 <label
-                                    class="cursor-pointer text-zinc-500 max-sm:text-sm !leading-[1.625rem]"
+                                    class="flex cursor-pointer gap-2 text-zinc-500 max-sm:text-sm"
                                     :for="'bundle_options[' + option.id + '][' + index + ']'"
                                 >
                                     @{{ product.name }}
 
-                                    <span class="text-black">
+                                    <span
+                                        class="flex gap-2"
+                                        v-if="product.price.regular.price != product.price.final.price"
+                                    >
+                                        <span class="text-black">+</span>
+
+                                        <span class="text-zinc-500 line-through max-sm:text-sm">
+                                            (@{{ product.price.regular.formatted_price }})
+                                        </span>
+
+                                        <span class="text-black">@{{ product.price.final.formatted_price }}</span>
+                                    </span>
+
+                                    <span
+                                        class="text-black"
+                                        v-else
+                                    >
                                         @{{ '+ ' + product.price.final.formatted_price }}
                                     </span>
                                 </label>
@@ -236,11 +308,10 @@
 
                         for (var key in this.options) {
                             for (var key1 in this.options[key].products) {
-                                if (!this.options[key].products[key1].is_default)
+                                if (! this.options[key].products[key1].is_default)
                                     continue;
 
-                                total += this.options[key].products[key1].qty * this.options[key].products[key1]
-                                    .price.final.price;
+                                total += this.options[key].products[key1].qty * this.options[key].products[key1].price.final.price;
                             }
                         }
 
@@ -259,8 +330,7 @@
                         var selectedProductIds = Array.isArray(value) ? value : [value];
 
                         for (var key in option.products) {
-                            option.products[key].is_default = selectedProductIds.indexOf(option.products[key].id) >
-                                -1 ? 1 : 0;
+                            option.products[key].is_default = selectedProductIds.indexOf(option.products[key].id) > -1 ? 1 : 0;
                         }
                     }
                 }
@@ -273,8 +343,7 @@
 
                 data: function() {
                     return {
-                        selectedProduct: (this.option.type == 'checkbox' || this.option.type == 'multiselect') ?
-                        [] : null,
+                        selectedProduct: (this.option.type == 'checkbox' || this.option.type == 'multiselect')  ? [] : null,
                     };
                 },
 
@@ -284,7 +353,7 @@
 
                         this.option.products.forEach((product, key) => {
                             if (this.selectedProduct == product.id) {
-                                qty = this.option.products[key].qty;
+                                qty =  this.option.products[key].qty;
                             }
                         });
 
@@ -293,14 +362,14 @@
                 },
 
                 watch: {
-                    selectedProduct: function(value) {
+                    selectedProduct: function (value) {
                         this.$emit('onProductSelected', value);
                     }
                 },
 
                 created: function() {
                     for (var key in this.option.products) {
-                        if (!this.option.products[key].is_default)
+                        if (! this.option.products[key].is_default)
                             continue;
 
                         if (this.option.type == 'checkbox' || this.option.type == 'multiselect') {
@@ -313,7 +382,7 @@
 
                 methods: {
                     qtyUpdated: function(qty) {
-                        if (!this.option.products.find(data => data.id == this.selectedProduct)) {
+                        if (! this.option.products.find(data => data.id == this.selectedProduct)) {
                             return;
                         }
 

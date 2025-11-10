@@ -1,10 +1,10 @@
- {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.before') !!}
+{!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.before') !!}
 
 <v-topbar>
     <!-- Shimmer Effect -->
-    <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 py-3">
+    <div class="flex items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
         <!-- Currencies -->
-        <div class="flex w-20 items-center justify-between gap-2.5">
+        <div class="flex w-20 items-center justify-between gap-2.5 py-3">
             <div
                 class="shimmer h-6 w-12 rounded"
                 role="presentation"
@@ -20,13 +20,13 @@
 
         <!-- Offers -->
         <div
-            class="shimmer h-6 w-72 rounded"
+            class="shimmer h-6 w-72 rounded py-3"
             role="presentation"
         >
         </div>
 
         <!-- Locales -->
-        <div class="flex w-32 items-center justify-between gap-2.5">
+        <div class="flex w-32 items-center justify-between gap-2.5 py-3">
             <div
                 class="shimmer h-6 w-6"
                 role="presentation"
@@ -55,15 +55,15 @@
         type="text/x-template"
         id="v-topbar-template"
     >
-        <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16 py-3">
+        <div class="flex w-full items-center justify-between border border-b border-l-0 border-r-0 border-t-0 px-16">
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.before') !!}
 
             <!-- Currency Switcher -->
-            <x-shop::dropdown>
+            <x-shop::dropdown position="bottom-{{ core()->getCurrentLocale()->direction === 'ltr' ? 'left' : 'right' }}">
                 <!-- Dropdown Toggler -->
                 <x-slot:toggle>
                     <div
-                        class="flex cursor-pointer gap-2.5"
+                        class="flex cursor-pointer gap-2.5 py-3"
                         role="button"
                         tabindex="0"
                         @click="currencyToggler = ! currencyToggler"
@@ -81,18 +81,18 @@
                 </x-slot>
 
                 <!-- Dropdown Content -->
-                <x-slot:content class="!p-0">
+                <x-slot:content class="journal-scroll max-h-[500px] !p-0">
                     <v-currency-switcher></v-currency-switcher>
                 </x-slot>
             </x-shop::dropdown>
 
             {!! view_render_event('bagisto.shop.components.layouts.header.desktop.top.currency_switcher.after') !!}
 
-            <p class="text-xs font-medium">
+            <p class="py-3 text-xs font-medium">
                 {{ core()->getConfigData('general.content.header_offer.title') }}
-
-                <a
-                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}"
+                
+                <a 
+                    href="{{ core()->getConfigData('general.content.header_offer.redirection_link') }}" 
                     class="underline"
                     role="button"
                 >
@@ -107,7 +107,7 @@
                 <x-slot:toggle>
                     <!-- Dropdown Toggler -->
                     <div
-                        class="flex cursor-pointer items-center gap-2.5"
+                        class="flex cursor-pointer items-center gap-2.5 py-3"
                         role="button"
                         tabindex="0"
                         @click="localeToggler = ! localeToggler"
@@ -122,7 +122,7 @@
                             width="24"
                             height="16"
                         />
-
+                        
                         <span>
                             {{ core()->getCurrentChannel()->locales()->orderBy('name')->where('code', app()->getLocale())->value('name') }}
                         </span>
@@ -134,9 +134,9 @@
                         ></span>
                     </div>
                 </x-slot>
-
+            
                 <!-- Dropdown Content -->
-                <x-slot:content class="!p-0">
+                <x-slot:content class="journal-scroll max-h-[500px] !p-0">
                     <v-locale-switcher></v-locale-switcher>
                 </x-slot>
             </x-shop::dropdown>
@@ -149,7 +149,7 @@
         type="text/x-template"
         id="v-currency-switcher-template"
     >
-        <div class="my-2.5 grid gap-1 max-md:my-0">
+        <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
             <span
                 class="cursor-pointer px-5 py-2 text-base hover:bg-gray-100"
                 v-for="currency in currencies"
@@ -165,12 +165,12 @@
         type="text/x-template"
         id="v-locale-switcher-template"
     >
-        <div class="my-2.5 grid gap-1 max-md:my-0">
+        <div class="my-2.5 grid gap-1 overflow-auto max-md:my-0 sm:max-h-[500px]">
             <span
                 class="flex cursor-pointer items-center gap-2.5 px-5 py-2 text-base hover:bg-gray-100"
                 :class="{'bg-gray-100': locale.code == '{{ app()->getLocale() }}'}"
                 v-for="locale in locales"
-                @click="change(locale)"
+                @click="change(locale)"                  
             >
                 <img
                     :src="locale.logo_url || '{{ bagisto_asset('images/default-language.svg') }}'"
@@ -237,4 +237,3 @@
         });
     </script>
 @endPushOnce
-

@@ -7,9 +7,11 @@ return [
                 'qty-missing'   => '少なくとも1つの製品は1つ以上の数量を持っている必要があります。',
             ],
 
-            'inventory-warning' => '要求された数量は利用できません。後で再試行してください。',
-            'missing-links'     => 'この製品にはダウンロードリンクがありません。',
-            'missing-options'   => 'この製品にはオプションがありません。',
+            'invalid-file-extension'   => '無効なファイル拡張子が見つかりました。',
+            'inventory-warning'        => '要求された数量は利用できません。後で再試行してください。',
+            'missing-links'            => 'この製品にはダウンロードリンクがありません。',
+            'missing-options'          => 'この製品にはオプションがありません。',
+            'selected-products-simple' => '選択した製品はシンプル製品である必要があります。',
         ],
     ],
 
@@ -40,6 +42,7 @@ return [
         ],
 
         'bundle'       => 'バンドル',
+        'booking'      => '予約',
         'configurable' => '設定可能',
         'downloadable' => 'ダウンロード可能',
         'grouped'      => 'グループ化',

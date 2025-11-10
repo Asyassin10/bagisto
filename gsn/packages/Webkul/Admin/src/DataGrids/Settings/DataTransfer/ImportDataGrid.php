@@ -12,7 +12,7 @@ class ImportDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         return DB::table('imports')
             ->select(
@@ -54,7 +54,7 @@ class ImportDataGrid extends DataGrid
             'label'      => trans('admin::app.settings.data-transfer.imports.index.datagrid.uploaded-file'),
             'type'       => 'string',
             'closure'    => function ($row) {
-                return '<a href="' . route('admin.settings.data_transfer.imports.download', $row->id) . '" class="cursor-pointer text-blue-600 hover:underline">' . $row->file_path . '<a>';
+                return '<a href="'.route('admin.settings.data_transfer.imports.download', $row->id).'" class="cursor-pointer text-blue-600 hover:underline">'.$row->file_path.'<a>';
             },
         ]);
 
@@ -67,7 +67,7 @@ class ImportDataGrid extends DataGrid
                     return '';
                 }
 
-                return '<a href="' . route('admin.settings.data_transfer.imports.download_error_report', $row->id) . '" class="cursor-pointer text-blue-600 hover:underline">' . $row->error_file_path . '<a>';
+                return '<a href="'.route('admin.settings.data_transfer.imports.download_error_report', $row->id).'" class="cursor-pointer text-blue-600 hover:underline">'.$row->error_file_path.'<a>';
             },
         ]);
 
@@ -103,7 +103,7 @@ class ImportDataGrid extends DataGrid
                 $stats = [];
 
                 foreach ($summary as $type => $value) {
-                    $stats[] = trans('admin::app.settings.data-transfer.imports.index.datagrid.' . $type) . ': ' . $summary[$type];
+                    $stats[] = trans('admin::app.settings.data-transfer.imports.index.datagrid.'.$type).': '.$summary[$type];
                 }
 
                 return implode(', ', $stats);

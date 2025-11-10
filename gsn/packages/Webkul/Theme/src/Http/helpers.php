@@ -1,5 +1,6 @@
 <?php
 
+use Webkul\Theme\Facades\Themes;
 use Webkul\Theme\ViewRenderEventManager;
 
 if (! function_exists('themes')) {
@@ -10,7 +11,7 @@ if (! function_exists('themes')) {
      */
     function themes()
     {
-        return app()->make('themes');
+        return Themes::getFacadeRoot();
     }
 }
 
@@ -30,18 +31,12 @@ if (! function_exists('view_render_event')) {
     /**
      * View render event.
      *
-     * @param  string  $eventName
-     * @param  mixed  $params
      * @return mixed
      */
-    function view_render_event($eventName, $params = null)
+    function view_render_event(string $eventName, mixed $params = null)
     {
-        app()->singleton(ViewRenderEventManager::class);
-
-        $viewEventManager = app()->make(ViewRenderEventManager::class);
-
-        $viewEventManager->handleRenderEvent($eventName, $params);
-
-        return $viewEventManager->render();
+        return app(ViewRenderEventManager::class)
+            ->handleRenderEvent($eventName, $params)
+            ->render();
     }
 }

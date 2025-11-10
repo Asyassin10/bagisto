@@ -12,7 +12,7 @@ class InventorySourcesDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         return DB::table('inventory_sources')
             ->select(
@@ -67,11 +67,21 @@ class InventorySourcesDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.settings.inventory-sources.index.datagrid.status'),
-            'type'       => 'boolean',
-            'searchable' => true,
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.settings.inventory-sources.index.datagrid.status'),
+            'type'               => 'boolean',
+            'searchable'         => true,
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.settings.inventory-sources.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.settings.inventory-sources.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
             'closure'    => function ($value) {
                 if ($value->status) {

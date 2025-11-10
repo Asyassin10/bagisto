@@ -27,10 +27,6 @@
         name="base-url"
         content="{{ url()->to('/') }}"
     >
-    <meta
-        name="currency-code"
-        content="{{ core()->getCurrentCurrencyCode() }}"
-    >
 
     @stack('meta')
 
@@ -49,14 +45,14 @@
     @if ($favicon = core()->getConfigData('general.design.admin_logo.favicon'))
         <link
             type="image/x-icon"
-            href="{{asset("favicon-32x32.png")}}"
+            href="{{ Storage::url($favicon) }}"
             rel="shortcut icon"
             sizes="16x16"
-        >
+        />
     @else
         <link
             type="image/x-icon"
-            href="{{asset("favicon-32x32.png")}}"
+            href="{{ bagisto_asset('images/favicon.ico') }}"
             rel="shortcut icon"
             sizes="16x16"
         />
@@ -69,8 +65,6 @@
     </style>
 
     {!! view_render_event('bagisto.admin.layout.head') !!}
-
-
 </head>
 
 <body>

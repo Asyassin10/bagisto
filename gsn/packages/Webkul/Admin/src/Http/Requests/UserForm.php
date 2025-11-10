@@ -25,11 +25,11 @@ class UserForm extends FormRequest
     {
         return [
             'name'                  => 'required',
-            'email'                 => 'required|email|unique:admins,email,' . $this->id,
+            'email'                 => 'required|email|unique:admins,email,'.$this->id,
             'password'              => 'nullable|min:6|confirmed',
             'password_confirmation' => 'nullable|required_with:password|same:password',
             'status'                => 'sometimes',
-            // 'role_id'               => 'required',
+            'role_id'               => 'required',
             'image'                 => 'array',
             'image.*'               => 'mimes:jpeg,jpg,png,gif|max:10000',
         ];

@@ -85,6 +85,12 @@ class ChannelController extends Controller
 
         $channel = $this->channelRepository->create($data);
 
+        if ($channel->is_maintenance_on) {
+            app()->maintenanceMode()->activate([]);
+        } else {
+            app()->maintenanceMode()->deactivate();
+        }
+
         Event::dispatch('core.channel.create.after', $channel);
 
         session()->flash('success', trans('admin::app.settings.channels.create.create-success'));
@@ -152,6 +158,12 @@ class ChannelController extends Controller
 
         $channel = $this->channelRepository->update($data, $id);
 
+        if ($channel->is_maintenance_on) {
+            app()->maintenanceMode()->activate([]);
+        } else {
+            app()->maintenanceMode()->deactivate();
+        }
+
         Event::dispatch('core.channel.update.after', $channel);
 
         if ($channel->base_currency->code !== session()->get('currency')) {
@@ -160,7 +172,7 @@ class ChannelController extends Controller
 
         session()->flash('success', trans('admin::app.settings.channels.edit.update-success'));
 
-        return redirect()->back();
+        return redirect()->route('admin.settings.channels.index');
     }
 
     /**

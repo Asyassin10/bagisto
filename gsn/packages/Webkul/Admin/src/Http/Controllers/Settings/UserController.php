@@ -2,9 +2,7 @@
 
 namespace Webkul\Admin\Http\Controllers\Settings;
 
-use App\Notifications\EditorAccountCreationNotification;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -25,32 +23,20 @@ class UserController extends Controller
     public function __construct(
         protected AdminRepository $adminRepository,
         protected RoleRepository $roleRepository
-    ) {
-    }
+    ) {}
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\View\View
      */
-    private function generateAccessRoleList($admin): array
-    {
-        $roles = [];
-        if ($admin->role_id == 1) {
-            $roles = ["Redacteur", "Editeur", "Administrateur"];
-        } else if ($admin->role_id == 3) {
-            $roles = ["Redacteur"];
-        }
-        return $roles;
-    }
     public function index()
     {
         if (request()->ajax()) {
             return datagrid(UserDataGrid::class)->process();
         }
-        $admin = Auth::guard("admin")->user();
-        $roles = $this->generateAccessRoleList($admin);
-        $roles = $this->roleRepository->whereIn("name", $roles)->get();
+
+        $roles = $this->roleRepository->all();
 
         return view('admin::settings.users.index', compact('roles'));
     }
@@ -68,18 +54,6 @@ class UserController extends Controller
             'role_id',
             'status',
         ]);
-        $admin = Auth::guard("admin")->user();
-        // if i am editor so i cant create a new editeur
-        if ($admin->role_id == 3 && $request->role_id == 3) {
-            return new JsonResponse([
-                'message' => trans('vous ne pouvez pas créer un utilisateur avec ce rôle'),
-            ], status: 422);
-        }
-        // if i am editeur
-        if (($admin->role_id == 3 || $admin->role_id == 1) && $request->role_id == 2) {
-            $data["parent_id"] = $admin->id;
-        }
-        $oldpwd = $data["password"];
 
         if ($data['password'] ?? null) {
             $data['password'] = bcrypt($data['password']);
@@ -91,10 +65,8 @@ class UserController extends Controller
 
         $admin = $this->adminRepository->create($data);
 
-        $admin->notify(new EditorAccountCreationNotification($admin->email, $oldpwd));
-
         if (request()->hasFile('image')) {
-            $admin->image = current(request()->file('image'))->store('admins/' . $admin->id);
+            $admin->image = current(request()->file('image'))->store('admins/'.$admin->id);
 
             $admin->save();
         }
@@ -115,11 +87,11 @@ class UserController extends Controller
     {
         $user = $this->adminRepository->findOrFail($id);
 
-        $admin = Auth::guard("admin")->user();
-        $roles = $this->generateAccessRoleList($admin);
+        $roles = $this->roleRepository->all();
+
         return new JsonResponse([
             'roles' => $roles,
-            'user' => $user,
+            'user'  => $user,
         ]);
     }
 
@@ -137,22 +109,24 @@ class UserController extends Controller
                 'message' => trans('admin::app.settings.users.update-success'),
             ]);
         }
-        // if i am editor so i cant create a new editeur
-        $admin = Auth::guard("admin")->user();
-        if ($admin->role_id == 3 && $request->role_id == 3) {
-            return new JsonResponse([
-                'message' => trans('vous ne pouvez pas créer un utilisateur avec ce rôle'),
-            ], status: 422);
-        }
+
         Event::dispatch('user.admin.update.before', $id);
+
+        /**
+         * If the request has image.image, it means the request doesn't upload a new image.
+         * So we need to remove it from the data to prevent the image from being overwritten.
+         */
+        if (request()->has('image.image')) {
+            unset($data['image']);
+        }
 
         $admin = $this->adminRepository->update($data, $id);
 
         if (request()->hasFile('image')) {
-            $admin->image = current(request()->file('image'))->store('admins/' . $admin->id);
+            $admin->image = current(request()->file('image'))->store('admins/'.$admin->id);
         } else {
-            if (!request()->has('image.image')) {
-                if (!empty(request()->input('image.image'))) {
+            if (! request()->has('image.image')) {
+                if (! empty(request()->input('image.image'))) {
                     Storage::delete($admin->image);
                 }
 
@@ -162,7 +136,7 @@ class UserController extends Controller
 
         $admin->save();
 
-        if (!empty($data['password'])) {
+        if (! empty($data['password'])) {
             Event::dispatch('admin.password.update.after', $admin);
         }
 
@@ -184,6 +158,12 @@ class UserController extends Controller
             return new JsonResponse([
                 'message' => trans('admin::app.settings.users.last-delete-error'),
             ], 400);
+        }
+
+        if (auth()->guard('admin')->user()->id == $id) {
+            return new JsonResponse([
+                'message' => trans('admin::app.settings.users.delete-self-error'),
+            ], 403);
         }
 
         try {
@@ -240,7 +220,7 @@ class UserController extends Controller
 
                 return new JsonResponse([
                     'redirectUrl' => route('admin.session.create'),
-                    'message' => trans('admin::app.settings.users.delete-success'),
+                    'message'     => trans('admin::app.settings.users.delete-success'),
                 ]);
             }
         } else {
@@ -265,7 +245,7 @@ class UserController extends Controller
         /**
          * Password check.
          */
-        if (!$data['password']) {
+        if (! $data['password']) {
             unset($data['password']);
         } else {
             $data['password'] = bcrypt($data['password']);
@@ -276,7 +256,7 @@ class UserController extends Controller
          */
         $data['status'] = isset($data['status']);
 
-        $isStatusChangedToInactive = !$data['status'] && (bool) $user->status;
+        $isStatusChangedToInactive = ! $data['status'] && (bool) $user->status;
 
         if (
             $isStatusChangedToInactive

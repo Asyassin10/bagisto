@@ -50,6 +50,7 @@ return [
             'account-exists'              => 'Vous avez déjà un compte ?',
             'bagisto'                     => 'Bagisto',
             'button-title'                => 'S\'inscrire',
+            'click-here'                  => 'Cliquez ici',
             'confirm-pass'                => 'Confirmer le mot de passe',
             'email'                       => 'E-mail',
             'first-name'                  => 'Prénom',
@@ -62,7 +63,7 @@ return [
             'subscribe-to-newsletter'     => 'Souscrire à la newsletter',
             'success'                     => 'Compte créé avec succès.',
             'success-verify'              => 'Compte créé avec succès, un e-mail de vérification a été envoyé.',
-            'success-verify-email-unsent' => 'Compte créé avec succès, mais l\'e-mail de vérification n\'a pas été envoyé.',
+            'terms-conditions'            => 'Termes et conditions',
             'verification-not-sent'       => 'Erreur ! Problème d\'envoi de l\'e-mail de vérification, veuillez réessayer plus tard.',
             'verification-sent'           => 'E-mail de vérification envoyé',
             'verified'                    => 'Votre compte a été vérifié, essayez de vous connecter maintenant.',
@@ -170,7 +171,7 @@ return [
             'orders' => [
                 'action'      => 'Action',
                 'action-view' => 'Voir',
-                'empty-order' => 'Vous n\'avez encore commandé aucun logiciel',
+                'empty-order' => 'Vous n\'avez encore commandé aucun produit',
                 'order'       => 'Commande',
                 'order-date'  => 'Date de commande',
                 'order-id'    => 'ID de commande',
@@ -253,7 +254,7 @@ return [
                         'price'                      => 'Prix',
                         'print'                      => 'Imprimer',
                         'product-name'               => 'Nom',
-                        'products-ordered'           => 'logiciels commandés',
+                        'products-ordered'           => 'Produits commandés',
                         'qty'                        => 'Qté',
                         'shipping-handling-excl-tax' => 'Expédition et manutention (hors taxe)',
                         'shipping-handling-incl-tax' => 'Expédition et manutention (incl. taxe)',
@@ -316,7 +317,7 @@ return [
                     'payment-method'             => 'Méthode de paiement',
                     'payment-terms'              => 'Conditions de paiement',
                     'price'                      => 'Prix',
-                    'product-name'               => 'Nom du logiciel"',
+                    'product-name'               => 'Nom du produit',
                     'qty'                        => 'Quantité',
                     'ship-to'                    => 'Expédier à',
                     'shipping-handling-excl-tax' => 'Frais de port et de manutention (Hors taxe)',
@@ -334,7 +335,7 @@ return [
             ],
 
             'reviews' => [
-                'empty-review' => 'Vous n\'avez pas encore examiné de logiciel',
+                'empty-review' => 'Vous n\'avez pas encore examiné de produit',
                 'title'        => 'Avis',
             ],
 
@@ -344,8 +345,8 @@ return [
                 'date'                => 'Date',
                 'download-error'      => 'Le lien de téléchargement a expiré.',
                 'expired'             => 'Expiré',
-                'empty-product'       => 'Vous n\'avez pas de logiciel  à télécharger',
-                'name'                => 'Logiciels téléchargeables',
+                'empty-product'       => 'Vous n\'avez pas de produit à télécharger',
+                'name'                => 'Produits téléchargeables',
                 'orderId'             => 'ID de commande',
                 'pending'             => 'En attente',
                 'payment-error'       => 'Le paiement n\'a pas été effectué pour ce téléchargement.',
@@ -358,12 +359,12 @@ return [
             'wishlist' => [
                 'color'              => 'Couleur',
                 'delete-all'         => 'Tout supprimer',
-                'empty'              => 'Aucun logiciel n\'a été ajouté à la liste de souhaits.',
+                'empty'              => 'Aucun produit n\'a été ajouté à la liste de souhaits.',
                 'move-to-cart'       => 'Déplacer vers le panier',
                 'moved'              => 'Article déplacé avec succès dans le panier',
                 'moved-success'      => 'Article déplacé avec succès dans le panier',
                 'page-title'         => 'Liste de souhaits',
-                'product-removed'    => 'Le logiciel n\'est plus disponible car il a été supprimé par l\'administrateur.',
+                'product-removed'    => 'Le produit n\'est plus disponible car il a été supprimé par l\'administrateur.',
                 'profile'            => 'Profil',
                 'remove'             => 'Supprimer',
                 'remove-all-success' => 'Tous les articles de votre liste de souhaits ont été supprimés',
@@ -372,6 +373,92 @@ return [
                 'see-details'        => 'Voir les détails',
                 'success'            => 'Article ajouté avec succès à la liste de souhaits',
                 'title'              => 'Liste de souhaits',
+            ],
+
+            'gdpr' => [
+                'create-success'              => 'Demande créée avec succès',
+                'revoked-successfully'        => 'Demande révoquée avec succès',
+                'success-verify'              => 'Succès ! L\'e-mail de vérification a été envoyé.',
+                'success-verify-email-unsent' => 'Succès ! L\'e-mail de vérification n\'a pas été envoyé.',
+                'unable-to-sent'              => 'Impossible d\'envoyer l\'e-mail.',
+
+                'index'   => [
+                    'create-btn' => 'Créer une demande',
+                    'html'       => 'HTML',
+                    'pdf'        => 'PDF',
+                    'title'      => 'Demandes de données GDPR',
+
+                    'modal' => [
+                        'message' => 'Message',
+                        'save'    => 'Enregistrer',
+                        'title'   => 'Créer une nouvelle demande',
+
+                        'type'    => [
+                            'choose' => 'Choisir',
+                            'delete' => 'Supprimer',
+                            'title'  => 'Type',
+                            'update' => 'Mettre à jour',
+                        ],
+                    ],
+
+                    'datagrid' => [
+                        'completed'  => 'Terminé',
+                        'date'       => 'Date',
+                        'declined'   => 'Refusé',
+                        'delete'     => 'Supprimer',
+                        'id'         => 'ID',
+                        'message'    => 'Message',
+                        'pending'    => 'En attente',
+                        'processing' => 'En traitement',
+                        'revoke-btn' => 'Révoquer',
+                        'revoked'    => 'Révoqué',
+                        'status'     => 'Statut',
+                        'type'       => 'Type',
+                        'update'     => 'Mettre à jour',
+                    ],
+                ],
+
+                'pdf' => [
+                    'title' => 'Vue par défaut du magasin',
+
+                    'account-info' => [
+                        'dob'          => 'Date de naissance',
+                        'email'        => 'E-mail',
+                        'first-name'   => 'Prénom',
+                        'gender'       => 'Genre',
+                        'last-name'    => 'Nom de famille',
+                        'phone'        => 'Téléphone',
+                        'title'        => 'Informations du compte',
+                    ],
+
+                    'address-info' => [
+                        'address'    => 'Adresse',
+                        'address1'   => 'Adresse 1',
+                        'address2'   => 'Adresse 2',
+                        'city'       => 'Ville',
+                        'company'    => 'Entreprise',
+                        'country'    => 'Pays',
+                        'first-name' => 'Prénom',
+                        'last-name'  => 'Nom de famille',
+                        'phone'      => 'Téléphone',
+                        'postcode'   => 'Code postal',
+                        'state'      => 'État',
+                        'title'      => 'Informations de l\'adresse',
+                        'vat-id'     => 'ID TVA',
+                    ],
+
+                    'order-info' => [
+                        'amount'       => 'Montant',
+                        'order-id'     => 'ID de commande',
+                        'product-name' => 'Nom du produit',
+                        'qty'          => 'Quantité',
+                        'shipping'     => 'Livraison',
+                        'sku'          => 'SKU',
+                        'status'       => 'Statut',
+                        'title'        => 'Informations de commande',
+                        'type'         => 'Type',
+                    ],
+                ],
             ],
         ],
     ],
@@ -387,39 +474,59 @@ return [
         ],
 
         'media' => [
-            'add-attachments' => 'Ajouter des pièces jointes',
+            'index' => [
+                'add-attachments' => 'Ajouter des pièces jointes',
+                'add-image'       => 'Ajouter une image/vidéo',
+            ],
         ],
 
         'layouts' => [
             'header' => [
-                'account'           => 'Compte',
-                'bagisto'           => 'Bagisto',
-                'cart'              => 'Panier',
-                'compare'           => 'Comparer',
-                'dropdown-text'     => 'Gérez le panier, les commandes et la liste de souhaits',
-                'logout'            => 'Déconnexion',
-                'no-category-found' => 'Aucune catégorie trouvée.',
-                'orders'            => 'Commandes',
-                'profile'           => 'Profil',
-                'search'            => 'Rechercher',
-                'search-text'       => 'Recherchez des logiciels  ici',
-                'sign-in'           => 'Se connecter',
-                'sign-up'           => 'S\'inscrire',
-                'submit'            => 'Soumettre',
-                'title'             => 'Compte',
-                'welcome'           => 'Bienvenue',
-                'welcome-guest'     => 'Bienvenue, invité',
-                'wishlist'          => 'Liste de souhaits',
-
                 'desktop' => [
                     'top' => [
                         'default-locale' => 'Langue par défaut',
                     ],
+
+                    'bottom' => [
+                        'all'           => 'Tout',
+                        'back-button'   => 'Retour au menu principal',
+                        'bagisto'       => 'Bagisto',
+                        'categories'    => 'Catégories',
+                        'compare'       => 'Comparer',
+                        'dropdown-text' => 'Gérer le panier, les commandes et la liste de souhaits',
+                        'logout'        => 'Se déconnecter',
+                        'orders'        => 'Commandes',
+                        'profile'       => 'Profil',
+                        'search'        => 'Recherche',
+                        'search-text'   => 'Recherchez des produits ici',
+                        'sign-in'       => 'Connexion',
+                        'sign-up'       => 'S’inscrire',
+                        'submit'        => 'Soumettre',
+                        'welcome'       => 'Bienvenue',
+                        'welcome-guest' => 'Bienvenue invité',
+                        'wishlist'      => 'Liste de souhaits',
+                    ],
                 ],
 
                 'mobile' => [
-                    'currencies' => 'Devises',
-                    'locales'    => 'Langues',
+                    'account'       => 'Compte',
+                    'back-button'   => 'Retour au menu principal',
+                    'bagisto'       => 'Bagisto',
+                    'compare'       => 'Comparer',
+                    'currencies'    => 'Devises',
+                    'dropdown-text' => 'Gérer le panier, les commandes et la liste de souhaits',
+                    'locales'       => 'Langues',
+                    'login'         => 'Connexion ou inscription',
+                    'logout'        => 'Se déconnecter',
+                    'orders'        => 'Commandes',
+                    'profile'       => 'Profil',
+                    'search'        => 'Recherche',
+                    'search-text'   => 'Recherchez des produits ici',
+                    'sign-in'       => 'Connexion',
+                    'sign-up'       => 'S’inscrire',
+                    'welcome'       => 'Bienvenue',
+                    'welcome-guest' => 'Bienvenue invité',
+                    'wishlist'      => 'Liste de souhaits',
                 ],
             ],
 
@@ -441,6 +548,25 @@ return [
                 'subscribe-newsletter'   => 'Souscrire à la newsletter',
                 'subscribe-stay-touch'   => 'Abonnez-vous pour rester en contact.',
                 'whats-new'              => 'Quoi de neuf',
+            ],
+
+            'cookie' => [
+                'index' => [
+                    'privacy-policy'           => 'Politique de confidentialité',
+                    'reject'                   => 'Rejeter',
+                    'accept'                   => 'Accepter',
+                    'learn-more-and-customize' => 'En savoir plus et personnaliser',
+                ],
+
+                'consent' => [
+                    'your-cookie-consent-preferences'         => 'Vos préférences de consentement aux cookies',
+                    'save-and-continue'                       => 'Enregistrer et continuer',
+                    'strictly-necessary'                      => 'Strictement nécessaire',
+                    'basic-interactions'                      => 'Interactions et fonctionnalités de base',
+                    'experience-enhancement'                  => 'Amélioration de l\'expérience',
+                    'measurements'                            => 'Mesure',
+                    'targeting-and-advertising'               => 'Ciblage et publicité',
+                ],
             ],
         ],
 
@@ -509,11 +635,11 @@ return [
             'card' => [
                 'add-to-cart'            => 'Ajouter au panier',
                 'add-to-compare'         => 'Ajouter à la liste de comparaison',
-                'add-to-compare-success' => 'Logiciel ajouté avec succès à la liste de comparaison.',
+                'add-to-compare-success' => 'Article ajouté avec succès à la liste de comparaison.',
                 'add-to-wishlist'        => 'Ajouter à la liste de souhaits',
-                'already-in-compare'     => 'Le logiciel est déjà ajouté à la liste de comparaison.',
+                'already-in-compare'     => 'L\'article est déjà ajouté à la liste de comparaison.',
                 'new'                    => 'Nouveau',
-                'review-description'     => 'Soyez le premier à évaluer ce Logiciel',
+                'review-description'     => 'Soyez le premier à évaluer ce produit',
                 'sale'                   => 'En solde',
             ],
 
@@ -563,6 +689,13 @@ return [
 
         'view' => [
             'type' => [
+                'simple' => [
+                    'customizable-options' => [
+                        'none'         => 'Aucun',
+                        'total-amount' => 'Montant total',
+                    ],
+                ],
+
                 'configurable' => [
                     'select-options'       => 'Veuillez sélectionner une option',
                     'select-above-options' => 'Veuillez sélectionner les options ci-dessus',
@@ -582,10 +715,66 @@ return [
                 'grouped' => [
                     'name' => 'Nom',
                 ],
+
+                'booking' => [
+                    'location'    => 'Emplacement',
+                    'view-on-map' => 'Voir sur la carte',
+
+                    'default' => [
+                        'slot-duration-in-minutes' => ':minutes Minutes',
+                        'slot-duration'            => 'Durée du créneau',
+                    ],
+
+                    'appointment' => [
+                        'closed'                   => 'Fermé',
+                        'see-details'              => 'Voir les détails',
+                        'slot-duration'            => 'Durée du créneau',
+                        'slot-duration-in-minutes' => ':minutes Minutes',
+                        'today-availability'       => 'Disponibilité aujourd\'hui',
+                    ],
+
+                    'event' => [
+                        'book-your-ticket' => 'Réservez votre billet',
+                        'title'            => 'Événement le :',
+                    ],
+
+                    'rental'      => [
+                        'choose-rent-option' => 'Choisissez l\'option de location',
+                        'daily-basis'        => 'Base quotidienne',
+                        'from'               => 'De',
+                        'hourly-basis'       => 'Base horaire',
+                        'rent-an-item'       => 'Louer un article',
+                        'select-date'        => 'Sélectionner une date',
+                        'select-rent-time'   => 'Sélectionner l\'heure de location',
+                        'select-slot'        => 'Sélectionner un créneau',
+                        'select-time-slot'   => 'Sélectionner un créneau horaire',
+                        'slot'               => 'Créneau',
+                        'no-slots-available' => 'Aucun créneau disponible',
+                        'to'                 => 'À',
+                    ],
+
+                    'table'       => [
+                        'book-a-table'             => 'Réserver une table',
+                        'closed'                   => 'Fermé',
+                        'slot-duration'            => 'Durée du créneau',
+                        'slot-duration-in-minutes' => ':minutes Minutes',
+                        'slots-for-all-days'       => 'Afficher pour tous les jours',
+                        'special-notes'            => 'Demande/Notes spéciales',
+                        'today-availability'       => 'Disponibilité aujourd\'hui',
+                    ],
+
+                    'slots' => [
+                        'book-an-appointment' => 'Prendre un rendez-vous',
+                        'date'                => 'Date',
+                        'no-slots-available'  => 'Aucun créneau disponible',
+                        'select-slot'         => 'Sélectionner un créneau',
+                        'title'               => 'Créneau',
+                    ],
+                ],
             ],
 
             'gallery' => [
-                'product-image'   => 'Image du logiciel',
+                'product-image'   => 'Image du produit',
                 'thumbnail-image' => 'Image miniature',
             ],
 
@@ -594,7 +783,7 @@ return [
                 'cancel'           => 'Annuler',
                 'comment'          => 'Commentaire',
                 'customer-review'  => 'Avis clients',
-                'empty-review'     => 'Aucun avis trouvé, soyez le premier à évaluer ce logiciel.',
+                'empty-review'     => 'Aucun avis trouvé, soyez le premier à évaluer ce produit.',
                 'failed-to-upload' => 'Échec du téléchargement de l\'image',
                 'load-more'        => 'Charger plus',
                 'name'             => 'Nom',
@@ -609,17 +798,17 @@ return [
             ],
 
             'add-to-cart'            => 'Ajouter au panier',
-            'add-to-compare'         => 'logiciel ajouté à la liste de comparaison.',
+            'add-to-compare'         => 'Produit ajouté à la liste de comparaison.',
             'add-to-wishlist'        => 'Ajouter à la liste de souhaits',
             'additional-information' => 'Informations complémentaires',
-            'already-in-compare'     => 'Le logiciel est déjà ajouté à la liste de comparaison.',
+            'already-in-compare'     => 'Le produit est déjà ajouté à la liste de comparaison.',
             'buy-now'                => 'Acheter maintenant',
             'compare'                => 'Comparer',
             'description'            => 'Description',
-            'related-product-title'  => 'logiciels connexes',
+            'related-product-title'  => 'Produits connexes',
             'review'                 => 'Avis',
             'tax-inclusive'          => 'Taxes incluses',
-            'up-sell-title'          => 'Nous avons trouvé d\'autres logiciels qui pourraient vous plaire !',
+            'up-sell-title'          => 'Nous avons trouvé d\'autres produits qui pourraient vous plaire !',
         ],
 
         'type' => [
@@ -627,13 +816,54 @@ return [
                 'offers' => 'Achetez :qty pour :price chacun et économisez :discount',
             ],
         ],
+
+        'booking' => [
+            'closed' => 'Fermé',
+
+            'cart'             => [
+                'booking-from' => 'Réservation de',
+                'booking-till' => 'Réservation jusqu\'à',
+                'daily'        => 'Base quotidienne',
+                'event-from'   => 'Événement de',
+                'event-ticket' => 'Billet d\'événement',
+                'event-till'   => 'Événement jusqu\'à',
+                'hourly'       => 'Base horaire',
+
+                'integrity'    => [
+                    'event'                  => [
+                        'expired' => 'Cet événement a expiré.',
+                    ],
+
+                    'missing_options'        => 'Les options sont manquantes pour ce produit.',
+                    'inventory_warning'      => 'La quantité demandée n\'est pas disponible, veuillez réessayer plus tard.',
+                    'select_hourly_duration' => 'Sélectionnez une durée de créneau d\'une heure.',
+                ],
+
+                'rent-from'    => 'Louer de',
+                'rent-till'    => 'Louer jusqu\'à',
+                'rent-type'    => 'Type de location',
+                'renting_type' => 'Type de location',
+                'special-note' => 'Demande/Notes spéciales',
+            ],
+
+            'per-ticket-price' => ':price Par Billet',
+        ],
     ],
 
     'categories' => [
         'filters' => [
-            'clear-all' => 'Réinitialiser',
+            'clear-all' => 'Tout effacer',
             'filter'    => 'Filtre',
             'filters'   => 'Filtres :',
+
+            'search' => [
+                'load-more'            => 'Charger plus',
+                'loading'              => 'Chargement...',
+                'no-options-available' => 'Aucune option disponible.',
+                'results-info'         => 'Affichage de :currentCount sur :totalCount options',
+                'title'                => 'Recherche',
+            ],
+
             'sort'      => 'Trier',
         ],
 
@@ -644,13 +874,14 @@ return [
         ],
 
         'view' => [
-            'empty'     => 'Aucun logiciel disponible dans cette catégorie.',
+            'empty'     => 'Aucun produit disponible dans cette catégorie',
             'load-more' => 'Charger plus',
         ],
     ],
 
     'search' => [
-        'title'   => 'Résultats pour  : :query',
+        'title'   => 'Voici les résultats pour : :query',
+        'suggest' => 'Rechercher plutôt',
         'results' => 'Résultats de recherche',
 
         'images' => [
@@ -672,11 +903,11 @@ return [
         'delete-all'         => 'Tout supprimer',
         'empty-text'         => 'Vous n\'avez aucun article dans votre liste de comparaison',
         'item-add-success'   => 'L\'article a été ajouté avec succès à la liste de comparaison',
-        'product-compare'    => 'Comparateur',
+        'product-compare'    => 'Comparaison de produits',
         'remove-all-success' => 'Tous les articles ont été supprimés avec succès.',
-        'remove-error'       => 'Une erreur s\'est logiciel, veuillez réessayer ultérieurement.',
+        'remove-error'       => 'Une erreur s\'est produite, veuillez réessayer ultérieurement.',
         'remove-success'     => 'L\'article a été supprimé avec succès.',
-        'title'              => 'Comparateur',
+        'title'              => 'Comparaison de produits',
     ],
 
     'checkout' => [
@@ -695,10 +926,10 @@ return [
             'inventory-warning'         => 'La quantité demandée n\'est pas disponible, veuillez réessayer ultérieurement.',
             'item-add-to-cart'          => 'Article ajouté avec succès',
             'minimum-order-message'     => 'Le montant minimum de commande est de',
-            'missing-fields'            => 'Certains champs obligatoires sont manquants pour ce logiciel.',
-            'missing-options'           => 'Les options sont manquantes pour ce logiciel.',
+            'missing-fields'            => 'Certains champs obligatoires sont manquants pour ce produit.',
+            'missing-options'           => 'Les options sont manquantes pour ce produit.',
             'paypal-payment-cancelled'  => 'Le paiement Paypal a été annulé.',
-            'qty-missing'               => 'Au moins un logiciel doit avoir une quantité supérieure à 1.',
+            'qty-missing'               => 'Au moins un produit doit avoir une quantité supérieure à 1.',
             'return-to-shop'            => 'Retourner à la boutique',
             'rule-applied'              => 'Règle du panier appliquée',
             'select-hourly-duration'    => 'Sélectionnez une durée d\'une heure.',
@@ -709,14 +940,14 @@ return [
                 'bagisto'                  => 'Bagisto',
                 'cart'                     => 'Panier',
                 'continue-shopping'        => 'Continuer vos achats',
-                'empty-product'            => 'Vous n\'avez pas de logiciel dans votre panier.',
+                'empty-product'            => 'Vous n\'avez pas de produit dans votre panier.',
                 'excl-tax'                 => 'Hors taxes :',
                 'home'                     => 'Accueil',
                 'items-selected'           => ':count éléments sélectionnés',
                 'move-to-wishlist'         => 'Déplacer dans la liste de souhaits',
                 'move-to-wishlist-success' => 'Les articles sélectionnés ont été déplacés avec succès dans la liste de souhaits.',
                 'price'                    => 'Prix',
-                'product-name'             => 'Nom du logiciel',
+                'product-name'             => 'Nom du produit',
                 'quantity'                 => 'Quantité',
                 'quantity-update'          => 'Quantité mise à jour avec succès',
                 'remove'                   => 'Supprimer',
@@ -799,6 +1030,7 @@ return [
                 'street-address'         => 'Adresse de rue',
                 'telephone'              => 'Téléphone',
                 'title'                  => 'Adresse',
+                'vat-id'                 => 'Numéro de TVA',
             ],
 
             'index' => [
@@ -841,7 +1073,7 @@ return [
             'code'            => 'Code de coupon',
             'discount'        => 'Remise du coupon',
             'enter-your-code' => 'Entrez votre code',
-            'error'           => 'Une erreur s\'est logiciels',
+            'error'           => 'Une erreur s\'est produite',
             'invalid'         => 'Le code de coupon est invalide.',
             'remove'          => 'Supprimer le coupon',
             'subtotal'        => 'Sous-total',
@@ -869,9 +1101,12 @@ return [
         ],
 
         'index' => [
-            'offer'               => 'Profitez de jusqu\'à 40% de réduction sur votre 1ère commande. FAITES VOS ACHATS MAINTENANT',
+            'categories-carousel' => 'Carrousel de catégories',
+            'image-carousel'      => 'Carrousel d\'images',
+            'offer'               => 'Obtenez JUSQU\'À 40% DE RÉDUCTION sur votre 1ère commande, ACHETEZ MAINTENANT',
+            'product-carousel'    => 'Carrousel de produits',
             'resend-verify-email' => 'Renvoyer l\'e-mail de vérification',
-            'verify-email'        => 'Vérifiez votre adresse e-mail',
+            'verify-email'        => 'Vérifiez votre compte e-mail',
         ],
 
         'thanks-for-contact' => 'Merci de nous contacter avec vos commentaires et questions. Nous vous répondrons très bientôt.',
@@ -879,7 +1114,9 @@ return [
 
     'partials' => [
         'pagination' => [
+            'next-page'          => 'Page suivante',
             'pagination-showing' => 'Affichage de :firstItem à :lastItem sur :total entrées',
+            'prev-page'          => 'Page précédente',
         ],
     ],
 
@@ -914,7 +1151,8 @@ return [
 
     'layouts' => [
         'address'               => 'Adresse',
-        'downloadable-products' => 'logiciels téléchargeables',
+        'downloadable-products' => 'Produits téléchargeables',
+        'gdpr-request'          => 'Demandes GDPR',
         'my-account'            => 'Mon compte',
         'orders'                => 'Commandes',
         'profile'               => 'Profil',
@@ -973,6 +1211,33 @@ return [
                 'greeting'    => 'Bienvenue à notre newsletter !',
                 'subject'     => 'Vous êtes abonné à notre newsletter',
                 'unsubscribe' => 'Se désabonner',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => 'Nouvelle demande de suppression de données',
+                'new-update-request' => 'Nouvelle demande de mise à jour des données',
+
+                'new-request' => [
+                    'delete-summary' => 'Résumé de la demande de suppression',
+                    'message'        => 'Message : ',
+                    'request-status' => 'Statut de la demande : ',
+                    'request-type'   => 'Type de demande : ',
+                    'update-summary' => 'Résumé de la demande de mise à jour',
+                ],
+
+                'status-update' => [
+                    'subject'        => 'Votre demande GDPR a été mise à jour',
+                    'summary'        => 'Le statut de votre demande GDPR a été mis à jour',
+                    'request-status' => 'Statut de la demande:',
+                    'request-type'   => 'Type de demande:',
+                    'message'        => 'Message:',
+                ],
+            ],
+
+            'reminder' => [
+                'already-paid'    => 'Si vous avez déjà effectué le paiement, veuillez ignorer ce message.',
+                'invoice-overdue' => 'Ceci est un rappel amical que votre facture est maintenant en retard. Nous vous prions de bien vouloir effectuer le paiement dès que possible.',
+                'subject'         => 'Rappel de facture',
             ],
         ],
 

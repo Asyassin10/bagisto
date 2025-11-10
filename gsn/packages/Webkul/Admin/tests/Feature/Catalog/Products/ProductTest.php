@@ -2,7 +2,6 @@
 
 use Webkul\Faker\Helpers\Product as ProductFaker;
 use Webkul\Product\Contracts\ProductFlat;
-use Webkul\Product\Models\Product;
 
 use function Pest\Laravel\get;
 use function Pest\Laravel\postJson;
@@ -19,19 +18,19 @@ it('should return the product index page', function () {
 
 it('should copy the existing product', function () {
     // Arrange.
-    $product = (new ProductFaker())->getSimpleProductFactory()->create();
+    $product = (new ProductFaker)->getSimpleProductFactory()->create();
 
     // Act and Assert.
     $this->loginAsAdmin();
 
-    get(route('admin.catalog.products.copy', $product->id))
-        ->assertRedirect(route('admin.catalog.products.edit', $productId = $product->id + 1))
-        ->isRedirection();
+    postJson(route('admin.catalog.products.copy', $product->id), [
+        'message' => trans('admin::app.catalog.products.product-copied'),
+    ]);
 
     $this->assertModelWise([
-        Product::class => [
+        ProductFlat::class => [
             [
-                'id' => $productId,
+                'id' => $product->id + 1,
             ],
         ],
     ]);
@@ -39,7 +38,7 @@ it('should copy the existing product', function () {
 
 it('should perform the mass action from update status for products', function () {
     // Arrange.
-    $products = (new ProductFaker())->getSimpleProductFactory()->count(2)->create();
+    $products = (new ProductFaker)->getSimpleProductFactory()->count(2)->create();
 
     // Act and Assert.
     $this->loginAsAdmin();
@@ -66,7 +65,7 @@ it('should perform the mass action from update status for products', function ()
 
 it('should perform the mass action for delete for products', function () {
     // Arrange.
-    $products = (new ProductFaker())->getSimpleProductFactory()->count(2)->create();
+    $products = (new ProductFaker)->getSimpleProductFactory()->count(2)->create();
 
     // Act and Assert.
     $this->loginAsAdmin();

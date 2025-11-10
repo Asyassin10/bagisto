@@ -8,17 +8,17 @@
         <div class="flex flex-col items-center gap-5">
             <!-- Logo -->
             @if ($logo = core()->getConfigData('general.design.admin_logo.logo_image'))
-            <img class="h-10 w-[110px]" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/7f/c3/2f/7fc32f0cad524d76710896113d54ab0f6b10a8ff.jpg?rule=ad-image" alt="GuideSolution" style="
-            width: 43%;
-            height: 13% !important;
-            border-radius: 10%;
-        ">
+                <img
+                    class="h-10 w-[110px]"
+                    src="{{ Storage::url($logo) }}"
+                    alt="{{ config('app.name') }}"
+                />
             @else
-            <img class="h-10 w-[110px]" src="https://img.leboncoin.fr/api/v1/lbcpb1/images/7f/c3/2f/7fc32f0cad524d76710896113d54ab0f6b10a8ff.jpg?rule=ad-image" alt="GuideSolution" style="
-            width: 43%;
-            height: 13% !important;
-            border-radius: 10%;
-        ">
+                <img
+                    class="w-max" 
+                    src="{{ bagisto_asset('images/logo.svg') }}"
+                    alt="{{ config('app.name') }}"
+                />
             @endif
 
             <div class="box-shadow flex min-w-[300px] flex-col rounded-md bg-white dark:bg-gray-900">
@@ -39,10 +39,10 @@
 
                             <x-admin::form.control-group.control
                                 type="email"
-                                class="w-[254px] max-w-full"
+                                class="w-[254px] max-w-full" 
                                 id="email"
-                                name="email"
-                                rules="required|email"
+                                name="email" 
+                                rules="required|email" 
                                 :value="old('email')"
                                 :label="trans('admin::app.users.forget-password.create.email')"
                                 :placeholder="trans('admin::app.users.forget-password.create.email')"
@@ -54,7 +54,7 @@
 
                     <div class="flex items-center justify-between p-4">
                         <!-- Back to Sign In link -->
-                        <a
+                        <a 
                             class="cursor-pointer text-xs font-semibold leading-6 text-blue-600"
                             href="{{ route('admin.session.create') }}"
                         >
@@ -62,12 +62,20 @@
                         </a>
 
                         <!-- Form Submit Button -->
-                        <button
+                        <button 
                             class="cursor-pointer rounded-md border border-blue-700 bg-blue-600 px-3.5 py-1.5 font-semibold text-gray-50">
                             @lang('admin::app.users.forget-password.create.submit-btn')
                         </button>
                     </div>
                 </x-admin::form>
+            </div>
+
+            <!-- Powered By -->
+            <div class="text-sm font-normal">
+                @lang('admin::app.users.forget-password.create.powered-by-description', [
+                    'bagisto' => '<a class="text-blue-600 hover:underline" href="https://bagisto.com/en/">Bagisto</a>',
+                    'webkul' => '<a class="text-blue-600 hover:underline" href="https://webkul.com/">Webkul</a>',
+                ])
             </div>
         </div>
     </div>

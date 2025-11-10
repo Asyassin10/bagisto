@@ -12,7 +12,7 @@ class ThemeDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $whereInLocales = core()->getRequestedLocaleCode() === 'all'
             ? core()->getAllLocales()->pluck('code')->toArray()
@@ -20,31 +20,31 @@ class ThemeDataGrid extends DataGrid
 
         $queryBuilder = DB::table('theme_customizations')
             ->distinct()
-            ->join('theme_customization_translations', function ($leftJoin) use ($whereInLocales) {
-                $leftJoin->on('theme_customizations.id', '=', 'theme_customization_translations.theme_customization_id')
+            ->leftJoin('theme_customization_translations', function ($join) use ($whereInLocales) {
+                $join->on('theme_customizations.id', '=', 'theme_customization_translations.theme_customization_id')
                     ->whereIn('theme_customization_translations.locale', $whereInLocales);
             })
-            ->join('channel_translations', function ($leftJoin) use ($whereInLocales) {
-                $leftJoin->on('theme_customizations.channel_id', '=', 'channel_translations.channel_id')
+            ->leftJoin('channel_translations', function ($join) use ($whereInLocales) {
+                $join->on('theme_customizations.channel_id', '=', 'channel_translations.channel_id')
                     ->whereIn('channel_translations.locale', $whereInLocales);
             })
             ->select(
                 'theme_customizations.id',
                 'theme_customizations.type',
                 'theme_customizations.sort_order',
-                'channel_translations.name as channel_name',
                 'theme_customizations.status',
-                'theme_customizations.name as name',
+                'theme_customizations.name as theme_customization_name',
                 'theme_customizations.theme_code',
-                'theme_customizations.channel_id'
+                'theme_customizations.channel_id',
+                'channel_translations.name as channel_name'
             );
 
         $this->addFilter('id', 'theme_customizations.id');
         $this->addFilter('type', 'theme_customizations.type');
-        $this->addFilter('name', 'theme_customizations.name');
+        $this->addFilter('theme_customization_name', 'theme_customizations.name');
         $this->addFilter('sort_order', 'theme_customizations.sort_order');
         $this->addFilter('status', 'theme_customizations.status');
-        $this->addFilter('channel_name', 'theme_customizations.channel_id');
+        $this->addFilter('channel_name', 'channel_translations.name');
         $this->addFilter('theme_code', 'theme_customizations.theme_code');
 
         return $queryBuilder;
@@ -60,21 +60,13 @@ class ThemeDataGrid extends DataGrid
         $themes = config('themes.shop');
 
         $this->addColumn([
-            'index'      => 'id',
-            'label'      => trans('admin::app.settings.themes.index.datagrid.id'),
-            'type'       => 'integer',
-            'filterable' => true,
-            'sortable'   => true,
-        ]);
-
-        $this->addColumn([
             'index'              => 'channel_name',
             'label'              => trans('admin::app.settings.themes.index.datagrid.channel_name'),
             'type'               => 'string',
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => core()->getAllChannels()
-                ->map(fn($channel) => ['label' => $channel->name, 'value' => $channel->id])
+                ->map(fn ($channel) => ['label' => $channel->name, 'value' => $channel->id])
                 ->values()
                 ->toArray(),
             'sortable'   => true,
@@ -87,11 +79,11 @@ class ThemeDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => collect($themes = config('themes.shop'))
-                ->map(fn($theme, $code) => ['label' => $theme['name'], 'value' => $code])
+                ->map(fn ($theme, $code) => ['label' => $theme['name'], 'value' => $code])
                 ->values()
                 ->toArray(),
-            'closure' => function ($row) use ($themes) {
-                return collect($themes)->first(fn($theme, $code) => $code === $row->theme_code)['name'] ?? 'N/A';
+            'closure'=> function ($row) use ($themes) {
+                return collect($themes)->first(fn ($theme, $code) => $code === $row->theme_code)['name'] ?? 'N/A';
             },
             'sortable'           => true,
         ]);
@@ -106,7 +98,7 @@ class ThemeDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'name',
+            'index'      => 'theme_customization_name',
             'label'      => trans('admin::app.settings.themes.index.datagrid.name'),
             'type'       => 'string',
             'searchable' => true,
@@ -124,18 +116,28 @@ class ThemeDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.settings.themes.index.datagrid.status'),
-            'type'       => 'boolean',
-            'searchable' => true,
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.settings.themes.index.datagrid.status'),
+            'type'               => 'boolean',
+            'searchable'         => true,
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.settings.themes.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.settings.themes.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
             'closure'    => function ($value) {
                 if ($value->status) {
-                    return '<p class="label-active">' . trans('admin::app.settings.themes.index.datagrid.active') . '</p>';
+                    return '<p class="label-active">'.trans('admin::app.settings.themes.index.datagrid.active').'</p>';
                 }
 
-                return '<p class="label-pending">' . trans('admin::app.settings.themes.index.datagrid.inactive') . '</p>';
+                return '<p class="label-pending">'.trans('admin::app.settings.themes.index.datagrid.inactive').'</p>';
             },
         ]);
     }
@@ -161,6 +163,39 @@ class ThemeDataGrid extends DataGrid
                 'url'    => function ($row) {
                     return route('admin.settings.themes.delete', $row->id);
                 },
+            ]);
+        }
+    }
+
+    /**
+     * Prepare mass actions.
+     *
+     * @return void
+     */
+    public function prepareMassActions()
+    {
+        if (bouncer()->hasPermission('settings.themes.edit')) {
+            $this->addMassAction([
+                'title'   => trans('admin::app.settings.themes.index.datagrid.change-status'),
+                'url'     => route('admin.settings.themes.mass_update'),
+                'method'  => 'POST',
+                'options' => [
+                    [
+                        'label'  => trans('admin::app.settings.themes.index.datagrid.active'),
+                        'value'  => 1,
+                    ], [
+                        'label'  => trans('admin::app.settings.themes.index.datagrid.inactive'),
+                        'value'  => 0,
+                    ],
+                ],
+            ]);
+        }
+
+        if (bouncer()->hasPermission('settings.themes.delete')) {
+            $this->addMassAction([
+                'title'  => trans('admin::app.settings.themes.index.datagrid.delete'),
+                'url'    => route('admin.settings.themes.mass_delete'),
+                'method' => 'POST',
             ]);
         }
     }

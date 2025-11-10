@@ -3,38 +3,41 @@
 return [
     'users' => [
         'sessions' => [
-            'email'                => 'כתובת אימייל',
-            'forget-password-link' => 'שכחת סיסמה?',
-            'password'             => 'סיסמה',
-            'submit-btn'           => 'כניסה',
-            'title'                => 'כניסה',
+            'email'                  => 'כתובת אימייל',
+            'forget-password-link'   => 'שכחת סיסמה?',
+            'password'               => 'סיסמה',
+            'powered-by-description' => 'מופעל על ידי :bagisto, פרויקט קוד פתוח על ידי :webkul.',
+            'submit-btn'             => 'כניסה',
+            'title'                  => 'כניסה',
         ],
 
         'forget-password' => [
             'create' => [
-                'email'           => 'אימייל רשום',
-                'email-not-exist' => 'אימייל לא קיים',
-                'page-title'      => 'שכחתי סיסמה',
-                'reset-link-sent' => 'קישור לאיפוס סיסמה נשלח',
-                'sign-in-link'    => 'חזור להתחברות?',
-                'submit-btn'      => 'איפוס',
-                'title'           => 'שחזור סיסמה',
+                'email'                  => 'אימייל רשום',
+                'email-not-exist'        => 'אימייל לא קיים',
+                'page-title'             => 'שכחתי סיסמה',
+                'powered-by-description' => 'מופעל על ידי :bagisto, פרויקט קוד פתוח על ידי :webkul.',
+                'reset-link-sent'        => 'קישור לאיפוס סיסמה נשלח',
+                'sign-in-link'           => 'חזור להתחברות?',
+                'submit-btn'             => 'איפוס',
+                'title'                  => 'שחזור סיסמה',
             ],
         ],
 
         'reset-password' => [
-            'back-link-title'  => 'חזור להתחברות?',
-            'confirm-password' => 'אימות סיסמה',
-            'email'            => 'אימייל רשום',
-            'password'         => 'סיסמה',
-            'submit-btn'       => 'איפוס סיסמה',
-            'title'            => 'איפוס סיסמה',
+            'back-link-title'        => 'חזור להתחברות?',
+            'confirm-password'       => 'אימות סיסמה',
+            'email'                  => 'אימייל רשום',
+            'password'               => 'סיסמה',
+            'powered-by-description' => 'מופעל על ידי :bagisto, פרויקט קוד פתוח על ידי :webkul.',
+            'submit-btn'             => 'איפוס סיסמה',
+            'title'                  => 'איפוס סיסמה',
         ],
     ],
 
     'notifications' => [
         'description-text' => 'לרשום את כל ההתראות',
-        'marked-success'   => 'התראה סומנה בהצלחה',
+        'marked-success'   => 'כל ההתראות סומנו כנקראו',
         'no-record'        => 'לא נמצאו רשומות',
         'of'               => 'מתוך',
         'per-page'         => 'לעמוד',
@@ -43,6 +46,7 @@ return [
         'view-all'         => 'הצג הכל',
 
         'order-status-messages' => [
+            'all'             => 'הכל',
             'canceled'        => 'הזמנה בוטלה',
             'closed'          => 'הזמנה נסגרה',
             'completed'       => 'הזמנה הושלמה',
@@ -186,6 +190,11 @@ return [
                 'title'                   => 'צור הזמנה עבור :name',
 
                 'types' => [
+                    'simple' => [
+                        'none'         => 'ללא',
+                        'total-amount' => 'סכום כולל',
+                    ],
+
                     'configurable' => [
                         'select-options' => 'בחר אפשרות',
                     ],
@@ -201,6 +210,11 @@ return [
 
                     'downloadable' => [
                         'title' => 'קישורים',
+                    ],
+
+                    'virtual' => [
+                        'none'         => 'ללא',
+                        'total-amount' => 'סכום כולל',
                     ],
                 ],
 
@@ -567,15 +581,20 @@ return [
                 'title' => 'חשבוניות',
 
                 'datagrid' => [
-                    'action'       => 'פעולות',
-                    'grand-total'  => 'סכום כולל',
-                    'id'           => 'מספר זיהוי',
-                    'invoice-date' => 'תאריך חשבונית',
-                    'order-id'     => 'מספר הזמנה',
-                    'overdue'      => 'לא שולם',
-                    'paid'         => 'שולם',
-                    'pending'      => 'ממתין',
-                    'status'       => 'סטטוס',
+                    'action'              => 'פעולות',
+                    'days-left'           => 'נותרו :count ימים',
+                    'days-overdue'        => ':count ימים באיחור',
+                    'grand-total'         => 'סכום כולל',
+                    'id'                  => 'מספר זיהוי',
+                    'invoice-date'        => 'תאריך חשבונית',
+                    'mass-update-success' => 'חשבוניות שנבחרו עודכנו בהצלחה.',
+                    'order-id'            => 'מספר הזמנה',
+                    'overdue'             => 'לא שולם',
+                    'overdue-by'          => 'באיחור של :count ימים',
+                    'paid'                => 'שולם',
+                    'pending'             => 'ממתין',
+                    'status'              => 'סטטוס',
+                    'update-status'       => 'עדכן סטטוס',
                 ],
             ],
 
@@ -715,10 +734,41 @@ return [
                     'payment-method'   => 'אמצעי תשלום',
                     'status'           => 'סטטוס',
                     'title'            => 'פרטי התשלום',
-                    'transaction-data' => 'נתוני התשלום',
                     'transaction-id'   => 'מזהה עסקה',
                 ],
             ],
+        ],
+
+        'booking' => [
+            'index' => [
+                'datagrid' => [
+                    'created-date' => 'תאריך יצירה',
+                    'from'         => 'מ',
+                    'id'           => 'מזהה',
+                    'order-id'     => 'מספר הזמנה',
+                    'qty'          => 'כמות',
+                    'to'           => 'עד',
+                    'view'         => 'צפה',
+                ],
+
+                'title'    => 'הזמנות',
+            ],
+
+            'calendar' => [
+                'booking-date'     => 'תאריך הזמנה',
+                'booking-details'  => 'פרטי הזמנה',
+                'canceled'         => 'בוטל',
+                'closed'           => 'סגור',
+                'done'             => 'בוצע',
+                'order-id'         => 'מספר הזמנה',
+                'pending'          => 'ממתין',
+                'price'            => 'מחיר',
+                'status'           => 'סטטוס',
+                'time-slot'        => 'משבצת זמן:',
+                'view-details'     => 'צפה בפרטים',
+            ],
+
+            'title' => 'מוצרי הזמנות',
         ],
     ],
 
@@ -855,6 +905,93 @@ return [
                 ],
 
                 'types' => [
+                    'simple' => [
+                        'customizable-options' => [
+                            'add-btn'           => 'הוסף אפשרות',
+                            'empty-info'        => 'ליצירת אפשרויות מותאמות אישית במהירות.',
+                            'empty-title'       => 'הוסף אפשרות',
+                            'info'              => 'זה יתאים אישית את המוצר הפשוט.',
+                            'title'             => 'פריט ניתן להתאמה אישית',
+
+                            'update-create' => [
+                                'is-required'               => 'נדרש',
+                                'max-characters'            => 'מקסימום תווים',
+                                'name'                      => 'כותרת',
+                                'no'                        => 'לא',
+                                'price'                     => 'מחיר',
+                                'save-btn'                  => 'שמור',
+                                'supported-file-extensions' => 'סיומות קבצים נתמכות',
+                                'title'                     => 'אפשרות',
+                                'type'                      => 'סוג',
+                                'yes'                       => 'כן',
+                            ],
+
+                            'option' => [
+                                'add-btn'     => 'הוסף אפשרות',
+                                'delete'      => 'מחק',
+                                'delete-btn'  => 'מחק',
+                                'edit-btn'    => 'ערוך',
+                                'empty-info'  => 'ליצירת שילובים שונים של מוצרים במהירות.',
+                                'empty-title' => 'הוסף אפשרות',
+
+                                'types' => [
+                                    'text' => [
+                                        'title' => 'טקסט',
+                                    ],
+
+                                    'textarea' => [
+                                        'title' => 'אזור טקסט',
+                                    ],
+
+                                    'checkbox' => [
+                                        'title' => 'תיבת סימון',
+                                    ],
+
+                                    'radio' => [
+                                        'title' => 'רדיו',
+                                    ],
+
+                                    'select' => [
+                                        'title' => 'בחר',
+                                    ],
+
+                                    'multiselect' => [
+                                        'title' => 'רב-בחירה',
+                                    ],
+
+                                    'date' => [
+                                        'title' => 'תאריך',
+                                    ],
+
+                                    'datetime' => [
+                                        'title' => 'תאריך ושעה',
+                                    ],
+
+                                    'time' => [
+                                        'title' => 'זמן',
+                                    ],
+
+                                    'file' => [
+                                        'title' => 'קובץ',
+                                    ],
+                                ],
+
+                                'items' => [
+                                    'update-create' => [
+                                        'label'    => 'תווית',
+                                        'price'    => 'מחיר',
+                                        'save-btn' => 'שמור',
+                                        'title'    => 'אפשרות',
+                                    ],
+                                ],
+                            ],
+
+                            'validations' => [
+                                'associated-product' => 'המוצר כבר מקושר למוצר ניתן להתאמה, מקובץ או בחבילה.',
+                            ],
+                        ],
+                    ],
+
                     'configurable' => [
                         'add-btn'           => 'הוסף נציג',
                         'delete-btn'        => 'מחק',
@@ -985,6 +1122,186 @@ return [
                         ],
                     ],
 
+                    'booking' => [
+                        'available-from' => 'זמין מ',
+                        'available-to'   => 'זמין עד',
+                        'location'       => 'מיקום',
+                        'qty'            => 'כמות',
+                        'title'          => 'סוג הזמנה',
+
+                        'available-every-week' => [
+                            'no'    => 'לא',
+                            'title' => 'זמין כל שבוע',
+                            'yes'   => 'כן',
+                        ],
+
+                        'appointment' => [
+                            'break-duration'         => 'זמן הפסקה בין משבצות (דקות)',
+                            'slot-duration'          => 'משך משבצת (דקות)',
+
+                            'same-slot-for-all-days' => [
+                                'no'    => 'לא',
+                                'title' => 'אותה משבצת לכל הימים',
+                                'yes'   => 'כן',
+                            ],
+                        ],
+
+                        'default' => [
+                            'add'              => 'הוסף',
+                            'break-duration'   => 'זמן הפסקה בין משבצות (דקות)',
+                            'close'            => 'סגור',
+                            'description'      => 'מידע על הזמנה',
+                            'description-info' => 'משך הזמן ייווצר ויוצג בהתאם לחריצים. הוא יהיה ייחודי לכל החריצים וייראה בחזית החנות.',
+                            'edit'             => 'ערוך',
+                            'many'             => 'הזמנות רבות ליום אחד',
+                            'one'              => 'הזמנה אחת לימים רבים',
+                            'open'             => 'פתח',
+                            'slot-add'         => 'הוסף משבצות',
+                            'slot-duration'    => 'משך משבצת (דקות)',
+                            'slot-title'       => 'משך זמן משבצות',
+                            'title'            => 'ברירת מחדל',
+                            'unavailable'      => 'לא זמין',
+
+                            'modal'            => [
+                                'slot' => [
+                                    'add-title'  => 'הוסף משבצות',
+                                    'close'      => 'סגור',
+                                    'day'        => 'יום',
+                                    'edit-title' => 'ערוך משבצות',
+                                    'friday'     => 'שישי',
+                                    'from'       => 'מ',
+                                    'from-day'   => 'מיום',
+                                    'from-time'  => 'משעה',
+                                    'monday'     => 'שני',
+                                    'open'       => 'פתח',
+                                    'saturday'   => 'שבת',
+                                    'save'       => 'שמור',
+                                    'select'     => 'בחר',
+                                    'status'     => 'סטטוס',
+                                    'sunday'     => 'ראשון',
+                                    'thursday'   => 'חמישי',
+                                    'to'         => 'עד',
+                                    'to-day'     => 'עד יום',
+                                    'to-time'    => 'עד שעה',
+                                    'tuesday'    => 'שלישי',
+                                    'wednesday'  => 'רביעי',
+                                    'week'       => ':יום',
+                                ],
+                            ],
+                        ],
+
+                        'event' => [
+                            'add'                => 'הוסף כרטיסים',
+                            'delete'             => 'מחק',
+                            'description'        => 'תיאור',
+                            'description-info'   => 'אין כרטיסים זמינים.',
+                            'edit'               => 'ערוך',
+                            'name'               => 'שם',
+                            'price'              => 'מחיר',
+                            'qty'                => 'כמות',
+                            'special-price'      => 'מחיר מיוחד',
+                            'special-price-from' => 'מחיר מיוחד מ',
+                            'special-price-to'   => 'מחיר מיוחד עד',
+                            'title'              => 'כרטיסים',
+                            'valid-from'         => 'תקף מ',
+                            'valid-until'        => 'תקף עד',
+
+                            'modal'              => [
+                                'edit' => 'ערוך כרטיסים',
+                                'save' => 'שמור',
+                            ],
+                        ],
+
+                        'empty-info' => [
+                            'tickets' => [
+                                'add' => 'הוסף כרטיסים',
+                            ],
+
+                            'slots'   => [
+                                'add'         => 'הוסף משבצות',
+                                'description' => 'משבצות זמינות עם משך זמן.',
+                            ],
+                        ],
+
+                        'rental' => [
+                            'daily'        => 'על בסיס יומי',
+                            'daily-hourly' => 'שניהם (יומי ושעתי)',
+                            'daily-price'  => 'מחיר יומי',
+                            'hourly'       => 'על בסיס שעתי',
+                            'hourly-price' => 'מחיר שעתי',
+                            'title'        => 'סוג השכרה',
+
+                            'same-slot-for-all-days' => [
+                                'no'    => 'לא',
+                                'title' => 'אותה משבצת לכל הימים',
+                                'yes'   => 'כן',
+                            ],
+                        ],
+
+                        'slots' => [
+                            'add'              => 'הוסף משבצות',
+                            'description-info' => 'משך הזמן ייווצר ויוצג בהתאם לחריצים. הוא יהיה ייחודי לכל החריצים וייראה בחזית החנות.',
+                            'save'             => 'שמור',
+                            'title'            => 'משך זמן משבצות',
+                            'unavailable'      => 'לא זמין',
+
+                            'action'           => [
+                                'add' => 'הוסף',
+                            ],
+
+                            'modal'            => [
+                                'slot' => [
+                                    'friday'     => 'שישי',
+                                    'from'       => 'מ',
+                                    'monday'     => 'שני',
+                                    'saturday'   => 'שבת',
+                                    'sunday'     => 'ראשון',
+                                    'thursday'   => 'חמישי',
+                                    'to'         => 'עד',
+                                    'tuesday'    => 'שלישי',
+                                    'wednesday'  => 'רביעי',
+                                ],
+                            ],
+                        ],
+
+                        'table' => [
+                            'break-duration'            => 'זמן הפסקה בין משבצות (דקות)',
+                            'guest-capacity'            => 'קיבולת אורחים',
+                            'guest-limit'               => 'מגבלת אורחים לשולחן',
+                            'prevent-scheduling-before' => 'מניעת תזמון לפני',
+                            'slot-duration'             => 'משך משבצת (דקות)',
+
+                            'charged-per'               => [
+                                'guest'  => 'אורח',
+                                'table'  => 'שולחן',
+                                'title'  => 'מחויב לפי',
+                            ],
+
+                            'same-slot-for-all-days'    => [
+                                'no'    => 'לא',
+                                'title' => 'אותה משבצת לכל הימים',
+                                'yes'   => 'כן',
+                            ],
+                        ],
+
+                        'type' => [
+                            'appointment' => 'הזמנת פגישה',
+                            'default'     => 'הזמנה ברירת מחדל',
+                            'event'       => 'הזמנת אירוע',
+                            'many'        => 'רבים',
+                            'one'         => 'אחד',
+                            'rental'      => 'הזמנת השכרה',
+                            'table'       => 'הזמנת שולחן',
+                            'title'       => 'סוג',
+                        ],
+
+                        'validations' => [
+                            'type-mismatch'      => 'לא ניתן לשנות את סוג ההזמנה.',
+                            'time-validation'    => 'שעת ההתחלה חייבת להיות מוקדמת יותר משעת הסיום.',
+                            'overlap-validation' => 'חלון הזמן חופף לחלון קיים.',
+                        ],
+                    ],
+
                     'downloadable' => [
                         'links' => [
                             'add-btn'     => 'הוסף קישור',
@@ -1060,6 +1377,7 @@ return [
                     'date-time'           => 'תאריך ושעה',
                     'delete'              => 'מחק',
                     'edit'                => 'ערוך',
+                    'false'               => 'שגוי',
                     'file'                => 'קובץ',
                     'id'                  => 'מזהה',
                     'image'               => 'תמונה',
@@ -1072,6 +1390,7 @@ return [
                     'select'              => 'בחר',
                     'text'                => 'טקסט',
                     'textarea'            => 'אזור טקסט',
+                    'true'                => 'נכון',
                     'type'                => 'סוג',
                     'unique'              => 'ייחודי',
                 ],
@@ -1408,6 +1727,7 @@ return [
                     'gender'         => 'מגדר',
                     'group'          => 'קבוצה',
                     'id'             => 'מזהה לקוח',
+                    'id-value'       => 'מזהה - :id',
                     'inactive'       => 'לא פעיל',
                     'method-error'   => 'שגיאה! אותרה שיטת לא נכונה, נא לבדוק את הגדרות פעולה מראש',
                     'name'           => 'שם הלקוח',
@@ -1632,6 +1952,8 @@ return [
         ],
 
         'groups' => [
+            'customer-associate' => 'לקבוצה זו יש לקוחות משויכים ולא ניתן למחוק אותה.',
+
             'index' => [
                 'title' => 'קבוצות',
 
@@ -1659,6 +1981,46 @@ return [
                     'id'     => 'מזהה',
                     'name'   => 'שם',
                 ],
+            ],
+        ],
+
+        'gdpr' => [
+            'index' => [
+                'title' => 'בקשת GDPR',
+
+                'datagrid' => [
+                    'completed'     => 'הושלם',
+                    'created-at'    => 'נוצר בתאריך',
+                    'customer-name' => 'שם הלקוח',
+                    'declined'      => 'נדחה',
+                    'delete'        => 'מחק',
+                    'edit'          => 'ערוך',
+                    'id'            => 'מזהה',
+                    'message'       => 'הודעה',
+                    'pending'       => 'ממתין',
+                    'processing'    => 'מעבד',
+                    'revoked'       => 'בוטל',
+                    'status'        => 'סטטוס',
+                    'type'          => 'סוג',
+                ],
+
+                'modal' => [
+                    'completed'     => 'הושלם',
+                    'declined'      => 'נדחה',
+                    'message'       => 'הודעה',
+                    'pending'       => 'ממתין',
+                    'processing'    => 'מעבד',
+                    'revoked'       => 'בוטל',
+                    'save-btn'      => 'שמור',
+                    'status'        => 'סטטוס',
+                    'title'         => 'ערוך בקשת נתוני GDPR',
+                    'type'          => 'סוג',
+                ],
+
+                'update-success'              => 'בקשת הנתונים עודכנה בהצלחה ואימייל נשלח ללקוח.',
+                'delete-success'              => 'בקשת הנתונים נמחקה בהצלחה.',
+                'attribute-reason-error'      => 'לא ניתן למחוק.',
+                'update-success-unsent-email' => 'בקשת הנתונים עודכנה בהצלחה אך האימייל לא נשלח ללקוח.',
             ],
         ],
 
@@ -1942,8 +2304,8 @@ return [
                     'any-conditions-true'                       => 'לפחות תנאי אחד נכון',
                     'apply-to-shipping'                         => 'החל למשלוח',
                     'attribute-family'                          => 'משפחת התכונות',
-                    'attribute-name-children-only'              => 'שם התכונה (רק ילדים)',
-                    'attribute-name-parent-only'                => 'שם התכונה (רק הורים)',
+                    'attribute-name-children-only'              => ':attribute_name (רק ילדים)',
+                    'attribute-name-parent-only'                => ':attribute_name (רק הורים)',
                     'auto-generate-coupon'                      => 'יצירת קופון אוטומטית',
                     'back-btn'                                  => 'חזרה',
                     'buy-x-get-y-free'                          => 'קנה X וקבל Y בחינם',
@@ -2019,8 +2381,8 @@ return [
                     'any-conditions-true'                       => 'לפחות תנאי אחד נכון',
                     'apply-to-shipping'                         => 'החל למשלוח',
                     'attribute-family'                          => 'משפחת התכונות',
-                    'attribute-name-children-only'              => 'שם התכונה (רק ילדים)',
-                    'attribute-name-parent-only'                => 'שם התכונה (רק הורים)',
+                    'attribute-name-children-only'              => ':attribute_name (רק ילדים)',
+                    'attribute-name-parent-only'                => ':attribute_name (רק הורים)',
                     'auto-generate-coupon'                      => 'יצירת קופון אוטומטית',
                     'back-btn'                                  => 'חזרה',
                     'buy-x-get-y-free'                          => 'קנה X וקבל Y בחינם',
@@ -2515,18 +2877,20 @@ return [
                 ],
 
                 'create' => [
-                    'code'              => 'קוד',
-                    'create-btn'        => 'צור מטבע',
-                    'currency-position' => 'מיקום המטבע',
-                    'decimal'           => 'עשרוני',
-                    'decimal-separator' => 'מפריד עשרוני',
-                    'delete-warning'    => 'האם אתה בטוח שברצונך לבצע פעולה זו?',
-                    'general'           => 'כללי',
-                    'group-separator'   => 'מפריד קבוצה',
-                    'name'              => 'שם',
-                    'save-btn'          => 'שמור מטבע',
-                    'symbol'            => 'סמל',
-                    'title'             => 'צור מטבע חדש',
+                    'code'                   => 'קוד',
+                    'create-btn'             => 'צור מטבע',
+                    'currency-position'      => 'מיקום המטבע',
+                    'decimal'                => 'עשרוני',
+                    'decimal-separator'      => 'מפריד עשרוני',
+                    'decimal-separator-note' => 'השדה :attribute יכול לקבל רק את המפעילים פסיק (,) ונקודה (.)',
+                    'delete-warning'         => 'האם אתה בטוח שברצונך לבצע פעולה זו?',
+                    'general'                => 'כללי',
+                    'group-separator'        => 'מפריד קבוצה',
+                    'group-separator-note'   => 'השדה :attribute יכול להכיל רק את התווים פסיק (,), נקודה (.), גרש (\') ורווח ( ).',
+                    'name'                   => 'שם',
+                    'save-btn'               => 'שמור מטבע',
+                    'symbol'                 => 'סמל',
+                    'title'                  => 'צור מטבע חדש',
                 ],
 
                 'edit' => [
@@ -2572,6 +2936,7 @@ return [
                     'allowed-errors'      => 'שגיאות מותרות',
                     'back-btn'            => 'חזרה',
                     'create-update'       => 'יצירה/עדכון',
+                    'current-file'        => 'קובץ שהועלה נוכחי',
                     'delete'              => 'מחיקה',
                     'download-sample'     => 'הורד דוגמא',
                     'field-separator'     => 'מפריד שדות',
@@ -2799,6 +3164,7 @@ return [
                         'title' => 'ערוך קטגוריות מס',
                     ],
 
+                    'can-not-delete' => 'לא ניתן למחוק קטגוריות שהוקצו לשערי מס.',
                     'create-success' => 'קטגוריית מס חדשה נוצרה בהצלחה',
                     'delete-failed'  => 'מחיקת קטגוריית מס נכשלה',
                     'delete-success' => 'קטגוריית מס נמחקה בהצלחה',
@@ -3013,6 +3379,7 @@ return [
             'cannot-change'      => 'לא ניתן לשנות את המשתמש.',
             'create-success'     => 'המשתמש נוצר בהצלחה.',
             'delete-failed'      => 'נכשל במחיקת המשתמש.',
+            'delete-self-error'  => 'אינך יכול למחוק את החשבון שלך.',
             'delete-success'     => 'המשתמש נמחק בהצלחה.',
             'delete-warning'     => 'האם אתה בטוח שברצונך לבצע פעולה זו?',
             'incorrect-password' => 'סיסמה שגויה',
@@ -3077,17 +3444,18 @@ return [
                 'title'      => 'ערכות עיצוב',
 
                 'datagrid' => [
-                    'active'       => 'פעיל',
-                    'channel_name' => 'שם הערוץ',
-                    'delete'       => 'מחק',
-                    'id'           => 'מזהה',
-                    'inactive'     => 'לא פעיל',
-                    'name'         => 'שם',
-                    'sort-order'   => 'סדר מיון',
-                    'status'       => 'סטטוס',
-                    'theme'        => 'נושא',
-                    'type'         => 'סוג',
-                    'view'         => 'הצג',
+                    'active'        => 'פעיל',
+                    'channel_name'  => 'שם הערוץ',
+                    'change-status' => 'שנה סטטוס',
+                    'delete'        => 'מחק',
+                    'id'            => 'מזהה',
+                    'inactive'      => 'לא פעיל',
+                    'name'          => 'שם',
+                    'sort-order'    => 'סדר מיון',
+                    'status'        => 'סטטוס',
+                    'theme'         => 'נושא',
+                    'type'          => 'סוג',
+                    'view'          => 'הצג',
                 ],
             ],
 
@@ -3148,6 +3516,7 @@ return [
                 'new'                           => 'חדש',
                 'no'                            => 'לא',
                 'parent-id'                     => 'מזהה הורה',
+                'parent-id-hint'                => 'אתה יכול להזין מספר מזהות הורה כערכים מופרדים בפסיקים (למשל: 12,15,34)',
                 'category-id'                   => 'מזהה קטגוריה',
                 'preview'                       => 'תצוגה מקדימה',
                 'product-carousel'              => 'קרוסלת מוצרים',
@@ -3309,6 +3678,7 @@ return [
 
         'view' => [
             'all-channels'  => 'כל הערוצים',
+            'back-btn'      => 'חזור',
             'day'           => 'יום',
             'end-date'      => 'תאריך סיום',
             'export-csv'    => 'ייצוא ל־CSV',
@@ -3344,7 +3714,7 @@ return [
                 'title' => 'כללי',
 
                 'general' => [
-                    'info'  => 'הגדר אפשרויות יחידות.',
+                    'info'  => 'הגדר אפשרויות יחידות והפעל או השבת את אפשרויות מסלולי הניווט והמבקרים.',
                     'title' => 'כללי',
 
                     'unit-options' => [
@@ -3359,10 +3729,16 @@ return [
                         'title'      => 'מסלולי ניווט',
                         'title-info' => 'הפעל או השבת מסלולי ניווט בחנות.',
                     ],
+
+                    'visitor-options' => [
+                        'enable'     => 'הפעל אפשרויות מבקרים',
+                        'title'      => 'אפשרויות מבקרים',
+                        'title-info' => 'מאפשר שליטה באתר למעקב וספירת מספר הביקורים, מסייע במעקב אחר פעילות ומעורבות כללית של מבקרים.',
+                    ],
                 ],
 
                 'content' => [
-                    'info'  => 'הגדר אפשרויות השוואה, אפשרויות רשימת המשאלות, אפשרויות חיפוש תמונות, תחתית, הפעל/השבת תחתית וקודים מותאמים אישית.',
+                    'info'  => 'הגדר כותרת הצעת הדף הראשי וקודים מותאמים אישית.',
                     'title' => 'תוכן',
 
                     'header-offer' => [
@@ -3371,6 +3747,40 @@ return [
                         'offer-title'       => 'כותרת הצעה',
                         'redirection-title' => 'כותרת הפניה',
                         'redirection-link'  => 'קישור הפניה',
+                    ],
+
+                    'speculation-rules' => [
+                        'enable-speculation' => 'הפעלת כללי ספקולציה',
+                        'info'               => 'הגדר הגדרות להפעלה או השבתה של לוגיקת ספקולציה אוטומטית.',
+                        'title'              => 'כללי ספקולציה',
+
+                        'prerender' => [
+                            'conservative'           => 'שמרני',
+                            'eager'                  => 'נלהב',
+                            'eagerness'              => 'רמת הנלהבות של Prerender',
+                            'eagerness-info'         => 'שולט עד כמה הכללים מיושמים באגרסיביות. אפשרויות: נלהב (מקסימום), מתון (ברירת מחדל), שמרני (נמוך).',
+                            'enabled'                => 'הפעלת כללי ספקולציה ל-Prerender',
+                            'ignore-url-params'      => 'התעלמות מפרמטרי URL של Prerender',
+                            'ignore-url-params-info' => 'ציין פרמטרי URL להתעלמות מהם בכללי הספקולציה. השתמש בסימן פייפ (|) להפרדת פרמטרים מרובים.',
+                            'ignore-urls'            => 'התעלמות מ-URLs של Prerender',
+                            'ignore-urls-info'       => 'הכנס כתובות URL שיש להחריג מהלוגיקה של הספקולציה. הפרד בין כתובות URL מרובות עם סימן פייפ (|).',
+                            'info'                   => 'קבע את מצב כללי הספקולציה.',
+                            'moderate'               => 'מתון',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'שמרני',
+                            'eager'                  => 'נלהב',
+                            'eagerness'              => 'רמת הנלהבות של Prefetch',
+                            'eagerness-info'         => 'שולט עד כמה הכללים מיושמים באגרסיביות. אפשרויות: נלהב (מקסימום), מתון (ברירת מחדל), שמרני (נמוך).',
+                            'enabled'                => 'הפעלת כללי ספקולציה ל-Prefetch',
+                            'ignore-url-params'      => 'התעלמות מפרמטרי URL של Prefetch',
+                            'ignore-url-params-info' => 'ציין פרמטרי URL להתעלמות מהם בכללי הספקולציה. השתמש בסימן פייפ (|) להפרדת פרמטרים מרובים.',
+                            'ignore-urls'            => 'התעלמות מ-URLs של Prefetch',
+                            'ignore-urls-info'       => 'הכנס כתובות URL שיש להחריג מהלוגיקה של הספקולציה. הפרד בין כתובות URL מרובות עם סימן פייפ (|).',
+                            'info'                   => 'קבע את מצב כללי הספקולציה.',
+                            'moderate'               => 'מתון',
+                        ],
                     ],
 
                     'custom-scripts' => [
@@ -3382,7 +3792,7 @@ return [
                 ],
 
                 'design' => [
-                    'info'  => 'הגדר לוגו וסמל favicon.',
+                    'info'  => 'הגדר לוגו וסמל Favicon עבור לוח הניהול.',
                     'title' => 'עיצוב',
 
                     'admin-logo' => [
@@ -3391,10 +3801,19 @@ return [
                         'title'      => 'לוגו מנהל',
                         'title-info' => 'הגדר תמונת לוגו וסמל Favicon עבור החזית של האתר שלך למיתוג ולהכרה טובה יותר.',
                     ],
+
+                    'menu-category' => [
+                        'default'         => 'תפריט ברירת מחדל',
+                        'info'            => 'הגדרה זו שולטת בנראות הקטגוריות בתפריט הכותרת. ניתן לבחור להציג רק קטגוריות ראשיות או את כל הקטגוריות המקוננות.',
+                        'preview-default' => 'תצוגה מקדימה של תפריט ברירת מחדל',
+                        'preview-sidebar' => 'תצוגה מקדימה של תפריט צדדי',
+                        'sidebar'         => 'תפריט צדדי',
+                        'title'           => 'תצוגת קטגוריית תפריט',
+                    ],
                 ],
 
                 'magic-ai' => [
-                    'info'  => 'הגדר אפשרויות Magic AI.',
+                    'info'  => 'הגדר אפשרויות Magic AI ואפשר אפשרויות מסוימות לאוטומציה של יצירת תוכן.',
                     'title' => 'Magic AI',
 
                     'settings' => [
@@ -3423,42 +3842,124 @@ return [
                     ],
 
                     'review-translation' => [
-                        'dolphin-phi'       => 'דולפין פי',
-                        'enabled'           => 'מופעל',
-                        'gpt-3-5-turbo'     => 'OpenAI gpt-3.5-turbo',
-                        'llama2'            => 'למה 2',
-                        'llama2-uncensored' => 'למה 2 לא מסונן',
-                        'llama2:13b'        => 'למה 2 13B',
-                        'llama2:70b'        => 'למה 2 70B',
-                        'llava'             => 'LLaVA',
-                        'mistral'           => 'מיסטרל',
-                        'model'             => 'מודל',
-                        'orca-mini'         => 'אורקה מיני',
-                        'phi'               => 'פי-2',
-                        'starling-lm'       => 'סטארלינג',
-                        'title'             => 'תרגום ביקורת',
-                        'title-info'        => 'ספק אפשרות ללקוח או למבקר לתרגם ביקורת לקוח לאנגלית.<br/><br/>כאשר מופעל, עבור לביקורת ותמצא את הכפתור "תרגם לאנגלית" אם יש לך ביקורת שונה מאנגלית.',
-                        'vicuna'            => 'ויקונה',
+                        'deepseek-r1-8b'      => 'DeepSeek R1 (8b)',
+                        'enabled'             => 'מופעל',
+                        'gemini-2-0-flash'    => 'Gemini 2.0 Flash',
+                        'gpt-4-turbo'         => 'OpenAI gpt-4 Turbo',
+                        'gpt-4o'              => 'OpenAI gpt-4o',
+                        'gpt-4o-mini'         => 'OpenAI gpt-4o mini',
+                        'llama-groq'          => 'Llama 3.3 (Groq)',
+                        'llama3-1-8b'         => 'Llama 3.1 (8B)',
+                        'llama3-2-1b'         => 'Llama 3.2 (1B)',
+                        'llama3-2-3b'         => 'Llama 3.2 (3B)',
+                        'llama3-8b'           => 'Llama 3 (8B)',
+                        'llava-7b'            => 'Llava (7b)',
+                        'mistral-7b'          => 'Mistral (7b)',
+                        'model'               => 'מודל',
+                        'orca-mini'           => 'Orca Mini',
+                        'phi3-5'              => 'Phi 3.5',
+                        'qwen2-5-0-5b'        => 'Qwen 2.5 (0.5b)',
+                        'qwen2-5-1-5b'        => 'Qwen 2.5 (1.5b)',
+                        'qwen2-5-14b'         => 'Qwen 2.5 (14b)',
+                        'qwen2-5-3b'          => 'Qwen 2.5 (3b)',
+                        'qwen2-5-7b'          => 'Qwen 2.5 (7b)',
+                        'starling-lm-7b'      => 'Starling-lm (7b)',
+                        'title'               => 'תרגום ביקורת',
+                        'title-info'          => 'ספק אפשרות ללקוח או למבקר לתרגם ביקורת לקוח לאנגלית.<br/><br/>כאשר מופעל, עבור לביקורת ותמצא את הכפתור "תרגם לאנגלית" אם הביקורת אינה באנגלית.',
+                        'vicuna-13b'          => 'Vicuna (13b)',
+                        'vicuna-7b'           => 'Vicuna (7b)',
                     ],
 
                     'checkout-message' => [
-                        'dolphin-phi'       => 'דולפין פי',
-                        'enabled'           => 'מופעל',
-                        'gpt-3-5-turbo'     => 'OpenAI gpt-3.5-turbo',
-                        'llama2'            => 'למה 2',
-                        'llama2-uncensored' => 'למה 2 לא מסונן',
-                        'llama2:13b'        => 'למה 2 13B',
-                        'llama2:70b'        => 'למה 2 70B',
-                        'llava'             => 'LLaVA',
-                        'mistral'           => 'מיסטרל',
-                        'model'             => 'מודל',
-                        'orca-mini'         => 'אורקה מיני',
-                        'phi'               => 'פי-2',
-                        'prompt'            => 'פרומט',
-                        'starling-lm'       => 'סטארלינג',
-                        'title'             => 'הודעת קופה אישית',
-                        'title-info'        => 'צור הודעת קופה אישית עבור לקוחות בדף תודה, מתאימה את התוכן להתאמה אישית להעדפות האישיות ומשפרת את חוויית הרכישה לאחר הרכישה.',
-                        'vicuna'            => 'ויקונה',
+                        'deepseek-r1-8b'      => 'DeepSeek R1 (8b)',
+                        'enabled'             => 'מופעל',
+                        'gemini-2-0-flash'    => 'Gemini 2.0 Flash',
+                        'gpt-4-turbo'         => 'OpenAI gpt 4 Turbo',
+                        'gpt-4o'              => 'OpenAI gpt-4o',
+                        'gpt-4o-mini'         => 'OpenAI gpt-4o mini',
+                        'llama-groq'          => 'Llama 3.3 (Groq)',
+                        'llama3-1-8b'         => 'Llama 3.1 (8B)',
+                        'llama3-2-1b'         => 'Llama 3.2 (1B)',
+                        'llama3-2-3b'         => 'Llama 3.2 (3B)',
+                        'llama3-8b'           => 'Llama 3 (8B)',
+                        'llava-7b'            => 'Llava (7b)',
+                        'mistral-7b'          => 'Mistral (7b)',
+                        'model'               => 'מודל',
+                        'orca-mini'           => 'Orca Mini',
+                        'phi3-5'              => 'Phi 3.5',
+                        'prompt'              => 'הנחיה',
+                        'qwen2-5-0-5b'        => 'Qwen 2.5 (0.5b)',
+                        'qwen2-5-1-5b'        => 'Qwen 2.5 (1.5b)',
+                        'qwen2-5-14b'         => 'Qwen 2.5 (14b)',
+                        'qwen2-5-3b'          => 'Qwen 2.5 (3b)',
+                        'qwen2-5-7b'          => 'Qwen 2.5 (7b)',
+                        'starling-lm-7b'      => 'Starling-lm (7b)',
+                        'title'               => 'הודעת תשלום מותאמת אישית',
+                        'title-info'          => 'צור הודעת תשלום מותאמת אישית ללקוחות בעמוד התודה, התאמת התוכן להעדפות אישיות ושיפור חווית הרכישה הכוללת.',
+                        'vicuna'              => 'Vicuna',
+                        'vicuna-13b'          => 'Vicuna (13b)',
+                        'vicuna-7b'           => 'Vicuna (7b)',
+                    ],
+                ],
+
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'הגדרות תאימות ל-GDPR',
+
+                    'settings' => [
+                        'title'   => 'הגדרות תאימות ל-GDPR',
+                        'info'    => 'ניהול הגדרות תאימות ל-GDPR, כולל מדיניות פרטיות. הפעל או השבת תכונות GDPR לפי הצורך.',
+                        'enabled' => 'הפעל GDPR',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'הסכם GDPR',
+                        'info'           => 'ניהול הסכמת הלקוחות בהתאם לתקנות GDPR. הפעל הסכמה חובה לאיסוף ועיבוד נתונים.',
+                        'enable'         => 'הפעל הסכמת לקוחות',
+                        'checkbox-label' => 'תווית תיבת הסימון להסכמה',
+                        'content'        => 'תוכן ההסכמה',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'למטה משמאל',
+                        'bottom-right' => 'למטה מימין',
+                        'center'       => 'מרכז',
+                        'description'  => 'תיאור',
+                        'enable'       => 'הפעל הודעת עוגיות',
+                        'identifier'   => 'מזהה בלוק סטטי',
+                        'info'         => 'הגדרת הגדרות הסכמת עוגיות כדי ליידע את המשתמשים על איסוף נתונים ולהתאים למדיניות פרטיות.',
+                        'position'     => 'מיקום תצוגת בלוק העוגיות',
+                        'title'        => 'הגדרות הודעת עוגיות',
+                        'top-left'     => 'למעלה משמאל',
+                        'top-right'    => 'למעלה מימין',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'ניהול הגדרות העוגיות שלך',
+                        'info'                   => 'שלוט כיצד נעשה שימוש בנתונים שלך על ידי בחירת הגדרות העוגיות הרצויות. הגדר הרשאות לסוגים שונים של עוגיות.',
+                        'strictly-necessary'     => 'הכרחי בהחלט',
+                        'basic-interaction'      => 'אינטראקציה ופונקציונליות בסיסית',
+                        'experience-enhancement' => 'שיפור חווית המשתמש',
+                        'measurement'            => 'מדידה',
+                        'targeting-advertising'  => 'מיקוד ופרסום',
+                    ],
+                ],
+
+                'sitemap' => [
+                    'info'  => 'הגדר אפשרויות מפת אתר.',
+                    'title' => 'מפת אתר',
+
+                    'settings' => [
+                        'enabled' => 'מופעל',
+                        'info'    => 'הפעל או השבת את מפת האתר לאתר שלך כדי לשפר את אופטימיזציית מנועי החיפוש ולשפר את חוויית המשתמש.',
+                        'title'   => 'הגדרות',
+                    ],
+
+                    'file-limits' => [
+                        'info'             => 'הגדר אפשרויות גבולות קובץ.',
+                        'max-file-size'    => 'גודל קובץ מרבי',
+                        'max-url-per-file' => 'מספר מרבי של כתובות URL לכל קובץ',
+                        'title'            => 'גבולות קובץ',
                     ],
                 ],
             ],
@@ -3468,7 +3969,7 @@ return [
                 'title' => 'קטלוג',
 
                 'products' => [
-                    'info'  => 'הגדרות קניית אורח, עמוד תצוגת מוצר, עמוד עגלת הקניות, חנות חזית, ביקורת ושיתוף חברתי של מאפיינים.',
+                    'info'  => 'דף תצוגת מוצר, דף תצוגת עגלה, חזית חנות, ביקורת ושיתוף חברתי של תכונות.',
                     'title' => 'מוצרים',
 
                     'settings' => [
@@ -3558,13 +4059,14 @@ return [
                     ],
 
                     'review' => [
-                        'allow-customer-review' => 'אפשר ביקורת מלקוח',
-                        'allow-guest-review'    => 'אפשר ביקורת מאורח',
-                        'display-review-count'  => 'הצג את ספירת הביקורות עבור דירוגים.',
-                        'display-star-count'    => 'הצג את ספירת הכוכבים בדירוגים.',
-                        'summary'               => 'סיכום',
-                        'title'                 => 'ביקורת',
-                        'title-info'            => 'הערכה או הערכה של משהו, הכוללת לעיתים דעות ומשוב.',
+                        'allow-customer-review'   => 'אפשר ביקורת מלקוח',
+                        'allow-guest-review'      => 'אפשר ביקורת מאורח',
+                        'censoring-reviewer-name' => 'צנזור שם המבקר',
+                        'display-review-count'    => 'הצג את ספירת הביקורות עבור דירוגים.',
+                        'display-star-count'      => 'הצג את ספירת הכוכבים בדירוגים.',
+                        'summary'                 => 'סיכום',
+                        'title'                   => 'ביקורת',
+                        'title-info'              => 'הערכה או הערכה של משהו, הכוללת לעיתים דעות ומשוב.',
                     ],
 
                     'attribute' => [
@@ -3617,7 +4119,7 @@ return [
 
                 'inventory' => [
                     'title'      => 'מלאי',
-                    'title-info' => 'הגדרות מלאי לאפשר הזמנות לאחור, להגדיר כמויות מינימליות ומקסימליות בעגלת הקניות ולהגדיר את סף המוצרים שאזלו מהמלאי.',
+                    'title-info' => 'הגדר אפשרויות מלאי כדי לאפשר הזמנות מאחור ולהגדיר את סף חוסר המלאי.',
 
                     'product-stock-options' => [
                         'allow-back-orders'       => 'אפשר הזמנות לאחור',
@@ -3656,7 +4158,7 @@ return [
 
                 'captcha' => [
                     'info'  => 'הגדרת מפתח אתר, מפתח סודי ומצב.',
-                    'title' => 'קפצ',
+                    'title' => 'Google קפצ',
 
                     'credentials' => [
                         'secret-key' => 'מפתח סודי',
@@ -3673,7 +4175,7 @@ return [
                 ],
 
                 'settings' => [
-                    'settings-info' => 'הגדרת רישומים לניוזלטר, אימותי אימייל והתחברות חברתית.',
+                    'settings-info' => 'הגדר רשימת משאלות, הפניית התחברות, הרשמות לניוזלטר, אפשרות קבוצת ברירת מחדל, אימותי אימייל והתחברות חברתית.',
                     'title'         => 'הגדרות',
 
                     'login-as-customer' => [
@@ -3724,13 +4226,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'אפשר פייסבוק',
-                        'enable-github'     => 'אפשר גיטהאב',
-                        'enable-google'     => 'אפשר גוגל',
-                        'enable-linkedin'   => 'אפשר לינקדאין',
-                        'enable-twitter'    => 'אפשר טוויטר',
-                        'social-login'      => 'התחברות חברתית',
-                        'social-login-info' => '"התחברות חברתית" מאפשרת למשתמשים לגשת לאתרים באמצעות חשבונות המדיה החברתית שלהם, מקלה על הרשמה והתחברות למערכות לקוחות לנוחות.',
+                        'title' => 'התחברות חברתית',
+                        'info'  => '"התחברות חברתית" מאפשרת למשתמשים להיכנס לאתר באמצעות חשבונות המדיה החברתית שלהם, ומפשטת את תהליכי ההרשמה והכניסה.',
+
+                        'google' => [
+                            'enable-google' => 'הפעל Google',
+
+                            'client-id' => [
+                                'title'      => 'מזהה לקוח (Client ID)',
+                                'title-info' => 'מזהה ייחודי שמסופק על ידי Google בעת יצירת אפליקציית OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'סוד לקוח (Client Secret)',
+                                'title-info' => 'מפתח סודי המשויך ללקוח ה-OAuth שלך בגוגל. שמור עליו בסודיות.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'כתובת הפנייה (Redirect)',
+                                'title-info' => 'כתובת ה-URL שאליה המשתמשים מנותבים לאחר ההזדהות עם Google. חייבת להתאים לכתובת שהוגדרה בקונסולה של Google.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'הפעל Facebook',
+
+                            'client-id' => [
+                                'title'      => 'מזהה לקוח (Client ID)',
+                                'title-info' => 'מזהה אפליקציה שמסופק על ידי Facebook בעת יצירת אפליקציה בקונסולה למפתחים.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'סוד לקוח (Client Secret)',
+                                'title-info' => 'המפתח הסודי של האפליקציה שלך בפייסבוק. שמור עליו בטוח ופרטי.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'כתובת הפנייה (Redirect URL)',
+                                'title-info' => 'כתובת ה-URL שאליה המשתמשים מנותבים לאחר ההזדהות עם Facebook. חייבת להתאים לכתובת שהוגדרה בהגדרות האפליקציה שלך בפייסבוק.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'הפעל GitHub',
+
+                            'client-id' => [
+                                'title'      => 'מזהה לקוח (Client ID)',
+                                'title-info' => 'מזהה ייחודי שמסופק על ידי GitHub בעת יצירת אפליקציית OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'סוד לקוח (Client Secret)',
+                                'title-info' => 'מפתח סודי המשויך ללקוח ה-OAuth שלך ב-GitHub. שמור עליו בסודיות.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'כתובת הפנייה (Redirect URL)',
+                                'title-info' => 'כתובת ה-URL שאליה המשתמשים מנותבים לאחר ההזדהות עם GitHub. חייבת להתאים לכתובת שהוגדרה בקונסולה של GitHub.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'הפעל LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'מזהה לקוח (Client ID)',
+                                'title-info' => 'מזהה ייחודי שמסופק על ידי LinkedIn בעת יצירת אפליקציית OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'סוד לקוח (Client Secret)',
+                                'title-info' => 'מפתח סודי המשויך ללקוח ה-OAuth שלך ב-LinkedIn. שמור עליו בסודיות.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'כתובת הפנייה (Redirect URL)',
+                                'title-info' => 'כתובת ה-URL שאליה המשתמשים מנותבים לאחר ההזדהות עם LinkedIn. חייבת להתאים לכתובת שהוגדרה בקונסולה של LinkedIn.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'הפעל Twitter',
+
+                            'client-id' => [
+                                'title'      => 'מזהה לקוח (Client ID)',
+                                'title-info' => 'מזהה ייחודי שמסופק על ידי Twitter בעת יצירת אפליקציית OAuth.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'סוד לקוח (Client Secret)',
+                                'title-info' => 'מפתח סודי המשויך ללקוח ה-OAuth שלך ב-Twitter. שמור עליו בסודיות.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'כתובת הפנייה (Redirect URL)',
+                                'title-info' => 'כתובת ה-URL שאליה המשתמשים מנותבים לאחר ההזדהות עם Twitter. חייבת להתאים לכתובת שהוגדרה בקונסולה של Twitter.',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -3758,19 +4350,23 @@ return [
                 ],
 
                 'notifications' => [
-                    'cancel-order'                                     => 'שלח הודעה לאחר ביטול הזמנה',
-                    'customer'                                         => 'שלח את פרטי חשבון הלקוח לאחר הרשמה',
-                    'customer-registration-confirmation-mail-to-admin' => 'שלח הודעת אימייל אישור למנהל לאחר הרשמת לקוח',
-                    'info'                                             => 'הגדר אפשרויות מלאי המוצר כדי לאפשר הזמנות מאחור, להגדיר כמויות מינימום ומקסימום בעגלה, ולהגדיר את סף האין במלאי.',
-                    'new-admin'                                        => 'שלח הודעת אימייל אישור למנהל לאחר הזמנה חדשה',
-                    'new-inventory-source'                             => 'שלח הודעת אימייל למקור המלאי לאחר יצירת משלוח',
-                    'new-invoice'                                      => 'שלח הודעת אימייל ללקוח לאחר יצירת חשבונית חדשה',
-                    'new-order'                                        => 'שלח הודעת אימייל אישור ללקוח לאחר הזמנה חדשה',
-                    'new-refund'                                       => 'שלח הודעת אימייל ללקוח לאחר יצירת החזר',
-                    'new-shipment'                                     => 'שלח הודעת אימייל ללקוח לאחר יצירת משלוח',
-                    'registration'                                     => 'שלח הודעת אימייל אישור לאחר הרשמת לקוח',
+                    'cancel-order'                                     => 'שלח התראה ללקוח לאחר ביטול הזמנה',
+                    'cancel-order-mail-to-admin'                       => 'שלח דוא"ל התראה למנהל לאחר ביטול הזמנה',
+                    'customer'                                         => 'שלח ללקוח פרטי חשבון לאחר הרשמה',
+                    'customer-registration-confirmation-mail-to-admin' => 'שלח דוא"ל אישור למנהל לאחר הרשמת לקוח',
+                    'info'                                             => 'כדי להגדיר קבלת מיילים לאימות חשבון, אישורי הזמנות, עדכונים על חשבוניות, החזרים, משלוחים וביטולי הזמנות.',
+                    'new-inventory-source'                             => 'שלח דוא"ל התראה למקור המלאי לאחר יצירת משלוח',
+                    'new-invoice'                                      => 'שלח דוא"ל התראה ללקוח לאחר יצירת חשבונית חדשה',
+                    'new-invoice-mail-to-admin'                        => 'שלח דוא"ל התראה למנהל לאחר יצירת חשבונית חדשה',
+                    'new-order'                                        => 'שלח דוא"ל אישור ללקוח לאחר ביצוע הזמנה חדשה',
+                    'new-order-mail-to-admin'                          => 'שלח דוא"ל אישור למנהל לאחר ביצוע הזמנה חדשה',
+                    'new-refund'                                       => 'שלח דוא"ל התראה ללקוח לאחר יצירת החזר',
+                    'new-refund-mail-to-admin'                         => 'שלח דוא"ל התראה למנהל לאחר יצירת החזר חדש',
+                    'new-shipment'                                     => 'שלח דוא"ל התראה ללקוח לאחר יצירת משלוח',
+                    'new-shipment-mail-to-admin'                       => 'שלח דוא"ל התראה למנהל לאחר יצירת משלוח חדש',
+                    'registration'                                     => 'שלח דוא"ל אישור לאחר הרשמת לקוח',
                     'title'                                            => 'התראות',
-                    'verification'                                     => 'שלח הודעת אימייל אימות לאחר הרשמת לקוח',
+                    'verification'                                     => 'שלח דוא"ל אימות לאחר הרשמת לקוח',
                 ],
             ],
 
@@ -3922,10 +4518,13 @@ return [
                     ],
 
                     'pdf-print-outs' => [
+                        'footer-text'      => 'טקסט תחתון',
+                        'footer-text-info' => 'הזן את הטקסט שיופיע בכותרת התחתונה של ה-PDF.',
                         'info'             => 'הגדרות הדפסת PDF להצגת מזהה חשבונית, מזהה הזמנה בכותרת וכלול את לוגו החשבונית.',
                         'invoice-id-info'  => 'הגדרת הצגת מזהה חשבונית בכותרת החשבונית.',
                         'invoice-id-title' => 'הצג מזהה חשבונית בכותרת',
                         'logo'             => 'לוגו',
+                        'logo-info'        => 'רזולוציית התמונה צריכה להיות 131px X 30px.',
                         'order-id-info'    => 'הגדרת הצגת מזהה הזמנה בכותרת החשבונית.',
                         'order-id-title'   => 'הצג מזהה הזמנה בכותרת',
                         'title'            => 'הדפסת PDF',
@@ -3997,7 +4596,7 @@ return [
 
                 'checkout' => [
                     'title' => 'תשלום',
-                    'info'  => 'הפעל או השבת את עגלת הקניות המינית, סיכום העגלה.',
+                    'info'  => ' הגדרת תשלום כאורח, הפעל או השבת עגלת הקניות המיני, סיכום עגלת הקניות.',
 
                     'shopping-cart' => [
                         'cart-page'              => 'דף עגלת הקניות',
@@ -4060,53 +4659,59 @@ return [
             ],
 
             'sidebar' => [
-                'attribute-families'       => 'משפחות מאפיינים',
-                'attributes'               => 'מאפיינים',
-                'campaigns'                => 'קמפיינים',
-                'catalog'                  => 'קטלוג',
-                'categories'               => 'קטגוריות',
-                'channels'                 => 'ערוצים',
-                'cms'                      => 'CMS',
-                'collapse'                 => 'כווץ',
-                'communications'           => 'תקשורת',
-                'configure'                => 'הגדר',
-                'currencies'               => 'מטבעות',
-                'customers'                => 'לקוחות',
-                'dashboard'                => 'לוח בקרה',
-                'data-transfer'            => 'העברת נתונים',
-                'discount'                 => 'הנחה',
-                'email-templates'          => 'תבניות דוא"ל',
-                'events'                   => 'אירועים',
-                'exchange-rates'           => 'שערי חליפין',
-                'groups'                   => 'קבוצות',
-                'imports'                  => 'יבוא',
-                'inventory-sources'        => 'מקורות מלאי',
-                'invoices'                 => 'חשבוניות',
-                'locales'                  => 'אזורים',
-                'marketing'                => 'שיווק',
-                'mode'                     => 'מצב כהה',
-                'newsletter-subscriptions' => 'מנויי יומן חדשות',
-                'orders'                   => 'הזמנות',
-                'products'                 => 'מוצרים',
-                'promotions'               => 'קידום מכירות',
-                'refunds'                  => 'החזרים',
-                'reporting'                => 'דיווח',
-                'reviews'                  => 'ביקורות',
-                'roles'                    => 'תפקידים',
-                'sales'                    => 'מכירות',
-                'search-seo'               => 'חיפוש וקידום אתרים',
-                'search-synonyms'          => 'מילים נרדפות לחיפוש',
-                'search-terms'             => 'מונחים לחיפוש',
-                'settings'                 => 'הגדרות',
-                'shipments'                => 'משלוחים',
-                'sitemaps'                 => 'מפותרכים',
-                'tax-categories'           => 'קטגוריות מס',
-                'tax-rates'                => 'שערי מס',
-                'taxes'                    => 'מיסים',
-                'themes'                   => 'נושאים',
-                'transactions'             => 'עסקאות',
-                'url-rewrites'             => 'כתיבת URL מחדש',
-                'users'                    => 'משתמשים',
+                'attribute-families'        => 'משפחות מאפיינים',
+                'attributes'                => 'מאפיינים',
+                'booking-product'           => 'הזמנות',
+                'campaigns'                 => 'קמפיינים',
+                'catalog'                   => 'קטלוג',
+                'categories'                => 'קטגוריות',
+                'channels'                  => 'ערוצים',
+                'cms'                       => 'CMS',
+                'collapse'                  => 'כווץ',
+                'communications'            => 'תקשורת',
+                'configure'                 => 'הגדר',
+                'currencies'                => 'מטבעות',
+                'customers'                 => 'לקוחות',
+                'dashboard'                 => 'לוח בקרה',
+                'data-transfer'             => 'העברת נתונים',
+                'discount'                  => 'הנחה',
+                'email-templates'           => 'תבניות דוא"ל',
+                'events'                    => 'אירועים',
+                'exchange-rates'            => 'שערי חליפין',
+                'gdpr-data-requests'        => 'בקשות נתוני GDPR',
+                'groups'                    => 'קבוצות',
+                'imports'                   => 'יבוא',
+                'inventory-sources'         => 'מקורות מלאי',
+                'invoices'                  => 'חשבוניות',
+                'locales'                   => 'אזורים',
+                'marketing'                 => 'שיווק',
+                'mode'                      => 'מצב כהה',
+                'newsletter-subscriptions'  => 'מנויי יומן חדשות',
+                'orders'                    => 'הזמנות',
+                'products'                  => 'מוצרים',
+                'promotions'                => 'קידום מכירות',
+                'refunds'                   => 'החזרים',
+                'reporting'                 => 'דיווח',
+                'reviews'                   => 'ביקורות',
+                'roles'                     => 'תפקידים',
+                'sales'                     => 'מכירות',
+                'search-seo'                => 'חיפוש וקידום אתרים',
+                'search-synonyms'           => 'מילים נרדפות לחיפוש',
+                'search-terms'              => 'מונחים לחיפוש',
+                'settings'                  => 'הגדרות',
+                'shipments'                 => 'משלוחים',
+                'sitemaps'                  => 'מפות אתר',
+                'tax-categories'            => 'קטגוריות מס',
+                'tax-rates'                 => 'שערי מס',
+                'taxes'                     => 'מיסים',
+                'themes'                    => 'נושאים',
+                'transactions'              => 'עסקאות',
+                'url-rewrites'              => 'כתיבת URL מחדש',
+                'users'                     => 'משתמשים',
+            ],
+
+            'powered-by' => [
+                'description' => 'מופעל על ידי :bagisto, פרויקט קוד פתוח על ידי :webkul.',
             ],
         ],
 
@@ -4265,26 +4870,47 @@ return [
             'ai-btn-tile' => 'אומץ המגן',
 
             'ai-generation' => [
-                'apply'                  => 'הגיש בקשה',
-                'generate'               => 'ליצור',
-                'generated-content'      => 'תוכן שנוצר',
-                'generated-content-info' => 'תוכן הבינה מלאכותית יכול להיות מטעה. אנא בדוק את התוכן שנוצר לפני שתפעיל אותו.',
-                'generating'             => 'יוצר...',
-                'prompt'                 => 'הזמנה',
-                'title'                  => 'עזרה של אומץ בבינה מלאכותית',
-                'model'                  => 'דגם',
-                'gpt-3-5-turbo'          => 'OpenAI GPT-3.5 טורבו',
-                'llama2'                 => 'למה 2',
-                'mistral'                => 'מיסטרל',
-                'dolphin-phi'            => 'דולפין פי',
-                'phi'                    => 'פי-2',
-                'starling-lm'            => 'סטארלינג',
-                'llama2-uncensored'      => 'למה 2 לא צנוע',
-                'llama2:13b'             => 'למה 2 13B',
-                'llama2:70b'             => 'למה 2 70B',
-                'orca-mini'              => 'אורקה מיני',
-                'vicuna'                 => 'ויקונה',
-                'llava'                  => 'LLaVA',
+                'apply'                    => 'החל',
+                'deepseek-r1-8b'           => 'DeepSeek R1 (8b)',
+                'enabled'                  => 'מופעל',
+                'gemini-2-0-flash'         => 'Gemini 2.0 Flash',
+                'generate'                 => 'יצירה',
+                'generated-content'        => 'תוכן שנוצר',
+                'generated-content-info'   => 'תוכן שנוצר על ידי AI יכול להיות מטעה. אנא בדוק את התוכן שנוצר לפני החלתו.',
+                'generating'               => 'יוצר...',
+                'gpt-4-turbo'              => 'OpenAI gpt-4 Turbo',
+                'gpt-4o'                   => 'OpenAI gpt-4o',
+                'gpt-4o-mini'              => 'OpenAI gpt-4o mini',
+                'llama-groq'               => 'Llama 3.3 (Groq)',
+                'llama3-1-8b'              => 'Llama 3.1 (8B)',
+                'llama3-2-1b'              => 'Llama 3.2 (1B)',
+                'llama3-2-3b'              => 'Llama 3.2 (3B)',
+                'llama3-8b'                => 'Llama 3 (8B)',
+                'llava-7b'                 => 'Llava (7b)',
+                'mistral-7b'               => 'Mistral (7b)',
+                'model'                    => 'מודל',
+                'orca-mini'                => 'Orca Mini',
+                'phi3-5'                   => 'Phi 3.5',
+                'prompt'                   => 'פרומט',
+                'qwen2-5-0-5b'             => 'Qwen 2.5 (0.5b)',
+                'qwen2-5-1-5b'             => 'Qwen 2.5 (1.5b)',
+                'qwen2-5-14b'              => 'Qwen 2.5 (14b)',
+                'qwen2-5-3b'               => 'Qwen 2.5 (3b)',
+                'qwen2-5-7b'               => 'Qwen 2.5 (7b)',
+                'starling-lm-7b'           => 'Starling-lm (7b)',
+                'title'                    => 'סיוע AI',
+                'vicuna-13b'               => 'Vicuna (13b)',
+                'vicuna-7b'                => 'Vicuna (7b)',
+            ],
+
+            'errors' => [
+                'file-extension-mismatch'        => 'סיומת הקובץ אינה תואמת לסוג הקובץ.',
+                'file-upload-failed'             => 'העלאת הקובץ נכשלה.',
+                'http-error'                     => 'שגיאת HTTP.',
+                'invalid-file-type'              => 'סוג קובץ לא חוקי. סוגים מותרים: JPEG, PNG, GIF, WebP, SVG',
+                'invalid-json'                   => 'JSON לא חוקי.',
+                'no-file-uploaded'               => 'לא הועלה קובץ.',
+                'upload-failed'                  => 'העלאת התמונה נכשלה עקב שגיאת העברת XHR.',
             ],
         ],
     ],
@@ -4314,6 +4940,7 @@ return [
         'email-templates'          => 'תבניות אימייל',
         'events'                   => 'אירועים',
         'exchange-rates'           => 'שערי חליפין',
+        'gdpr'                     => 'GDPR',
         'groups'                   => 'קבוצות',
         'import'                   => 'יְבוּא',
         'imports'                  => 'יבוא',
@@ -4415,6 +5042,28 @@ return [
                 'description' => 'חשבון לקוח חדש נוצר בהצלחה. כעת הם יכולים להיכנס באמצעות כתובת הדוא"ל והסיסמה שלהם. לאחר הכניסה, תהיה להם גישה לשירותים שונים, כולל היכולת לסקור הזמנות קודמות, לנהל רשימות משאלות ולעדכן את פרטי החשבון שלהם.',
                 'greeting'    => 'אנו מקבלים בברכה את הלקוח החדש, :customer_name שזה עתה נרשם אלינו!',
                 'subject'     => 'רישום לקוח חדש',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => 'בקשה חדשה למחיקת נתונים',
+                'new-update-request' => 'בקשה חדשה לעדכון נתונים',
+
+                'new-request' => [
+                    'customer-name'  => 'שם הלקוח : ',
+                    'delete-summary' => 'סיכום בקשת המחיקה',
+                    'message'        => 'הודעה : ',
+                    'request-status' => 'סטטוס הבקשה : ',
+                    'request-type'   => 'סוג הבקשה : ',
+                    'update-summary' => 'סיכום בקשת העדכון',
+                ],
+
+                'status-update' => [
+                    'subject'        => 'בקשת ה-GDPR עודכנה',
+                    'summary'        => 'סטטוס בקשת ה-GDPR עודכן',
+                    'request-status' => 'סטטוס הבקשה:',
+                    'request-type'   => 'סוג הבקשה:',
+                    'message'        => 'הודעה:',
+                ],
             ],
         ],
 

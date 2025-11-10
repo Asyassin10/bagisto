@@ -1,16 +1,21 @@
 @props([
-    'name' => 'images',
-    'allowMultiple' => false,
+    'name'             => 'images',
+    'allowMultiple'    => false,
     'showPlaceholders' => false,
-    'uploadedImages' => [],
-    'width' => '120px',
-    'height' => '120px',
+    'uploadedImages'   => [],
+    'width'            => '120px',
+    'height'           => '120px'
 ])
 
-<v-media-images name="{{ $name }}" v-bind:allow-multiple="{{ $allowMultiple ? 'true' : 'false' }}"
+<v-media-images
+    name="{{ $name }}"
+    v-bind:allow-multiple="{{ $allowMultiple ? 'true' : 'false' }}"
     v-bind:show-placeholders="{{ $showPlaceholders ? 'true' : 'false' }}"
-    :uploaded-images='{{ json_encode($uploadedImages) }}' width="{{ $width }}" height="{{ $height }}"
-    :errors="errors">
+    :uploaded-images='{{ json_encode($uploadedImages) }}'
+    width="{{ $width }}"
+    height="{{ $height }}"
+    :errors="errors"
+>
     <x-admin::shimmer.image class="h-[110px] w-[110px] rounded" />
 </v-media-images>
 
@@ -36,7 +41,7 @@
 
                             <p class="grid text-center text-sm font-semibold text-blue-600">
                                 @lang('admin::app.components.media.images.ai-add-image-btn')
-
+                                
                                 <span class="text-xs">
                                     @lang('admin::app.components.media.images.ai-btn-info')
                                 </span>
@@ -56,7 +61,7 @@
 
                             <p class="grid text-center text-sm font-semibold text-gray-600 dark:text-gray-300">
                                 @lang('admin::app.components.media.images.add-image-btn')
-
+                                
                                 <span class="text-xs">
                                     @lang('admin::app.components.media.images.allowed-types')
                                 </span>
@@ -111,233 +116,236 @@
                     </div>
                 </template>
 
-                <x-admin::form
-                    v-slot="{ meta, errors, handleSubmit }"
-                    as="div"
-                >
-                    <form @submit="handleSubmit($event, generate)">
-                        <!-- AI Content Generation Modal -->
-                        <x-admin::modal ref="magicAIImageModal">
-                            <!-- Modal Header -->
-                            <x-slot:header>
-                                <template v-if="! ai.images.length">
-                                    <p class="flex items-center gap-2.5 text-lg font-bold text-gray-800 dark:text-white">
-                                        <span class="icon-magic text-2xl text-gray-800"></span>
-
-                                        @lang('admin::app.components.media.images.ai-generation.title')
-                                    </p>
-                                </template>
-
-                                <template v-else>
-                                    <p class="truncate text-lg font-bold text-gray-800 dark:text-white">
-                                        <span
-                                            class="icon-arrow-right mr-1 cursor-pointer align-middle text-2xl hover:rounded-md hover:bg-gray-100 dark:hover:bg-gray-950"
-                                            @click="ai.images = []"
-                                        ></span>
-
-                                        <span class="align-middle">
-                                            @{{ ai.prompt }}
-                                        </span>
-                                    </p>
-                                </template>
-                            </x-slot>
-
-                            <!-- Modal Content -->
-                            <x-slot:content>
-                                <div v-show="! ai.images.length">
-                                    <!-- Prompt -->
-                                    <x-admin::form.control-group>
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.components.media.images.ai-generation.prompt')
-                                        </x-admin::form.control-group.label>
-
-                                        <x-admin::form.control-group.control
-                                            type="textarea"
-                                            name="prompt"
-                                            rules="required"
-                                            v-model="ai.prompt"
-                                            :label="trans('admin::app.components.media.images.ai-generation.prompt')"
-                                        />
-
-                                        <x-admin::form.control-group.error control-name="prompt" />
-                                    </x-admin::form.control-group>
-
-                                    <x-admin::form.control-group>
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.components.media.images.ai-generation.model')
-                                        </x-admin::form.control-group.label>
-
-                                        <x-admin::form.control-group.control
-                                            type="select"
-                                            name="model"
-                                            rules="required"
-                                            v-model="ai.model"
-                                            :label="trans('admin::app.components.media.images.ai-generation.model')"
-                                        >
-                                            <option value="dall-e-2">
-                                                @lang('admin::app.components.media.images.ai-generation.dall-e-2')
-                                            </option>
-
-                                            <option value="dall-e-3">
-                                                @lang('admin::app.components.media.images.ai-generation.dall-e-3')
-                                            </option>
-                                        </x-admin::form.control-group.control>
-
-                                        <x-admin::form.control-group.error control-name="model" />
-                                    </x-admin::form.control-group>
-
-                                    <x-admin::form.control-group v-if="ai.model == 'dall-e-2'">
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.components.media.images.ai-generation.number-of-images')
-                                        </x-admin::form.control-group.label>
-
-                                        <x-admin::form.control-group.control
-                                            type="text"
-                                            name="n"
-                                            rules="required"
-                                            v-model="ai.n"
-                                            :label="trans('admin::app.components.media.images.ai-generation.number-of-images')"
-                                        />
-
-                                        <x-admin::form.control-group.error control-name="n" />
-                                    </x-admin::form.control-group>
-
-                                    <x-admin::form.control-group>
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.components.media.images.ai-generation.size')
-                                        </x-admin::form.control-group.label>
-
-                                        <x-admin::form.control-group.control
-                                            type="select"
-                                            name="size"
-                                            rules="required"
-                                            v-model="ai.size"
-                                            :label="trans('admin::app.components.media.images.ai-generation.size')"
-                                        >
-                                            <option value="1024x1024">
-                                                @lang('admin::app.components.media.images.ai-generation.1024x1024')
-                                            </option>
-
-                                            <option value="1024x1792">
-                                                @lang('admin::app.components.media.images.ai-generation.1024x1792')
-                                            </option>
-
-                                            <option value="1792x1024">
-                                                @lang('admin::app.components.media.images.ai-generation.1792x1024')
-                                            </option>
-                                        </x-admin::form.control-group.control>
-
-                                        <x-admin::form.control-group.error control-name="size" />
-                                    </x-admin::form.control-group>
-
-                                    <x-admin::form.control-group v-if="ai.model == 'dall-e-3'">
-                                        <x-admin::form.control-group.label class="required">
-                                            @lang('admin::app.components.media.images.ai-generation.quality')
-                                        </x-admin::form.control-group.label>
-
-                                        <x-admin::form.control-group.control
-                                            type="select"
-                                            name="quality"
-                                            rules="required"
-                                            v-model="ai.quality"
-                                            :label="trans('admin::app.components.media.images.ai-generation.quality')"
-                                        >
-                                            <option value="standard">
-                                                @lang('admin::app.components.media.images.ai-generation.standard')
-                                            </option>
-
-                                            <option value="hd">
-                                                @lang('admin::app.components.media.images.ai-generation.hd')
-                                            </option>
-                                        </x-admin::form.control-group.control>
-
-                                        <x-admin::form.control-group.error control-name="quality" />
-                                    </x-admin::form.control-group>
-                                </div>
-
-                                <div v-show="ai.images.length">
-                                    <div class="grid grid-cols-4 gap-5">
-                                        <div
-                                            class="relative grid max-h-[120px] min-w-[120px] cursor-pointer justify-items-center overflow-hidden rounded border-[3px] border-transparent transition-all hover:opacity-80"
-                                            :class="{'!border-blue-600': image.selected}"
-                                            v-for="image in ai.images"
-                                            @click="image.selected = ! image.selected"
-                                        >
-                                            <!-- Image Preview -->
-                                            <img
-                                                class="h-[120px] w-[120px]"
-                                                :src="image.url"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </x-slot>
-
-                            <!-- Modal Footer -->
-                            <x-slot:footer>
-                                <div class="flex items-center gap-x-2.5">
+                <!-- Use Teleport to move the modal to the body. -->
+                <Teleport to="body">
+                    <x-admin::form
+                        v-slot="{ meta, errors, handleSubmit }"
+                        as="div"
+                    >
+                        <form @submit="handleSubmit($event, generate)">
+                            <!-- AI Content Generation Modal -->
+                            <x-admin::modal
+                                ref="magicAIImageModal"
+                                class="[&>*]:z-[10007]"
+                            >
+                                <!-- Modal Header -->
+                                <x-slot:header>
                                     <template v-if="! ai.images.length">
-                                        <button class="secondary-button">
-                                            <!-- Spinner -->
-                                            <template v-if="isLoading">
-                                                <img
-                                                    class="h-5 w-5 animate-spin"
-                                                    src="{{ bagisto_asset('images/spinner.svg') }}"
-                                                />
+                                        <p class="flex items-center gap-2.5 text-lg font-bold text-gray-800 dark:text-white">
+                                            <span class="icon-magic text-2xl text-gray-800"></span>
 
-                                                @lang('admin::app.components.media.images.ai-generation.generating')
-                                            </template>
-
-                                            <template v-else>
-                                                <span class="icon-magic text-blue-600"></span>
-
-                                                @lang('admin::app.components.media.images.ai-generation.generate')
-                                            </template>
-                                        </button>
+                                            @lang('admin::app.components.media.images.ai-generation.title')
+                                        </p>
                                     </template>
 
                                     <template v-else>
-                                        <button class="secondary-button">
-                                            <!-- Spinner -->
-                                            <template v-if="isLoading">
-                                                <img
-                                                    class="h-5 w-5 animate-spin"
-                                                    src="{{ bagisto_asset('images/spinner.svg') }}"
-                                                />
+                                        <p class="truncate text-lg font-bold text-gray-800 dark:text-white">
+                                            <span
+                                                class="icon-arrow-right mr-1 cursor-pointer align-middle text-2xl hover:rounded-md hover:bg-gray-100 dark:hover:bg-gray-950"
+                                                @click="ai.images = []"
+                                            ></span>
 
-                                                @lang('admin::app.components.media.images.ai-generation.regenerating')
-                                            </template>
-
-                                            <template v-else>
-                                                <span class="icon-magic text-2xl text-blue-600"></span>
-
-                                                @lang('admin::app.components.media.images.ai-generation.regenerate')
-                                            </template>
-                                        </button>
-
-                                        <button
-                                            type="button"
-                                            class="primary-button"
-                                            :disabled="! selectedAIImages.length"
-                                            @click="apply"
-                                        >
-                                            @lang('admin::app.components.media.images.ai-generation.apply')
-                                        </button>
+                                            <span class="align-middle">
+                                                @{{ ai.prompt }}
+                                            </span>
+                                        </p>
                                     </template>
-                                </div>
-                            </x-slot>
-                        </x-admin::modal>
-                    </form>
-                </x-admin::form>
+                                </x-slot>
+
+                                <!-- Modal Content -->
+                                <x-slot:content>
+                                    <div v-show="! ai.images.length">
+                                        <!-- Prompt -->
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.components.media.images.ai-generation.prompt')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="textarea"
+                                                name="prompt"
+                                                rules="required"
+                                                v-model="ai.prompt"
+                                                :label="trans('admin::app.components.media.images.ai-generation.prompt')"
+                                            />
+
+                                            <x-admin::form.control-group.error control-name="prompt" />
+                                        </x-admin::form.control-group>
+
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.components.media.images.ai-generation.model')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="select"
+                                                name="model"
+                                                rules="required"
+                                                v-model="ai.model"
+                                                :label="trans('admin::app.components.media.images.ai-generation.model')"
+                                            >
+                                                <option value="dall-e-2">
+                                                    @lang('admin::app.components.media.images.ai-generation.dall-e-2')
+                                                </option>
+
+                                                <option value="dall-e-3">
+                                                    @lang('admin::app.components.media.images.ai-generation.dall-e-3')
+                                                </option>
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error control-name="model" />
+                                        </x-admin::form.control-group>
+
+                                        <x-admin::form.control-group v-if="ai.model == 'dall-e-2'">
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.components.media.images.ai-generation.number-of-images')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="text"
+                                                name="n"
+                                                rules="required"
+                                                v-model="ai.n"
+                                                :label="trans('admin::app.components.media.images.ai-generation.number-of-images')"
+                                            />
+
+                                            <x-admin::form.control-group.error control-name="n" />
+                                        </x-admin::form.control-group>
+
+                                        <x-admin::form.control-group>
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.components.media.images.ai-generation.size')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="select"
+                                                name="size"
+                                                rules="required"
+                                                v-model="ai.size"
+                                                :label="trans('admin::app.components.media.images.ai-generation.size')"
+                                            >
+                                                <option value="1024x1024">
+                                                    @lang('admin::app.components.media.images.ai-generation.1024x1024')
+                                                </option>
+
+                                                <option value="1024x1792">
+                                                    @lang('admin::app.components.media.images.ai-generation.1024x1792')
+                                                </option>
+
+                                                <option value="1792x1024">
+                                                    @lang('admin::app.components.media.images.ai-generation.1792x1024')
+                                                </option>
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error control-name="size" />
+                                        </x-admin::form.control-group>
+
+                                        <x-admin::form.control-group v-if="ai.model == 'dall-e-3'">
+                                            <x-admin::form.control-group.label class="required">
+                                                @lang('admin::app.components.media.images.ai-generation.quality')
+                                            </x-admin::form.control-group.label>
+
+                                            <x-admin::form.control-group.control
+                                                type="select"
+                                                name="quality"
+                                                rules="required"
+                                                v-model="ai.quality"
+                                                :label="trans('admin::app.components.media.images.ai-generation.quality')"
+                                            >
+                                                <option value="standard">
+                                                    @lang('admin::app.components.media.images.ai-generation.standard')
+                                                </option>
+
+                                                <option value="hd">
+                                                    @lang('admin::app.components.media.images.ai-generation.hd')
+                                                </option>
+                                            </x-admin::form.control-group.control>
+
+                                            <x-admin::form.control-group.error control-name="quality" />
+                                        </x-admin::form.control-group>
+                                    </div>
+
+                                    <div v-show="ai.images.length">
+                                        <div class="grid grid-cols-4 gap-5">
+                                            <div
+                                                class="relative grid max-h-[120px] min-w-[120px] cursor-pointer justify-items-center overflow-hidden rounded border-[3px] border-transparent transition-all hover:opacity-80"
+                                                :class="{'!border-blue-600': image.selected}"
+                                                v-for="image in ai.images"
+                                                @click="image.selected = ! image.selected"
+                                            >
+                                                <!-- Image Preview -->
+                                                <img
+                                                    class="h-[120px] w-[120px]"
+                                                    :src="image.url"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </x-slot>
+
+                                <!-- Modal Footer -->
+                                <x-slot:footer>
+                                    <div class="flex items-center gap-x-2.5">
+                                        <template v-if="! ai.images.length">
+                                            <button class="secondary-button">
+                                                <!-- Spinner -->
+                                                <template v-if="isLoading">
+                                                    <img
+                                                        class="h-5 w-5 animate-spin"
+                                                        src="{{ bagisto_asset('images/spinner.svg') }}"
+                                                    />
+
+                                                    @lang('admin::app.components.media.images.ai-generation.generating')
+                                                </template>
+
+                                                <template v-else>
+                                                    <span class="icon-magic text-blue-600"></span>
+                                                    
+                                                    @lang('admin::app.components.media.images.ai-generation.generate')
+                                                </template>
+                                            </button>
+                                        </template>
+
+                                        <template v-else>
+                                            <button class="secondary-button">
+                                                <!-- Spinner -->
+                                                <template v-if="isLoading">
+                                                    <img
+                                                        class="h-5 w-5 animate-spin"
+                                                        src="{{ bagisto_asset('images/spinner.svg') }}"
+                                                    />
+
+                                                    @lang('admin::app.components.media.images.ai-generation.regenerating')
+                                                </template>
+
+                                                <template v-else>
+                                                    <span class="icon-magic text-2xl text-blue-600"></span>
+                                                    
+                                                    @lang('admin::app.components.media.images.ai-generation.regenerate')
+                                                </template>
+                                            </button>
+
+                                            <x-admin::button
+                                                button-type="button"
+                                                class="primary-button"
+                                                :title="trans('admin::app.components.media.images.ai-generation.apply')"
+                                                ::disabled="! selectedAIImages.length"
+                                                @click="apply"
+                                            />
+                                        </template>
+                                    </div>
+                                </x-slot>
+                            </x-admin::modal>
+                        </form>
+                    </x-admin::form>
+                </Teleport>
             </div>
-        </div>
+        </div>  
     </script>
 
     <script type="text/x-template" id="v-media-image-item-template">
-
         <div class="group relative grid max-h-[120px] min-w-[120px] justify-items-center overflow-hidden rounded transition-all hover:border-gray-400">
             <!-- Image Preview -->
-
             <img
                 :src="image.url"
                 :style="{'width': this.width, 'height': this.height}"
@@ -385,7 +393,7 @@
 
             props: {
                 name: {
-                    type: String,
+                    type: String, 
                     default: 'images',
                 },
 
@@ -424,32 +432,32 @@
                 return {
                     images: [],
 
-                    placeholders: [{
-                        label: "@lang('admin::app.components.media.images.placeholders.front')",
-                        image: "{{ bagisto_asset('images/product-placeholders/front.svg') }}"
-                    }, {
-                        label: "@lang('admin::app.components.media.images.placeholders.next')",
-                        image: "{{ bagisto_asset('images/product-placeholders/next-1.svg') }}"
-                    }, {
-                        label: "@lang('admin::app.components.media.images.placeholders.next')",
-                        image: "{{ bagisto_asset('images/product-placeholders/next-2.svg') }}"
-                    }, {
-                        label: "@lang('admin::app.components.media.images.placeholders.zoom')",
-                        image: "{{ bagisto_asset('images/product-placeholders/zoom.svg') }}"
-                    }, {
-                        label: "@lang('admin::app.components.media.images.placeholders.use-cases')",
-                        image: "{{ bagisto_asset('images/product-placeholders/use-cases.svg') }}"
-                    }, {
-                        label: "@lang('admin::app.components.media.images.placeholders.size')",
-                        image: "{{ bagisto_asset('images/product-placeholders/size.svg') }}"
-                    }],
+                    placeholders: [
+                        {
+                            label: "@lang('admin::app.components.media.images.placeholders.front')",
+                            image: "{{ bagisto_asset('images/product-placeholders/front.svg') }}"
+                        }, {
+                            label: "@lang('admin::app.components.media.images.placeholders.next')",
+                            image: "{{ bagisto_asset('images/product-placeholders/next-1.svg') }}"
+                        }, {
+                            label: "@lang('admin::app.components.media.images.placeholders.next')",
+                            image: "{{ bagisto_asset('images/product-placeholders/next-2.svg') }}"
+                        }, {
+                            label: "@lang('admin::app.components.media.images.placeholders.zoom')",
+                            image: "{{ bagisto_asset('images/product-placeholders/zoom.svg') }}"
+                        }, {
+                            label: "@lang('admin::app.components.media.images.placeholders.use-cases')",
+                            image: "{{ bagisto_asset('images/product-placeholders/use-cases.svg') }}"
+                        }, {
+                            label: "@lang('admin::app.components.media.images.placeholders.size')",
+                            image: "{{ bagisto_asset('images/product-placeholders/size.svg') }}"
+                        }
+                    ],
 
                     isLoading: false,
 
                     ai: {
-                        enabled: Boolean(
-                            "{{ core()->getConfigData('general.magic_ai.settings.enabled') && core()->getConfigData('general.magic_ai.image_generation.enabled') }}"
-                        ),
+                        enabled: Boolean("{{ core()->getConfigData('general.magic_ai.settings.enabled') && core()->getConfigData('general.magic_ai.image_generation.enabled') }}"),
 
                         prompt: null,
 
@@ -473,11 +481,7 @@
             },
 
             mounted() {
-                const arr = this.uploadedImages;
-                for (let i = 0; i < arr.length; i++) {
-                    arr[i].url = arr[i].url.replace("storage", "cache/small");
-                }
-                this.images = arr;
+                this.images = this.uploadedImages;
             },
 
             methods: {
@@ -490,7 +494,7 @@
 
                     const validFiles = Array.from(imageInput.files).every(file => file.type.includes('image/'));
 
-                    if (!validFiles) {
+                    if (! validFiles) {
                         this.$emitter.emit('add-flash', {
                             type: 'warning',
                             message: "@lang('admin::app.components.media.images.not-allowed-error')"
@@ -514,9 +518,7 @@
                     this.images.splice(index, 1);
                 },
 
-                generate(params, {
-                    setErrors
-                }) {
+                generate(params, { setErrors }) {
                     this.isLoading = true;
 
                     let self = this;
@@ -533,10 +535,7 @@
                             if (error.response.status == 422) {
                                 setErrors(error.response.data.errors);
                             } else {
-                                this.$emitter.emit('add-flash', {
-                                    type: 'error',
-                                    message: error.response.data.message
-                                });
+                                this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
                             }
                         });
                 },
@@ -556,24 +555,20 @@
                 getBase64ToFile(base64, filename) {
                     var arr = base64.split(','),
                         mime = arr[0].match(/:(.*?);/)[1],
-                        bstr = atob(arr[arr.length - 1]),
-                        n = bstr.length,
+                        bstr = atob(arr[arr.length - 1]), 
+                        n = bstr.length, 
                         u8arr = new Uint8Array(n);
 
                     while (n--) {
                         u8arr[n] = bstr.charCodeAt(n);
                     }
 
-                    return new File([u8arr], filename, {
-                        type: mime
-                    });
+                    return new File([u8arr], filename, {type:mime});
                 },
 
                 resetAIModal() {
                     this.ai = {
-                        enabled: Boolean(
-                            "{{ core()->getConfigData('general.magic_ai.settings.enabled') && core()->getConfigData('general.magic_ai.image_generation.enabled') }}"
-                        ),
+                        enabled: Boolean("{{ core()->getConfigData('general.magic_ai.settings.enabled') && core()->getConfigData('general.magic_ai.image_generation.enabled') }}"),
 
                         prompt: null,
 
@@ -614,7 +609,7 @@
 
                     const validFiles = Array.from(imageInput.files).every(file => file.type.includes('image/'));
 
-                    if (!validFiles) {
+                    if (! validFiles) {
                         this.$emitter.emit('add-flash', {
                             type: 'warning',
                             message: "@lang('admin::app.components.media.images.not-allowed-error')"

@@ -33,6 +33,7 @@ return array(
     'Webkul\\MagicAI\\' => array($baseDir . '/packages/Webkul/MagicAI/src'),
     'Webkul\\Inventory\\' => array($baseDir . '/packages/Webkul/Inventory/src'),
     'Webkul\\Installer\\' => array($baseDir . '/packages/Webkul/Installer/src'),
+    'Webkul\\GSN\\' => array($baseDir . '/packages/Webkul/GSN/src'),
     'Webkul\\Faker\\' => array($vendorDir . '/bagisto/laravel-datafaker/src'),
     'Webkul\\FPC\\' => array($baseDir . '/packages/Webkul/FPC/src'),
     'Webkul\\DebugBar\\' => array($baseDir . '/packages/Webkul/DebugBar/src'),

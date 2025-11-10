@@ -14,9 +14,9 @@ class OrderDataGrid extends DataGrid
      *
      * @return void
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
-        $getDbPrefix = DB::getTablePrefix();
+        $tablePrefix = DB::getTablePrefix();
 
         $queryBuilder = DB::table('orders')
             ->leftJoin('addresses as order_address_billing', function ($leftJoin) {
@@ -34,12 +34,12 @@ class OrderDataGrid extends DataGrid
                 'status',
                 'order_address_billing.email as customer_email',
                 'orders.cart_id as image',
-                DB::raw('CONCAT(' . $getDbPrefix . 'order_address_billing.first_name, " ", ' . $getDbPrefix . 'order_address_billing.last_name) as full_name'),
-                DB::raw('CONCAT(' . $getDbPrefix . 'order_address_billing.address, ", ", ' . $getDbPrefix . 'order_address_billing.city,", ", ' . $getDbPrefix . 'order_address_billing.state, ", ", ' . $getDbPrefix . 'order_address_billing.country) as location')
+                DB::raw('CONCAT('.$tablePrefix.'order_address_billing.first_name, " ", '.$tablePrefix.'order_address_billing.last_name) as full_name'),
+                DB::raw('CONCAT('.$tablePrefix.'order_address_billing.address, ", ", '.$tablePrefix.'order_address_billing.city,", ", '.$tablePrefix.'order_address_billing.state, ", ", '.$tablePrefix.'order_address_billing.country) as location')
             )
             ->where('orders.customer_id', request()->route('id'));
 
-        $this->addFilter('full_name', DB::raw('CONCAT(' . DB::getTablePrefix() . 'orders.customer_first_name, " ", ' . DB::getTablePrefix() . 'orders.customer_last_name)'));
+        $this->addFilter('full_name', DB::raw('CONCAT('.$tablePrefix.'orders.customer_first_name, " ", '.$tablePrefix.'orders.customer_last_name)'));
         $this->addFilter('created_at', 'orders.created_at');
 
         return $queryBuilder;
@@ -102,25 +102,25 @@ class OrderDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case Order::STATUS_PROCESSING:
-                        return '<p class="label-processing">' . trans('admin::app.customers.customers.view.datagrid.orders.processing') . '</p>';
+                        return '<p class="label-processing">'.trans('admin::app.customers.customers.view.datagrid.orders.processing').'</p>';
 
                     case Order::STATUS_COMPLETED:
-                        return '<p class="label-active">' . trans('admin::app.customers.customers.view.datagrid.orders.completed') . '</p>';
+                        return '<p class="label-active">'.trans('admin::app.customers.customers.view.datagrid.orders.completed').'</p>';
 
                     case Order::STATUS_CANCELED:
-                        return '<p class="label-canceled">' . trans('admin::app.customers.customers.view.datagrid.orders.canceled') . '</p>';
+                        return '<p class="label-canceled">'.trans('admin::app.customers.customers.view.datagrid.orders.canceled').'</p>';
 
                     case Order::STATUS_CLOSED:
-                        return '<p class="label-closed">' . trans('admin::app.customers.customers.view.datagrid.orders.closed') . '</p>';
+                        return '<p class="label-closed">'.trans('admin::app.customers.customers.view.datagrid.orders.closed').'</p>';
 
                     case Order::STATUS_PENDING:
-                        return '<p class="label-pending">' . trans('admin::app.customers.customers.view.datagrid.orders.pending') . '</p>';
+                        return '<p class="label-pending">'.trans('admin::app.customers.customers.view.datagrid.orders.pending').'</p>';
 
                     case Order::STATUS_PENDING_PAYMENT:
-                        return '<p class="label-pending">' . trans('admin::app.customers.customers.view.datagrid.orders.pending-payment') . '</p>';
+                        return '<p class="label-pending">'.trans('admin::app.customers.customers.view.datagrid.orders.pending-payment').'</p>';
 
                     case Order::STATUS_FRAUD:
-                        return '<p class="label-canceled">' . trans('admin::app.customers.customers.view.datagrid.orders.fraud') . '</p>';
+                        return '<p class="label-canceled">'.trans('admin::app.customers.customers.view.datagrid.orders.fraud').'</p>';
                 }
             },
         ]);
@@ -138,7 +138,7 @@ class OrderDataGrid extends DataGrid
             'label'      => trans('admin::app.customers.customers.view.datagrid.orders.pay-via'),
             'type'       => 'string',
             'closure'    => function ($row) {
-                return core()->getConfigData('sales.payment_methods.' . $row->method . '.title');
+                return core()->getConfigData('sales.payment_methods.'.$row->method.'.title');
             },
         ]);
 
@@ -150,7 +150,7 @@ class OrderDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => core()->getAllChannels()
-                ->map(fn($channel) => ['label' => $channel->name, 'value' => $channel->id])
+                ->map(fn ($channel) => ['label' => $channel->name, 'value' => $channel->id])
                 ->values()
                 ->toArray(),
             'sortable'           => true,

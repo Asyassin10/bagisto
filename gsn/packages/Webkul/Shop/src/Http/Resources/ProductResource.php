@@ -26,7 +26,6 @@ class ProductResource extends JsonResource
      * @param  \Illuminate\Http\Request
      * @return array
      */
-
     public function toArray($request)
     {
         $productTypeInstance = $this->getTypeInstance();
@@ -36,10 +35,7 @@ class ProductResource extends JsonResource
             'sku'         => $this->sku,
             'name'        => $this->name,
             'description' => $this->description,
-            'societe' => $this->societe,
-            'short_description' => $this->short_description,
-            'is_congrate_partner'=>$this->is_congrate_partner,
-            'url_key'     =>  $this->url_key,
+            'url_key'     => $this->url_key,
             'base_image'  => product_image()->getProductBaseImage($this),
             'images'      => product_image()->getGalleryImages($this),
             'is_new'      => (bool) $this->new,

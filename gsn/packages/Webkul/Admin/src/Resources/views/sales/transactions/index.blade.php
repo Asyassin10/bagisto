@@ -138,12 +138,8 @@
 
                     <!-- Drawer Content -->
                     <x-slot:content>
-                        <div class="flex flex-col gap-4 px-1.5 py-2.5">
-                            <p class="text-lg font-semibold text-gray-600 dark:text-gray-300">
-                                @lang('admin::app.sales.transactions.index.view.transaction-data')
-                            </p>
-
-                            <div class="flex w-full justify-between p-4">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex w-full justify-between p-2">
                                 <div class="flex flex-col gap-y-1.5">
                                     <p class="text-gray-600 dark:text-gray-300">
                                         @lang('admin::app.sales.transactions.index.view.transaction-id')
@@ -206,7 +202,7 @@
 
                                     <p
                                         class="text-gray-600 dark:text-gray-300"
-                                        v-text="data.status"
+                                        v-html="data.status"
                                     >
                                     </p>
 
@@ -322,16 +318,14 @@
 
                             <!-- Modal Footer -->
                             <x-slot:footer>
-                                <!-- Modal Submission -->
-                                <div class="flex items-center gap-x-2.5">
-                                    <!-- Save Button -->
-                                    <button
-                                        type="submit"
-                                        class="primary-button"
-                                    >
-                                        @lang('admin::app.sales.transactions.index.create.save-transaction')
-                                    </button>
-                                </div>
+                                <!-- Save Button -->
+                                <x-admin::button
+                                    button-type="submit"
+                                    class="primary-button"
+                                    :title="trans('admin::app.sales.transactions.index.create.save-transaction')"
+                                    ::loading="isLoading"
+                                    ::disabled="isLoading"
+                                />
                             </x-slot>
                         </x-admin::modal>
                     </form>
@@ -391,13 +385,19 @@
                 data() {
                     return {
                         paymentMethods: @json(payment()->getSupportedPaymentMethods()['payment_methods']),
+
+                        isLoading: false,
                     };
                 },
 
                 methods: {
                     store(params, { setErrors, resetForm }) {
+                        this.isLoading = true;
+
                         this.$axios.post('{{ route('admin.sales.transactions.store') }}', params)
                             .then((response) => {
+                                this.isLoading = false;
+
                                 this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
 
                                 this.$refs.transactionModel.toggle();
@@ -407,6 +407,8 @@
                                 resetForm();
                             })
                             .catch((error) => {
+                                this.isLoading = false;
+
                                 if (error.response.status == 422) {
                                     setErrors(error.response.data.errors);
                                 } else {

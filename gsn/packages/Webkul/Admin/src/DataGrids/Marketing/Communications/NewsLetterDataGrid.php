@@ -12,7 +12,7 @@ class NewsLetterDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('subscribers_list')
             ->select(

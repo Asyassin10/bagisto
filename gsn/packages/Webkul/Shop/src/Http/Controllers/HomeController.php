@@ -3,11 +3,10 @@
 namespace Webkul\Shop\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
+use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Shop\Http\Requests\ContactRequest;
+use Webkul\Shop\Http\Resources\CategoryTreeResource;
 use Webkul\Shop\Mail\ContactUs;
-use Webkul\Marketing\Repositories\SearchTermRepository;
-use Webkul\Product\Models\Product;
-use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Theme\Repositories\ThemeCustomizationRepository;
 
 class HomeController extends Controller
@@ -22,12 +21,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct(
-        protected ThemeCustomizationRepository $themeCustomizationRepository,
-        protected ProductRepository $productRepository,
-
-    ) {
-    }
+    public function __construct(protected ThemeCustomizationRepository $themeCustomizationRepository, protected CategoryRepository $categoryRepository) {}
 
     /**
      * Loads the home page for the storefront.
@@ -36,32 +30,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        //  visitor()->visit();
+        visitor()->visit();
 
-        // Fetch customizations for the theme
-        /* $customizations = $this->themeCustomizationRepository->orderBy('sort_order')->findWhere([
+        $customizations = $this->themeCustomizationRepository->orderBy('sort_order')->findWhere([
             'status'     => self::STATUS,
             'channel_id' => core()->getCurrentChannel()->id,
             'theme_code' => core()->getCurrentChannel()->theme,
-        ]); */
+        ]);
 
-        // Fetch products with more than one product_flat and randomize their order
-        $products_count = Product::whereHas('product_flats', function ($query) {
-            $query->where('is_valid_by_admin', true);
-        })->count();
+        $categories = $this->categoryRepository->getVisibleCategoryTree(core()->getCurrentChannel()->root_category_id);
 
-        $searchTerm = $this->productRepository
-            ->whereHas('product_flats', function ($query) {
-                $query->havingRaw('COUNT(*) > 1')->where('is_valid_by_admin', true);
-            })
-            ->orderByDesc('is_congrate_partner')
-            ->with('images')
-            ->inRandomOrder() // Add this line to randomize the order
-            ->paginate(12);
+        $categories = CategoryTreeResource::collection($categories);
 
-        return  view('shop::home.index', compact('searchTerm', "products_count"));
+        return view('shop::home.index', compact('customizations', 'categories'));
     }
-
 
     /**
      * Loads the home page for the storefront if something wrong.

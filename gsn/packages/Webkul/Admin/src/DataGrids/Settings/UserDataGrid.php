@@ -2,9 +2,7 @@
 
 namespace Webkul\Admin\DataGrids\Settings;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Webkul\DataGrid\DataGrid;
 use Webkul\User\Repositories\RoleRepository;
@@ -30,7 +28,7 @@ class UserDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('admins')
             ->leftJoin('roles', 'admins.role_id', '=', 'roles.id')
@@ -42,10 +40,6 @@ class UserDataGrid extends DataGrid
                 'admins.email',
                 'roles.name as role_name'
             );
-        $admin = Auth::guard("admin")->user();
-        if ($admin->role_id == 3) {
-            $queryBuilder->where('admins.id', $admin->id)->orWhere("admins.parent_id", $admin->id);
-        }
 
         $this->addFilter('user_id', 'admins.id');
         $this->addFilter('user_name', 'admins.name');
@@ -93,11 +87,21 @@ class UserDataGrid extends DataGrid
         ]);
 
         $this->addColumn([
-            'index'      => 'status',
-            'label'      => trans('admin::app.settings.users.index.datagrid.status'),
-            'type'       => 'boolean',
-            'searchable' => true,
-            'filterable' => true,
+            'index'              => 'status',
+            'label'              => trans('admin::app.settings.users.index.datagrid.status'),
+            'type'               => 'boolean',
+            'searchable'         => true,
+            'filterable'         => true,
+            'filterable_options' => [
+                [
+                    'label' => trans('admin::app.settings.users.index.datagrid.active'),
+                    'value' => 1,
+                ],
+                [
+                    'label' => trans('admin::app.settings.users.index.datagrid.inactive'),
+                    'value' => 0,
+                ],
+            ],
             'sortable'   => true,
             'closure'    => function ($value) {
                 if ($value->status) {

@@ -138,7 +138,7 @@
                         @lang('admin::app.cms.edit.seo')
                     </p>
 
-                    <!-- SEO Title & Description Blade Componnet -->
+                    <!-- SEO Title & Description Blade Component -->
                     <x-admin::seo slug="page"/>
 
                     <x-admin::form.control-group>
@@ -252,7 +252,7 @@
                         </x-admin::form.control-group>
 
                         <!-- Select Channels -->
-                        <x-admin::form.control-group.label class="required">
+                        <x-admin::form.control-group.label>
                             @lang('admin::app.cms.create.channels')
                         </x-admin::form.control-group.label>
 
@@ -262,7 +262,6 @@
                                     type="checkbox"
                                     :id="'channels_' . $channel->id"
                                     name="channels[]"
-                                    rules="required"
                                     :value="$channel->id"
                                     :for="'channels_' . $channel->id"
                                     :label="trans('admin::app.cms.create.channels')"

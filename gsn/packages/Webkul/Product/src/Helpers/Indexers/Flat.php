@@ -80,7 +80,7 @@ class Flat extends AbstractIndexer
 
             $this->reindexBatch($paginator->items());
 
-            if (!$cursor = $paginator->nextCursor()) {
+            if (! $cursor = $paginator->nextCursor()) {
                 break;
             }
 
@@ -112,7 +112,7 @@ class Flat extends AbstractIndexer
     {
         $this->updateOrCreate($product);
 
-        if (!ProductType::hasVariants($product->type)) {
+        if (! ProductType::hasVariants($product->type)) {
             return;
         }
 
@@ -143,18 +143,18 @@ class Flat extends AbstractIndexer
             if (in_array($channel->id, $channelIds)) {
                 foreach ($channel->locales as $locale) {
                     $productFlat = $this->productFlatRepository->updateOrCreate([
-                        'product_id' => $product->id,
-                        'channel' => $channel->code,
-                        'locale' => $locale->code,
+                        'product_id'          => $product->id,
+                        'channel'             => $channel->code,
+                        'locale'              => $locale->code,
                     ], [
-                        'type' => $product->type,
-                        'sku' => $product->sku,
+                        'type'                => $product->type,
+                        'sku'                 => $product->sku,
                         'attribute_family_id' => $product->attribute_family_id,
                     ]);
 
                     foreach ($familyAttributes as $attribute) {
                         if (
-                            !in_array($attribute->code, $this->flatColumns)
+                            ! in_array($attribute->code, $this->flatColumns)
                             || $attribute->code == 'sku'
                         ) {
                             continue;
@@ -187,7 +187,7 @@ class Flat extends AbstractIndexer
                 if (request()->route()?->getName() == 'admin.catalog.products.update') {
                     $this->productFlatRepository->deleteWhere([
                         'product_id' => $product->id,
-                        'channel' => $channel->code,
+                        'channel'    => $channel->code,
                     ]);
                 }
             }

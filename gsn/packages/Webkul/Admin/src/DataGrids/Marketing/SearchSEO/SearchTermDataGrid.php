@@ -12,7 +12,7 @@ class SearchTermDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('search_terms')
             ->select(
@@ -91,7 +91,7 @@ class SearchTermDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => core()->getAllChannels()
-                ->map(fn($channel) => ['label' => $channel->name, 'value' => $channel->id])
+                ->map(fn ($channel) => ['label' => $channel->name, 'value' => $channel->id])
                 ->values()
                 ->toArray(),
             'sortable'   => true,
@@ -104,7 +104,7 @@ class SearchTermDataGrid extends DataGrid
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
             'filterable_options' => core()->getAllLocales()
-                ->map(fn($locale) => ['label' => $locale->name, 'value' => $locale->code])
+                ->map(fn ($locale) => ['label' => $locale->name, 'value' => $locale->code])
                 ->values()
                 ->toArray(),
             'sortable'   => true,

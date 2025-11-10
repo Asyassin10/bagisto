@@ -1,496 +1,459 @@
-<v-product-card {{ $attributes }} :product="product">
+<v-product-card
+    {{ $attributes }}
+    :product="product"
+>
 </v-product-card>
-@push('styles')
-    <style>
-        .card {
-            position: relative;
-        }
 
-
-
-        /* Alternative - Diagonal ribbon banner style */
-        .badge-congres-ribbon {
-            position: absolute;
-            top: 15px;
-            right: -42px;
-            background-color: #10b981;
-            color: white;
-            font-size: 8px;
-            font-weight: 600;
-            padding: 6px 40px;
-            transform: rotate(32deg);
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-            white-space: nowrap;
-            min-width: 120px;
-            text-align: center;
-        }
-
-        .responsive-grid-parent {
-            background-color: #FBFBFB;
-            padding: 120px;
-            /* Default padding */
-            padding-top: 20px;
-            /* Add space above the cards */
-        }
-
-        /* Adjust padding for smaller screens */
-        @media (max-width: 1027px) {
-            .responsive-grid-parent {
-                padding: 60px;
-                /* Adjust padding for screens <= 1027px */
-                padding-top: 15px;
-                /* Add space above the cards */
-            }
-        }
-
-        @media (max-width: 877.71px) {
-            .responsive-grid-parent {
-                padding: 30px;
-                /* Adjust padding for screens <= 877.71px */
-                padding-top: 10px;
-                /* Add space above the cards */
-            }
-        }
-
-        @media (max-width: 640px) {
-            .responsive-grid-parent {
-                padding: 15px;
-                /* Adjust padding for screens <= 640px */
-                padding-top: 5px;
-                /* Add space above the cards */
-            }
-        }
-
-        .responsive-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            /* Default to 3 columns */
-            gap: 20px;
-            /* Increase gap between cards */
-            /* Horizontal padding */
-            width: 400%;
-            box-sizing: border-box;
-            /* Include padding in width */
-            height: 100%;
-            place-items: start;
-            /* Centers both horizontally and vertically */
-        }
-
-
-
-        @media (max-width: 877.71px) {
-            .responsive-grid {
-                grid-template-columns: 1fr;
-                width: 100%;
-                padding: 0;
-                place-items: center;
-
-            }
-        }
-
-        @media (max-width: 640px) {
-
-            .responsive-grid {
-                padding: 0;
-                width: 100%;
-                place-items: center;
-            }
-        }
-
-        @media (max-width: 1180px) {
-            .div-grid-card {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-
-        @media (max-width: 877.71px) {
-            .div-grid-card {
-                grid-template-columns: repeat(1, 1fr);
-
-            }
-        }
-
-        @media (max-width: 640px) {
-
-            .div-grid-card {
-                grid-template-columns: repeat(1, 1fr);
-            }
-        }
-
-        .card {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            /* Ensure the card takes full height */
-            border: 1px solid #F5F5F5;
-            overflow: hidden;
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-            border: 1px solid #F5F5F5;
-            border-radius: 27px;
-            opacity: 1;
-            width: 85%;
-        }
-
-        .card img {
-            width: 5rem !important;
-            /* Make the image span the full width of its container */
-            object-fit: contain;
-            /* Ensure the image covers the container while maintaining its aspect ratio */
-        }
-
-        .card-content {
-            flex: 1;
-            /* Ensure content area grows to fill available space */
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-footer {
-            padding: 16px;
-            text-align: center;
-            background: #FFFFFF 0% 0% no-repeat padding-box;
-        }
-
-        .truncate-description-card {
-            margin-top: 3%;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            line-height: 1.4;
-            letter-spacing: 0px;
-            text-align: left;
-            letter-spacing: 0px;
-            color: #000000;
-            opacity: 1;
-            font: normal normal normal 16px/23px MarkPro !important;
-        }
-
-        .truncate-name {
-            margin-left: 2%;
-            text-align: left;
-            font: normal normal bold 19px/26px MarkPro !important;
-            letter-spacing: 0px;
-            color: #000000;
-            opacity: 1;
-            line-height: 26px;
-
-        }
-
-        .truncate-name-desc {
-            margin-left: 5%;
-            text-align: left;
-            font: normal normal bold 19px/26px MarkPro;
-            letter-spacing: 0px;
-            color: #000000;
-            opacity: 1;
-            line-height: 26px;
-
-        }
-
-        .btn-voici {
-            background: #FDD320;
-            color: #333;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            border-radius: 27px;
-            border: 1px solid #FDD320;
-            box-shadow: 0px 1px 3px #00000029;
-            transition: background-color 0.3s ease;
-            font: normal normal 600 16px/19px Urbanist;
-            cursor: pointer;
-        }
-
-        .btn-voici:hover {
-            background-color: #FBC400;
-            /* Optional: Change color on hover */
-        }
-
-        .comparer-btn {
-            text-align: left;
-            font: normal normal 600 16px/19px Urbanist, sans-serif;
-            letter-spacing: 0px;
-            color: #F5F5F5;
-            background: #27986F 0% 0% no-repeat padding-box;
-            box-shadow: 0px 1px 3px #00000029;
-            border: 1px solid #27986F;
-            border-radius: 27px;
-            opacity: 1;
-            padding: 10px 15px;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .comparator-item {
-            position: relative;
-            cursor: pointer;
-        }
-
-        .comparator-item a {
-            display: flex;
-
-            color: inherit;
-        }
-
-        .comparator-item:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: box-shadow 0.3s ease;
-        }
-    </style>
-@endpush
 @pushOnce('scripts')
-    <script type="text/x-template" id="v-product-card-template">
-    <div class="responsive-grid w-full ">
-        <div class="card" v-if="product">
-                <div class="badge-congres-ribbon" v-if="product.is_congrate_partner">
-        Partenaire Congrès {{ date('Y') }}
+    <script
+        type="text/x-template"
+        id="v-product-card-template"
+    >
+        <!-- Grid Card -->
+        <div
+            class="1180:transtion-all group w-full rounded-md 1180:relative 1180:grid 1180:content-start 1180:overflow-hidden 1180:duration-300 1180:hover:shadow-[0_5px_10px_rgba(0,0,0,0.1)]"
+            v-if="mode != 'list'"
+        >
+            <div class="relative max-h-[300px] max-w-[291px] overflow-hidden max-md:max-h-60 max-md:max-w-full max-md:rounded-lg max-sm:max-h-[200px] max-sm:max-w-full">
+                {!! view_render_event('bagisto.shop.components.products.card.image.before') !!}
 
-    </div>
-            <div class="card-content ">
-                <div class="w-full flex items-center">
-                    <div class="w-1/3">
-                        <img class="w-full h-auto"
-                            :src="product.societe && product.societe.logo ? product.societe.logo : product.base_image.original_image_url">
-                    </div>
-                    <div class="w-full items-center">
-                        <p class="truncate-name">
-                            @{{ product.name }}
-                        </p>
-                    </div>
-                </div>
-                <div class="w-full">
-                <div class="truncate-description-card"  >@{{ product.description }}</div>
+                <!-- Product Image -->
+                <a
+                    :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`"
+                    :aria-label="product.name + ' '"
+                >
+                    <x-shop::media.images.lazy
+                        class="after:content-[' '] relative bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
+                        ::src="product.base_image.medium_image_url"
+                        ::srcset="`
+                            ${product.base_image.small_image_url} 150w,
+                            ${product.base_image.medium_image_url} 300w,
+                        `"
+                        sizes="(max-width: 768px) 150px, (max-width: 1200px) 300px, 600px"
+                        ::key="product.id"
+                        ::index="product.id"
+                        width="291"
+                        height="300"
+                        ::alt="product.name"
+                    />
+                </a>
 
+                {!! view_render_event('bagisto.shop.components.products.card.image.after') !!}
+
+                <!-- Product Ratings -->
+                {!! view_render_event('bagisto.shop.components.products.card.average_ratings.before') !!}
+
+                @if (core()->getConfigData('catalog.products.review.summary') == 'star_counts')
+                    <x-shop::products.ratings
+                        class="absolute bottom-1.5 items-center !border-white bg-white/80 !px-2 !py-1 text-xs max-sm:!px-1.5 max-sm:!py-0.5 ltr:left-1.5 rtl:right-1.5"
+                        ::average="product.ratings.average"
+                        ::total="product.ratings.total"
+                        ::rating="false"
+                        v-if="product.ratings.total"
+                    />
+                @else
+                    <x-shop::products.ratings
+                        class="absolute bottom-1.5 items-center !border-white bg-white/80 !px-2 !py-1 text-xs max-sm:!px-1.5 max-sm:!py-0.5 ltr:left-1.5 rtl:right-1.5"
+                        ::average="product.ratings.average"
+                        ::total="product.reviews.total"
+                        ::rating="false"
+                        v-if="product.reviews.total"
+                    />
+                @endif
+
+                {!! view_render_event('bagisto.shop.components.products.card.average_ratings.after') !!}
+
+                <div class="action-items bg-black">
+                    <!-- Product Sale Badge -->
+                    <p
+                        class="absolute top-1.5 inline-block rounded-[44px] bg-red-600 px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-5 max-sm:rtl:right-0"
+                        v-if="product.on_sale"
+                    >
+                        @lang('shop::app.components.products.card.sale')
+                    </p>
+
+                    <!-- Product New Badge -->
+                    <p
+                        class="absolute top-1.5 inline-block rounded-[44px] bg-navyBlue px-2.5 text-sm text-white max-sm:rounded-l-none max-sm:rounded-r-xl max-sm:px-2 max-sm:py-0.5 max-sm:text-xs ltr:left-1.5 max-sm:ltr:left-0 rtl:right-1.5 max-sm:rtl:right-0"
+                        v-else-if="product.is_new"
+                    >
+                        @lang('shop::app.components.products.card.new')
+                    </p>
+
+                    <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-lg:opacity-100 max-sm:opacity-100">
+
+                        {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
+
+                        @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
+                            <span
+                                class="absolute top-2.5 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg md:hidden ltr:right-1.5 rtl:left-1.5"
+                                role="button"
+                                aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                tabindex="0"
+                                :class="product.is_wishlist ? 'icon-heart-fill text-red-500' : 'icon-heart'"
+                                @click="addToWishlist()"
+                            >
+                            </span>
+                        @endif
+
+                        {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.after') !!}
+
+                        {!! view_render_event('bagisto.shop.components.products.card.compare_option.before') !!}
+
+                        @if (core()->getConfigData('catalog.products.settings.compare_option'))
+                            <span
+                                class="icon-compare absolute top-10 flex h-6 w-6 items-center justify-center rounded-full border border-zinc-200 bg-white text-lg sm:hidden ltr:right-1.5 rtl:left-1.5"
+                                role="button"
+                                aria-label="@lang('shop::app.components.products.card.add-to-compare')"
+                                tabindex="0"
+                                @click="addToCompare(product.id)"
+                            >
+                            </span>
+                        @endif
+
+                        {!! view_render_event('bagisto.shop.components.products.card.compare_option.after') !!}
+
+                    </div>
                 </div>
             </div>
-            <div class="card-footer flex md:block justify-between items-center">
-                @if (!str_contains(request()->url(), '/autre'))
-                <a href="#" class="btn-card comparer-btn" :class="'comparer-btn-' + product.id" @click.prevent="addToCompare(product.id)">
-                    Comparer
-                </a>
 
-            @endif
+            <!-- Product Information Section -->
+            <div class="-mt-9 grid max-w-[291px] translate-y-9 content-start gap-2.5 bg-white p-2.5 transition-transform duration-300 ease-out group-hover:-translate-y-0 group-hover:rounded-t-lg max-md:relative max-md:mt-0 max-md:translate-y-0 max-md:gap-0 max-md:px-0 max-md:py-1.5 max-sm:min-w-[170px] max-sm:max-w-[192px]">
 
-                <a :href="product.url_key" class="btn-card btn-voici my-2  mx-2 ">
-                    Voir la fiche
-                </a>
+                {!! view_render_event('bagisto.shop.components.products.card.name.before') !!}
+
+                <p class="break-all text-base font-medium max-md:mb-1.5 max-md:max-w-56 max-md:whitespace-break-spaces max-md:leading-6 max-sm:max-w-[192px] max-sm:text-sm max-sm:leading-4">
+                    @{{ product.name }}
+                </p>
+
+                {!! view_render_event('bagisto.shop.components.products.card.name.after') !!}
+
+                <!-- Pricing -->
+                {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
+
+                <div
+                    class="flex items-center gap-2.5 text-lg font-semibold max-sm:text-sm max-sm:leading-6"
+                    v-html="product.price_html"
+                >
+                </div>
+
+                {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
+
+                <!-- Product Actions Section -->
+                <div class="action-items flex items-center justify-between opacity-0 transition-all duration-300 ease-in-out group-hover:opacity-100 max-md:hidden">
+                    @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+                        {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
+
+                        <button
+                            class="secondary-button w-full max-w-full p-2.5 text-sm font-medium max-sm:rounded-xl max-sm:p-2"
+                            :disabled="! product.is_saleable || isAddingToCart"
+                            @click="addToCart()"
+                        >
+                            @lang('shop::app.components.products.card.add-to-cart')
+                        </button>
+
+                        {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
+                    @endif
+
+                    {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
+
+                    @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
+                        <span
+                            class="cursor-pointer p-2.5 text-2xl max-sm:hidden"
+                            role="button"
+                            aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                            tabindex="0"
+                            :class="product.is_wishlist ? 'icon-heart-fill text-red-600' : 'icon-heart'"
+                            @click="addToWishlist()"
+                        >
+                        </span>
+                    @endif
+
+                    {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.after') !!}
+
+                    {!! view_render_event('bagisto.shop.components.products.card.compare_option.before') !!}
+
+                    @if (core()->getConfigData('catalog.products.settings.compare_option'))
+                        <span
+                            class="icon-compare cursor-pointer p-2.5 text-2xl max-sm:hidden"
+                            role="button"
+                            aria-label="@lang('shop::app.components.products.card.add-to-compare')"
+                            tabindex="0"
+                            @click="addToCompare(product.id)"
+                        >
+                        </span>
+                    @endif
+
+                    {!! view_render_event('bagisto.shop.components.products.card.compare_option.after') !!}
+                </div>
             </div>
         </div>
-    </div>
-</script>
+
+        <!-- List Card -->
+        <div
+            class="relative flex max-w-max grid-cols-2 gap-4 overflow-hidden rounded max-sm:flex-wrap"
+            v-else
+        >
+            <div class="group relative max-h-[258px] max-w-[250px] overflow-hidden">
+
+                {!! view_render_event('bagisto.shop.components.products.card.image.before') !!}
+
+                <a :href="`{{ route('shop.product_or_category.index', '') }}/${product.url_key}`">
+                    <x-shop::media.images.lazy
+                        class="after:content-[' '] relative min-w-[250px] bg-zinc-100 transition-all duration-300 after:block after:pb-[calc(100%+9px)] group-hover:scale-105"
+                        ::src="product.base_image.medium_image_url"
+                        ::key="product.id"
+                        ::index="product.id"
+                        width="291"
+                        height="300"
+                        ::alt="product.name"
+                    />
+                </a>
+
+                {!! view_render_event('bagisto.shop.components.products.card.image.after') !!}
+
+                <div class="action-items bg-black">
+                    <p
+                        class="absolute top-5 inline-block rounded-[44px] bg-red-500 px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        v-if="product.on_sale"
+                    >
+                        @lang('shop::app.components.products.card.sale')
+                    </p>
+
+                    <p
+                        class="absolute top-5 inline-block rounded-[44px] bg-navyBlue px-2.5 text-sm text-white ltr:left-5 max-sm:ltr:left-2 rtl:right-5"
+                        v-else-if="product.is_new"
+                    >
+                        @lang('shop::app.components.products.card.new')
+                    </p>
+
+                    <div class="opacity-0 transition-all duration-300 group-hover:bottom-0 group-hover:opacity-100 max-sm:opacity-100">
+
+                        {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.before') !!}
+
+                        @if (core()->getConfigData('customer.settings.wishlist.wishlist_option'))
+                            <span
+                                class="absolute top-5 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md bg-white text-2xl ltr:right-5 rtl:left-5"
+                                role="button"
+                                aria-label="@lang('shop::app.components.products.card.add-to-wishlist')"
+                                tabindex="0"
+                                :class="product.is_wishlist ? 'icon-heart-fill text-red-600' : 'icon-heart'"
+                                @click="addToWishlist()"
+                            >
+                            </span>
+                        @endif
+
+                        {!! view_render_event('bagisto.shop.components.products.card.wishlist_option.after') !!}
+
+                        {!! view_render_event('bagisto.shop.components.products.card.compare_option.before') !!}
+
+                        @if (core()->getConfigData('catalog.products.settings.compare_option'))
+                            <span
+                                class="icon-compare absolute top-16 flex h-[30px] w-[30px] cursor-pointer items-center justify-center rounded-md bg-white text-2xl ltr:right-5 rtl:left-5"
+                                role="button"
+                                aria-label="@lang('shop::app.components.products.card.add-to-compare')"
+                                tabindex="0"
+                                @click="addToCompare(product.id)"
+                            >
+                            </span>
+                        @endif
+
+                        {!! view_render_event('bagisto.shop.components.products.card.compare_option.after') !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid content-start gap-4">
+
+                {!! view_render_event('bagisto.shop.components.products.card.name.before') !!}
+
+                <p class="text-base">
+                    @{{ product.name }}
+                </p>
+
+                {!! view_render_event('bagisto.shop.components.products.card.name.after') !!}
+
+                {!! view_render_event('bagisto.shop.components.products.card.price.before') !!}
+
+                <div
+                    class="flex gap-2.5 text-lg font-semibold"
+                    v-html="product.price_html"
+                >
+                </div>
+
+                {!! view_render_event('bagisto.shop.components.products.card.price.after') !!}
+
+                <!-- Needs to implement that in future -->
+                <div class="flex hidden gap-4">
+                    <span class="block h-[30px] w-[30px] rounded-full bg-[#B5DCB4]">
+                    </span>
+
+                    <span class="block h-[30px] w-[30px] rounded-full bg-zinc-500">
+                    </span>
+                </div>
+
+                {!! view_render_event('bagisto.shop.components.products.card.average_ratings.before') !!}
+
+                <p class="text-sm text-zinc-500">
+                    <template  v-if="! product.ratings.total">
+                        <p class="text-sm text-zinc-500">
+                            @lang('shop::app.components.products.card.review-description')
+                        </p>
+                    </template>
+
+                    <template v-else>
+                        @if (core()->getConfigData('catalog.products.review.summary') == 'star_counts')
+                            <x-shop::products.ratings
+                                ::average="product.ratings.average"
+                                ::total="product.ratings.total"
+                                ::rating="false"
+                            />
+                        @else
+                            <x-shop::products.ratings
+                                ::average="product.ratings.average"
+                                ::total="product.reviews.total"
+                                ::rating="false"
+                            />
+                        @endif
+                    </template>
+                </p>
+
+                {!! view_render_event('bagisto.shop.components.products.card.average_ratings.after') !!}
+
+                @if (core()->getConfigData('sales.checkout.shopping_cart.cart_page'))
+
+                    {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.before') !!}
+
+                    <x-shop::button
+                        class="primary-button whitespace-nowrap px-8 py-2.5"
+                        :title="trans('shop::app.components.products.card.add-to-cart')"
+                        ::loading="isAddingToCart"
+                        ::disabled="! product.is_saleable || isAddingToCart"
+                        @click="addToCart()"
+                    />
+
+                    {!! view_render_event('bagisto.shop.components.products.card.add_to_cart.after') !!}
+
+                @endif
+            </div>
+        </div>
+    </script>
 
     <script type="module">
         app.component('v-product-card', {
             template: '#v-product-card-template',
 
-            props: ['product'],
+            props: ['mode', 'product'],
 
             data() {
                 return {
                     isCustomer: '{{ auth()->guard('customer')->check() }}',
-                    isAddingToCart: false,
 
+                    isAddingToCart: false,
                 }
             },
 
             methods: {
-                addToCompare(productId) {
-                    this.addToCompareForGuest(productId);
+                addToWishlist() {
+                    if (this.isCustomer) {
+                        this.$axios.post(`{{ route('shop.api.customers.account.wishlist.store') }}`, {
+                                product_id: this.product.id
+                            })
+                            .then(response => {
+                                this.product.is_wishlist = ! this.product.is_wishlist;
+
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
+                            })
+                            .catch(error => {});
+                        } else {
+                            window.location.href = "{{ route('shop.customer.session.index')}}";
+                        }
                 },
 
-                addToCompareForGuest(productId) {
-                    let compareItems = this.getStorageValue();
-                    let comparer_btn = document.querySelector('.comparer-btn-' + productId);
-                    if (compareItems.length >= 4) {
-                        this.emitFlashMessage('warning',
-                            "Vous ne pouvez pas comparer plus de 4 logiciels.");
-                        this.showComparator(compareItems.length);
-                        // this.updateComparatorUI(compareItems);
-                        this.renderComparatorContent(response.data.data);
-                        return;
-                    }
-                    if (compareItems.includes(productId)) {
+                addToCompare(productId) {
+                    /**
+                     * This will handle for customers.
+                     */
+                    if (this.isCustomer) {
+                        this.$axios.post('{{ route("shop.api.compare.store") }}', {
+                                'product_id': productId
+                            })
+                            .then(response => {
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.data.message });
+                            })
+                            .catch(error => {
+                                if ([400, 422].includes(error.response.status)) {
+                                    this.$emitter.emit('add-flash', { type: 'warning', message: error.response.data.data.message });
 
-                        this.emitFlashMessage('warning', "@lang('shop::app.components.products.card.already-in-compare')");
+                                    return;
+                                }
+
+                                this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message});
+                            });
+
                         return;
                     }
-                    // Fetch the details of the products to compare
-                    this.$axios.post('{{ route('getproducts_new') }}', {
-                            product_ids: [...compareItems, productId] // include the new product in the request
+
+                    /**
+                     * This will handle for guests.
+                     */
+                    let items = this.getStorageValue() ?? [];
+
+                    if (items.length) {
+                        if (! items.includes(productId)) {
+                            items.push(productId);
+
+                            localStorage.setItem('compare_items', JSON.stringify(items));
+
+                            this.$emitter.emit('add-flash', { type: 'success', message: "@lang('shop::app.components.products.card.add-to-compare-success')" });
+                        } else {
+                            this.$emitter.emit('add-flash', { type: 'warning', message: "@lang('shop::app.components.products.card.already-in-compare')" });
+                        }
+                    } else {
+                        localStorage.setItem('compare_items', JSON.stringify([productId]));
+
+                        this.$emitter.emit('add-flash', { type: 'success', message: "@lang('shop::app.components.products.card.add-to-compare-success')" });
+
+                    }
+                },
+
+                getStorageValue(key) {
+                    let value = localStorage.getItem('compare_items');
+
+                    if (! value) {
+                        return [];
+                    }
+
+                    return JSON.parse(value);
+                },
+
+                addToCart() {
+                    this.isAddingToCart = true;
+
+                    this.$axios.post('{{ route("shop.api.checkout.cart.store") }}', {
+                            'quantity': 1,
+                            'product_id': this.product.id,
                         })
                         .then(response => {
-                            const products = response.data.data;
+                            if (response.data.message) {
+                                this.$emitter.emit('update-mini-cart', response.data.data );
 
-                            // Extract categories from the products
-                            const categories = products.map(product => product.categories[0]);
-                            console.log(" categories is : " + categories)
-                            // Check if all products belong to the same category
-                            const uniqueCategories = [...new Set(categories)];
-                            if (uniqueCategories.length > 1) {
-                                //   this.updateComparatorUI(compareItems);
-                                this.renderComparatorContent(response.data.data);
-                                this.showComparator(compareItems.length);
-                                this.emitFlashMessage('warning',
-                                    "Vous ne pouvez pas comparer des logiciels de catégories différentes.");
-                                return;
+                                this.$emitter.emit('add-flash', { type: 'success', message: response.data.message });
+                            } else {
+                                this.$emitter.emit('add-flash', { type: 'warning', message: response.data.data.message });
                             }
-                            compareItems.push(productId);
-                            comparer_btn.innerHTML = "✔ Comparer";
-                            //comparer_btn.classList.add('selected');
-                            localStorage.setItem('compare_items', JSON.stringify(compareItems));
-                            this.emitFlashMessage('success', "@lang('shop::app.components.products.card.add-to-compare-success')");
 
-                            //  this.updateComparatorUI(compareItems);
-                            this.renderComparatorContent(response.data.data);
-                            this.showComparator(compareItems.length);
+                            this.isAddingToCart = false;
                         })
                         .catch(error => {
-                            this.emitFlashMessage('error', "Erreur lors de la récupération des logiciels.");
-                            console.error(error);
+                            this.$emitter.emit('add-flash', { type: 'error', message: error.response.data.message });
+
+                            if (error.response.data.redirect_uri) {
+                                window.location.href = error.response.data.redirect_uri;
+                            }
+
+                            this.isAddingToCart = false;
                         });
-                },
-
-                renderComparatorContent(products) {
-                    const container = document.querySelector('.comparator-items-container');
-                    container.innerHTML = '';
-
-                    products.forEach(product => {
-                        const item = this.createComparatorItem(product);
-                        container.appendChild(item);
-                    });
-                },
-
-                /* createComparatorItem(product) {
-                    const item = document.createElement('div');
-                    item.className = 'comparator-item';
-                    console.log("product is : " + JSON.stringify(product));
-                    // Create a clickable link that wraps the entire item
-
-                    const containers = document.querySelectorAll('.comparator-items-container');
-                    const link = document.createElement('a');
-                    link.href = product.url || '#'; // Make sure your product data includes a URL
-                    link.target = '_blank'; // Open in new tab
-                    link.style.display = 'flex';
-                    link.style.width = '100%';
-
-                    link.style.textDecoration = 'none';
-                    link.style.color = 'inherit';
-
-                    link.innerHTML = `
-                    <img src="${product.socites && product.socites.logo ? product.socites.logo : "themes/shop/default/build/assets/large-product-placeholder-13b8a96b.webp"}" alt="${product.name}">
-                    <div class="comparator-item-details">
-                        <div class="comparator-item-title">${product.name}  </div>
-                      <button class="comparator-item-bbtn" onclick="alert('Item removed')">X</button>
-                    </div>
-                `;
-
-                 //   containers[0].appendChild(span);
-                    item.appendChild(link);
-                    return item;
-                }, */
-                createComparatorItem(product) {
-                    /*
-                    console.log("product----------------------------------------------------product")
-                    console.log(JSON.stringify(product))
-
-                    console.log("product----------------------------------------------------product")
-                    */
-
-                    const item = document.createElement('div');
-                    item.className = 'comparator-item';
-                    item.style.display = 'flex'; // Make container flex
-                    item.style.alignItems = 'center'; // Vertically center content
-                    item.style.justifyContent = 'space-between'; // Space between link and button
-                    item.style.width = '100%';
-
-                    console.log("product is : " + JSON.stringify(product));
-
-                    const containers = document.querySelectorAll('.comparator-items-container');
-
-                    // Create the clickable link (WITHOUT the button inside)
-                    const link = document.createElement('a');
-                    link.href = product.url || '#';
-                    link.target = '_blank';
-                    link.style.display = 'flex';
-                    link.style.flex = '1'; // Take up remaining width
-                    link.style.textDecoration = 'none';
-                    link.style.color = 'inherit';
-                    link.style.alignItems = 'center'; // Align image and text vertically
-
-                    link.innerHTML = `
-        <img src="${product.socites && product.socites.logo ? product.socites.logo : "themes/shop/default/build/assets/large-product-placeholder-13b8a96b.webp"}" alt="${product.name}" style="width:50px; height:50px; object-fit: contain; margin-right: 10px;">
-    <div class="comparator-item-details" id="comparator-item-details_id_${product.product_id}">
-
-
-                <div class="comparator-item-title">${product.name}</div>
-            </div>
-        `;
-
-                    // Create the button outside the link
-                    const btn = document.createElement('button');
-                    btn.className = 'comparator-item-bbtn';
-                    btn.textContent = 'X';
-                    btn.style.marginLeft = '10px';
-                    btn.setAttribute('data-id', product.product_id); //
-
-                    btn.onclick = () => {
-                        const item_compare = document.querySelectorAll(
-                        '.comparator-item'); // Select the element
-                        const classCount = item_compare.length;
-                        console.log("classCount")
-                        console.log(classCount)
-                        console.log("classCount")
-                        const countElement = document.getElementById('count-comparator');
-                        countElement.innerHTML = ` (${classCount-1}/4)`;
-                        item.remove();
-                        const productId = btn.getAttribute('data-id');
-                        let compareItems = JSON.parse(localStorage.getItem('compare_items') || '[]');
-                        compareItems = compareItems.filter(id => id != productId);
-                        localStorage.setItem('compare_items', JSON.stringify(compareItems));
-                        let comparer_btn = document.querySelector('.comparer-btn-' + productId);
-                        comparer_btn.innerHTML = "Comparer";
-
-                        /*
-                             console.log("----------------------------------------compareItems.length------------------------------------------------------")
-
-                              console.log(compareItems.length)
-
-
-                              console.log("----------------------------------------compareItems.length------------------------------------------------------")
-
-                        */
-                    };
-
-                    // Append link and button as siblings
-                    item.appendChild(link);
-                    item.appendChild(btn);
-
-                    return item;
-                },
-
-
-                showComparator(count) {
-                    const modal = document.getElementById('modal-compar');
-                    const countElement = document.getElementById('count-comparator');
-                    modal.style.display = 'block';
-                    countElement.innerHTML = ` (${count}/4)`;
-                },
-
-                getStorageValue() {
-                    let value = localStorage.getItem('compare_items');
-                    return value ? JSON.parse(value) : [];
-                },
-
-                emitFlashMessage(type, message) {
-                    this.$emitter.emit('add-flash', {
-                        type,
-                        message
-                    });
                 },
             },
         });

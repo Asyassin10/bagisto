@@ -1,48 +1,43 @@
 <?php
 
 return [
-    "global" => [
-        "false" => "false",
-        "true" => "true",
-        "actif" => "published",
-        "non_actif" => "unpublished",
-        "is_active" => "is published",
-        "activare_desativate" => "publish / unpublished",
-    ],
     'users' => [
         'sessions' => [
-            'email'                => 'Email Address',
-            'forget-password-link' => 'Forget Password ?',
-            'password'             => 'Password',
-            'submit-btn'           => 'Sign In',
-            'title'                => 'Sign In',
+            'email'                  => 'Email Address',
+            'forget-password-link'   => 'Forget Password ?',
+            'password'               => 'Password',
+            'powered-by-description' => 'Powered by :bagisto, an open-source project by :webkul.',
+            'submit-btn'             => 'Sign In',
+            'title'                  => 'Sign In',
         ],
 
         'forget-password' => [
             'create' => [
-                'email'           => 'Registered Email',
-                'email-not-exist' => 'Email Not Exists',
-                'page-title'      => 'Forget Password',
-                'reset-link-sent' => 'Reset Password link sent',
-                'sign-in-link'    => 'Back to Sign In ?',
-                'submit-btn'      => 'Reset',
-                'title'           => 'Recover Password',
+                'email'                  => 'Registered Email',
+                'email-not-exist'        => 'Email Not Exists',
+                'page-title'             => 'Forget Password',
+                'powered-by-description' => 'Powered by :bagisto, an open-source project by :webkul.',
+                'reset-link-sent'        => 'Reset Password link sent',
+                'sign-in-link'           => 'Back to Sign In ?',
+                'submit-btn'             => 'Reset',
+                'title'                  => 'Recover Password',
             ],
         ],
 
         'reset-password' => [
-            'back-link-title'  => 'Back to Sign In ?',
-            'confirm-password' => 'Confirm Password',
-            'email'            => 'Registered Email',
-            'password'         => 'Password',
-            'submit-btn'       => 'Reset Password',
-            'title'            => 'Reset Password',
+            'back-link-title'        => 'Back to Sign In ?',
+            'confirm-password'       => 'Confirm Password',
+            'email'                  => 'Registered Email',
+            'password'               => 'Password',
+            'powered-by-description' => 'Powered by :bagisto, an open-source project by :webkul.',
+            'submit-btn'             => 'Reset Password',
+            'title'                  => 'Reset Password',
         ],
     ],
 
     'notifications' => [
         'description-text'      => 'List all the Notifications',
-        'marked-success'        => 'Notification Marked Successfully',
+        'marked-success'        => 'All notifications have been marked as read',
         'no-record'             => 'No Record Found',
         'of'                    => 'of',
         'per-page'              => 'Per Page',
@@ -51,6 +46,7 @@ return [
         'view-all'              => 'View All',
 
         'order-status-messages' => [
+            'all'             => 'All',
             'canceled'        => 'Order Canceled',
             'closed'          => 'Order Closed',
             'completed'       => 'Order Completed',
@@ -63,7 +59,6 @@ return [
     'account' => [
         'edit' => [
             'back-btn'          => 'Back',
-            'visualise'          => 'visualise',
             'change-password'   => 'Change Password',
             'confirm-password'  => 'Confirm Password',
             'current-password'  => 'Current Password',
@@ -83,7 +78,7 @@ return [
     'dashboard' => [
         'index' => [
             'add-customer'                => 'Add Customer',
-            'add-software'                 => 'Add software',
+            'add-product'                 => 'Add Product',
             'all-channels'                => 'All Channels',
             'attribute-code'              => 'Attribute Code',
             'average-sale'                => 'Average Order Sale',
@@ -93,20 +88,20 @@ return [
             'date-duration'               => ':start - :end',
             'decreased'                   => ':progress%',
             'empty-threshold'             => 'Empty Threshold',
-            'empty-threshold-description' => 'There is no software available',
+            'empty-threshold-description' => 'There is no product available',
             'end-date'                    => 'End Date',
             'from'                        => 'From',
             'increased'                   => ':progress%',
-            'more-softwares'               => ':software_count+ More Images',
+            'more-products'               => ':product_count+ More Images',
             'order'                       => ':total_orders Orders',
             'order-count'                 => ':count Orders',
             'order-id'                    => '#:id',
             'overall-details'             => 'Overall Details',
             'pay-by'                      => 'Pay By - :method',
-            'software-count'               => ':count softwares',
-            'software-image'               => 'software Image',
-            'software-info'                => 'Add related softwares on the go.',
-            'software-number'              => 'software - :software_number',
+            'product-count'               => ':count Products',
+            'product-image'               => 'Product Image',
+            'product-info'                => 'Add related products on the go.',
+            'product-number'              => 'Product - :product_number',
             'revenue'                     => 'Revenue :total',
             'sale-count'                  => ':count Sales',
             'sales'                       => 'Sales',
@@ -121,7 +116,7 @@ return [
             'today-orders'                => 'Today’s Orders',
             'today-sales'                 => 'Today’s Sales',
             'top-performing-categories'   => 'Top Performing Categories',
-            'top-selling-softwares'        => 'Top Selling softwares',
+            'top-selling-products'        => 'Top Selling Products',
             'total-customers'             => 'Total Customers',
             'total-orders'                => 'Total Orders',
             'total-sales'                 => 'Total Sales',
@@ -167,7 +162,7 @@ return [
                     'pending-payment' => 'Pending Payment',
                     'pending'         => 'Pending',
                     'processing'      => 'Processing',
-                    'software-count'   => ':count + More softwares',
+                    'product-count'   => ':count + More Products',
                     'status'          => 'Status',
                     'success'         => 'Success',
                     'view'            => 'View',
@@ -188,13 +183,18 @@ return [
                 'error'                   => 'Something went wrong',
                 'minimum-order-error'     => 'The minimum order amount is not met.',
                 'order-placed-success'    => 'Order placed successfully.',
-                'payment-not-supported'   => 'This payment method is not supported',
+                'payment-not-supported'   => 'This payment method is not supported.',
                 'save-btn'                => 'Create Order',
                 'specify-payment-method'  => 'Payment method is missing.',
                 'specify-shipping-method' => 'Shipping method is missing.',
                 'title'                   => 'Create Order for :name',
 
                 'types' => [
+                    'simple' => [
+                        'none'         => 'None',
+                        'total-amount' => 'Total Amount',
+                    ],
+
                     'configurable' => [
                         'select-options' => 'Please select an option',
                     ],
@@ -211,15 +211,20 @@ return [
                     'downloadable' => [
                         'title' => 'Links',
                     ],
+
+                    'virtual' => [
+                        'none'         => 'None',
+                        'total-amount' => 'Total Amount',
+                    ],
                 ],
 
                 'cart' => [
-                    'success-add-to-cart' => 'software added to cart successfully',
+                    'success-add-to-cart' => 'Product added to cart successfully',
                     'success-remove'      => 'Item removed from cart successfully',
                     'success-update'      => 'Cart item updated successfully',
 
                     'items' => [
-                        'add-software'       => 'Add software',
+                        'add-product'       => 'Add Product',
                         'amount-per-unit'   => ':amount Per Unit x :qty Quantity',
                         'delete'            => 'Delete',
                         'empty-description' => 'No items found in your cart.',
@@ -234,12 +239,12 @@ return [
                         'search' => [
                             'add-to-cart'   => 'Add To Cart',
                             'available-qty' => ':qty Available',
-                            'empty-info'    => 'No softwares available for search term.',
-                            'empty-title'   => 'No softwares found',
-                            'software-image' => 'software Image',
+                            'empty-info'    => 'No products available for search term.',
+                            'empty-title'   => 'No products found',
+                            'product-image' => 'Product Image',
                             'qty'           => 'Qty',
                             'sku'           => 'SKU - :sku',
-                            'title'         => 'Search softwares',
+                            'title'         => 'Search Products',
                         ],
                     ],
 
@@ -477,7 +482,7 @@ return [
                 'ordered-items'        => 'Ordered Items',
                 'payment-and-shipping' => 'Payment and Shipping',
                 'payment-method'       => 'Payment Method',
-                'software-image'        => 'software Image',
+                'product-image'        => 'Product Image',
                 'qty'                  => 'Quantity - :qty',
                 'shipping-address'     => 'Shipping Address',
                 'shipping-method'      => 'Shipping Method',
@@ -523,8 +528,8 @@ return [
                 'price-excl-tax'             => 'Price (Excl. Tax) - :price',
                 'price-incl-tax'             => 'Price (Incl. Tax) - :price',
                 'price'                      => 'Price - :price',
-                'software-image'              => 'software Image',
-                'software-ordered'            => 'softwares Ordered',
+                'product-image'              => 'Product Image',
+                'product-ordered'            => 'Products Ordered',
                 'qty'                        => 'QTY - :qty',
                 'refund'                     => 'Refund',
                 'shipping-address'           => 'Shipping Address',
@@ -576,15 +581,20 @@ return [
                 'title' => 'Invoices',
 
                 'datagrid' => [
-                    'action'       => 'Actions',
-                    'grand-total'  => 'Grand Total',
-                    'id'           => 'ID',
-                    'invoice-date' => 'Invoice Date',
-                    'order-id'     => 'Order ID',
-                    'overdue'      => 'Overdue',
-                    'paid'         => 'Paid',
-                    'pending'      => 'Pending',
-                    'status'       => 'Status',
+                    'action'              => 'Actions',
+                    'days-left'           => ':count day(s) left',
+                    'days-overdue'        => ':count day(s) overdue',
+                    'grand-total'         => 'Grand Total',
+                    'id'                  => 'ID',
+                    'invoice-date'        => 'Invoice Date',
+                    'mass-update-success' => 'Selected invoice updated successfully.',
+                    'order-id'            => 'Order ID',
+                    'overdue'             => 'Overdue',
+                    'overdue-by'          => 'Overdue by :count day(s)',
+                    'paid'                => 'Paid',
+                    'pending'             => 'Pending',
+                    'status'              => 'Status',
+                    'update-status'       => 'Update Status',
                 ],
             ],
 
@@ -607,7 +617,7 @@ return [
                 'price-incl-tax'                 => 'Price (Incl. Tax) - :price',
                 'price'                          => 'Price - :price',
                 'print'                          => 'Print',
-                'software-image'                  => 'software Image',
+                'product-image'                  => 'Product Image',
                 'qty'                            => 'Quantity - :qty',
                 'send-btn'                       => 'Send',
                 'send-duplicate-invoice'         => 'Send Duplicate Invoice',
@@ -637,8 +647,8 @@ return [
                 'invalid-qty'        => 'We found an invalid quantity to invoice items.',
                 'invoice'            => 'Invoice',
                 'new-invoice'        => 'New Invoice',
-                'software-error'      => 'Invoice can not be created without softwares.',
-                'software-image'      => 'software Image',
+                'product-error'      => 'Invoice can not be created without products.',
+                'product-image'      => 'Product Image',
                 'qty-to-invoiced'    => 'Qty to invoiced',
                 'sku'                => 'SKU - :sku',
             ],
@@ -659,7 +669,7 @@ return [
                 'payment-method'             => 'Payment Method',
                 'payment-terms'              => 'Payment Terms',
                 'price'                      => 'Price',
-                'software-name'               => 'software Name',
+                'product-name'               => 'Product Name',
                 'qty'                        => 'Quantity',
                 'ship-to'                    => 'Ship to',
                 'shipping-handling-excl-tax' => 'Shipping Handling (Excl. Tax)',
@@ -724,35 +734,65 @@ return [
                     'payment-method'   => 'Payment Method',
                     'status'           => 'Status',
                     'title'            => 'Transaction Details',
-                    'transaction-data' => 'Transaction Data',
                     'transaction-id'   => 'Transaction ID ',
                 ],
             ],
         ],
+
+        'booking' => [
+            'index' => [
+                'datagrid' => [
+                    'created-date' => 'Created Date',
+                    'from'         => 'From',
+                    'id'           => 'ID',
+                    'order-id'     => 'Order ID',
+                    'qty'          => 'QTY',
+                    'to'           => 'To',
+                    'view'         => 'View',
+                ],
+
+                'title'    => 'Bookings',
+            ],
+
+            'calendar' => [
+                'booking-date'     => 'Booking Date',
+                'booking-details'  => 'Booking Details',
+                'canceled'         => 'Canceled',
+                'closed'           => 'Closed',
+                'done'             => 'Done',
+                'order-id'         => 'Order Id',
+                'pending'          => 'Pending',
+                'price'            => 'Price',
+                'status'           => 'Status',
+                'time-slot'        => 'Time Slot:',
+                'view-details'     => 'View Details',
+            ],
+
+            'title' => 'Bookings Product',
+        ],
     ],
 
     'catalog' => [
-        'softwares' => [
+        'products' => [
             'index' => [
                 'already-taken' => 'The :name has already been taken.',
-                'create-btn'    => 'Create software',
-                'title'         => 'softwares',
+                'create-btn'    => 'Create Product',
+                'title'         => 'Products',
 
                 'create' => [
                     'back-btn'                => 'Back',
                     'configurable-attributes' => 'Configurable Attributes',
-                    'create-btn'              => 'Create software',
+                    'create-btn'              => 'Create Product',
                     'family'                  => 'Family',
-                    'save-btn'                => 'Save software',
+                    'save-btn'                => 'Save Product',
                     'sku'                     => 'SKU',
-                    'title'                   => 'Create New software',
+                    'title'                   => 'Create New Product',
                     'type'                    => 'Type',
                 ],
 
                 'datagrid' => [
                     'active'                 => 'Active',
                     'attribute-family-value' => 'Attribute Family - :attribute_family',
-                    'is-valid-by-admin'      => 'Attribute Family - :is_valid_by_admin',
                     'attribute-family'       => 'Attribute Family',
                     'category'               => 'Category',
                     'channel'                => 'Channel',
@@ -760,15 +800,15 @@ return [
                     'copy-of'                => 'Copy Of :value',
                     'delete'                 => 'Delete',
                     'disable'                => 'Disable',
-                    'id-value'               => 'Id - :id',
-                    'id'                     => 'Id',
+                    'id-value'               => 'ID - :id',
+                    'id'                     => 'ID',
                     'image'                  => 'Image',
-                    'mass-delete-success'    => 'Selected softwares Deleted Successfully',
-                    'mass-update-success'    => 'Selected softwares Updated Successfully',
+                    'mass-delete-success'    => 'Selected Products Deleted Successfully',
+                    'mass-update-success'    => 'Selected Products Updated Successfully',
                     'name'                   => 'Name',
                     'out-of-stock'           => 'Out of Stock',
                     'price'                  => 'Price',
-                    'software-image'          => 'software Image',
+                    'product-image'          => 'Product Image',
                     'qty-value'              => ':qty Available',
                     'qty'                    => 'Quantity',
                     'sku-value'              => 'SKU - :sku',
@@ -782,8 +822,8 @@ return [
             'edit' => [
                 'preview'  => 'Preview',
                 'remove'   => 'Remove',
-                'save-btn' => 'Save software',
-                'title'    => 'Edit software',
+                'save-btn' => 'Save Product',
+                'title'    => 'Edit Product',
 
                 'channels' => [
                     'title' => 'Channels',
@@ -838,41 +878,128 @@ return [
                 ],
 
                 'links' => [
-                    'related-softwares' => [
-                        'empty-info' => 'Add related softwares on the go.',
-                        'info'       => 'In addition to the software the customer is viewing, they are presented with related softwares.',
-                        'title'      => 'Related softwares',
+                    'related-products' => [
+                        'empty-info' => 'Add related products on the go.',
+                        'info'       => 'In addition to the product the customer is viewing, they are presented with related products.',
+                        'title'      => 'Related Products',
                     ],
 
                     'up-sells' => [
-                        'empty-info' => 'Add up sells softwares on the go.',
-                        'info'       => 'The customer is presented with an up-sell softwares, which serves as a premium or higher-quality alternative to the software they are currently viewing.',
-                        'title'      => 'Up-Sell softwares',
+                        'empty-info' => 'Add up sells products on the go.',
+                        'info'       => 'The customer is presented with an up-sell products, which serves as a premium or higher-quality alternative to the product they are currently viewing.',
+                        'title'      => 'Up-Sell Products',
                     ],
 
                     'cross-sells' => [
-                        'empty-info' => 'Add cross sells softwares on the go.',
-                        'info'       => 'Adjacent to the shopping cart, you\'ll find these \"impulse-buy\" softwares positioned as cross-sells to complement the items already added to your cart.',
-                        'title'      => 'Cross-Sell softwares',
+                        'empty-info' => 'Add cross sells products on the go.',
+                        'info'       => 'Adjacent to the shopping cart, you\'ll find these \"impulse-buy\" products positioned as cross-sells to complement the items already added to your cart.',
+                        'title'      => 'Cross-Sell Products',
                     ],
 
-                    'add-btn'           => 'Add software',
+                    'add-btn'           => 'Add Product',
                     'delete'            => 'Delete',
-                    'empty-info'        => 'To add :type softwares on a go.',
-                    'empty-title'       => 'Add software',
-                    'image-placeholder' => 'software Image',
+                    'empty-info'        => 'To add :type products on a go.',
+                    'empty-title'       => 'Add Product',
+                    'image-placeholder' => 'Product Image',
                     'sku'               => 'SKU - :sku',
                 ],
 
                 'types' => [
+                    'simple' => [
+                        'customizable-options' => [
+                            'add-btn'           => 'Add Option',
+                            'empty-info'        => 'To create customizable options on a go.',
+                            'empty-title'       => 'Add Option',
+                            'info'              => 'This will customize the simple product.',
+                            'title'             => 'Customizable Item',
+
+                            'update-create' => [
+                                'is-required'               => 'Is Required',
+                                'max-characters'            => 'Max Characters',
+                                'name'                      => 'Title',
+                                'no'                        => 'No',
+                                'price'                     => 'Price',
+                                'save-btn'                  => 'Save',
+                                'supported-file-extensions' => 'Supported File Extensions',
+                                'title'                     => 'Option',
+                                'type'                      => 'Type',
+                                'yes'                       => 'Yes',
+                            ],
+
+                            'option' => [
+                                'add-btn'     => 'Add Option',
+                                'delete'      => 'Delete',
+                                'delete-btn'  => 'Delete',
+                                'edit-btn'    => 'Edit',
+                                'empty-info'  => 'To create various combination of product on a go.',
+                                'empty-title' => 'Add Option',
+
+                                'types' => [
+                                    'text' => [
+                                        'title' => 'Text',
+                                    ],
+
+                                    'textarea' => [
+                                        'title' => 'Textarea',
+                                    ],
+
+                                    'checkbox' => [
+                                        'title' => 'Checkbox',
+                                    ],
+
+                                    'radio' => [
+                                        'title' => 'Radio',
+                                    ],
+
+                                    'select' => [
+                                        'title' => 'Select',
+                                    ],
+
+                                    'multiselect' => [
+                                        'title' => 'Multiselect',
+                                    ],
+
+                                    'date' => [
+                                        'title' => 'Date',
+                                    ],
+
+                                    'datetime' => [
+                                        'title' => 'Datetime',
+                                    ],
+
+                                    'time' => [
+                                        'title' => 'Time',
+                                    ],
+
+                                    'file' => [
+                                        'title' => 'File',
+                                    ],
+                                ],
+
+                                'items' => [
+                                    'update-create' => [
+                                        'label'    => 'Label',
+                                        'price'    => 'Price',
+                                        'save-btn' => 'Save',
+                                        'title'    => 'Option',
+                                    ],
+                                ],
+                            ],
+
+                            'validations' => [
+                                'associated-product' => 'The product is already associated with a configurable, grouped, or bundle product.',
+                            ],
+                        ],
+                    ],
+
                     'configurable' => [
                         'add-btn'           => 'Add Variant',
                         'delete-btn'        => 'Delete',
                         'edit-btn'          => 'Edit',
-                        'empty-info'        => 'To create various combination of software on a go.',
+                        'empty-info'        => 'To create various combination of product on a go.',
                         'empty-title'       => 'Add Variant',
-                        'image-placeholder' => 'software Image',
-                        'info'              => 'Variation softwares are depend on all possible combination of attribute.',
+                        'image-placeholder' => 'Product Image',
+                        'info'              => 'Variation products are depend on all possible combination of attribute.',
                         'qty'               => ':qty Qty',
                         'sku'               => 'SKU - :sku',
                         'title'             => 'Variations',
@@ -887,8 +1014,8 @@ return [
 
                         'edit' => [
                             'disabled'        => 'Disabled',
-                            'edit-info'       => 'If you want to update software information in detail, then go to the',
-                            'edit-link-title' => 'software Details Page',
+                            'edit-info'       => 'If you want to update product information in detail, then go to the',
+                            'edit-link-title' => 'Product Details Page',
                             'enabled'         => 'Enabled',
                             'images'          => 'Images',
                             'name'            => 'Name',
@@ -897,7 +1024,7 @@ return [
                             'save-btn'        => 'Save',
                             'sku'             => 'SKU',
                             'status'          => 'Status',
-                            'title'           => 'software',
+                            'title'           => 'Product',
                             'weight'          => 'Weight',
                         ],
 
@@ -928,23 +1055,23 @@ return [
                     ],
 
                     'grouped' => [
-                        'add-btn'           => 'Add software',
+                        'add-btn'           => 'Add Product',
                         'default-qty'       => 'Default Qty',
                         'delete'            => 'Delete',
-                        'empty-info'        => 'To create various combination of software on a go.',
-                        'empty-title'       => 'Add software',
-                        'image-placeholder' => 'software Image',
-                        'info'              => 'A grouped software comprises standalone items presented as a set, allowing variations or coordination by season or theme. Each software can be bought individually or as part of the group.',
+                        'empty-info'        => 'To create various combination of product on a go.',
+                        'empty-title'       => 'Add Product',
+                        'image-placeholder' => 'Product Image',
+                        'info'              => 'A grouped product comprises standalone items presented as a set, allowing variations or coordination by season or theme. Each product can be bought individually or as part of the group.',
                         'sku'               => 'SKU - :sku',
-                        'title'             => 'Group softwares',
+                        'title'             => 'Group Products',
                     ],
 
                     'bundle' => [
                         'add-btn'           => 'Add Option',
                         'empty-info'        => 'To create bundle options on a go.',
                         'empty-title'       => 'Add Option',
-                        'image-placeholder' => 'software Image',
-                        'info'              => 'A bundle software is a package of multiple items or services sold together at a special price, providing value and convenience to customers.',
+                        'image-placeholder' => 'Product Image',
+                        'info'              => 'A bundle product is a package of multiple items or services sold together at a special price, providing value and convenience to customers.',
                         'title'             => 'Bundle Items',
 
                         'update-create' => [
@@ -962,36 +1089,216 @@ return [
                         ],
 
                         'option' => [
-                            'add-btn'     => 'Add software',
+                            'add-btn'     => 'Add Product',
                             'default-qty' => 'Default Qty',
                             'delete'      => 'Delete',
                             'delete-btn'  => 'Delete',
                             'edit-btn'    => 'Edit',
-                            'empty-info'  => 'To create various combination of software on a go.',
-                            'empty-title' => 'Add software',
+                            'empty-info'  => 'To create various combination of product on a go.',
+                            'empty-title' => 'Add Product',
                             'sku'         => 'SKU - :sku',
 
                             'types' => [
                                 'checkbox' => [
-                                    'info'  => 'Set default software using checkbox',
+                                    'info'  => 'Set default product using checkbox',
                                     'title' => 'Checkbox',
                                 ],
 
                                 'multiselect' => [
-                                    'info'  => 'Set default software using checkbox button',
+                                    'info'  => 'Set default product using checkbox button',
                                     'title' => 'Multiselect',
                                 ],
 
                                 'radio' => [
-                                    'info'  => 'Set default software using radio button',
+                                    'info'  => 'Set default product using radio button',
                                     'title' => 'Radio',
                                 ],
 
                                 'select' => [
-                                    'info'  => 'Set default software using radio button',
+                                    'info'  => 'Set default product using radio button',
                                     'title' => 'Select',
                                 ],
                             ],
+                        ],
+                    ],
+
+                    'booking' => [
+                        'available-from' => 'Available From',
+                        'available-to'   => 'Available To',
+                        'location'       => 'Location',
+                        'qty'            => 'Qty',
+                        'title'          => 'Booking Type',
+
+                        'available-every-week' => [
+                            'no'    => 'No',
+                            'title' => 'Available Every Week',
+                            'yes'   => 'Yes',
+                        ],
+
+                        'appointment' => [
+                            'break-duration' => 'Break Time b/w Slots (Mins)',
+                            'slot-duration'  => 'Slot Duration (Mins)',
+
+                            'same-slot-for-all-days' => [
+                                'no'    => 'No',
+                                'title' => 'Same Slot For All days',
+                                'yes'   => 'Yes',
+                            ],
+                        ],
+
+                        'default' => [
+                            'add'              => 'Add',
+                            'break-duration'   => 'Break Time b/w Slots (Mins)',
+                            'close'            => 'Close',
+                            'description'      => 'Booking Information',
+                            'description-info' => 'According to slots the time duration will be created and visible. And The time duration will be created and displayed according to the slots. It will be unique across all slots and visible on the storefront.',
+                            'edit'             => 'Edit',
+                            'many'             => 'Many Bookings For One Days',
+                            'one'              => 'One Booking For Many Days',
+                            'open'             => 'Open',
+                            'slot-add'         => 'Add Slots',
+                            'slot-duration'    => 'Slot Duration (Mins)',
+                            'slot-title'       => 'Slots Time Duration',
+                            'title'            => 'Default',
+                            'unavailable'      => 'Unavailable',
+
+                            'modal' => [
+                                'slot' => [
+                                    'add-title'  => 'Add Slots',
+                                    'close'      => 'Close',
+                                    'day'        => 'Day',
+                                    'edit-title' => 'Edit Slots',
+                                    'friday'     => 'Friday',
+                                    'from'       => 'From',
+                                    'from-day'   => 'From Day',
+                                    'from-time'  => 'From Time',
+                                    'monday'     => 'Monday',
+                                    'open'       => 'Open',
+                                    'saturday'   => 'Saturday',
+                                    'save'       => 'Save',
+                                    'select'     => 'Select',
+                                    'status'     => 'Status',
+                                    'sunday'     => 'Sunday',
+                                    'thursday'   => 'Thursday',
+                                    'to'         => 'To',
+                                    'to-day'     => 'To Day',
+                                    'to-time'    => 'To Time',
+                                    'tuesday'    => 'Tuesday',
+                                    'wednesday'  => 'Wednesday',
+                                    'week'       => ':day',
+                                ],
+                            ],
+                        ],
+
+                        'event' => [
+                            'add'                => 'Add Tickets',
+                            'delete'             => 'Delete',
+                            'description'        => 'Description',
+                            'description-info'   => 'There is no tickets available.',
+                            'edit'               => 'Edit',
+                            'name'               => 'Name',
+                            'price'              => 'Price',
+                            'qty'                => 'Quantity',
+                            'special-price'      => 'Special Price',
+                            'special-price-from' => 'Special Price From',
+                            'special-price-to'   => 'Special Price To',
+                            'title'              => 'Tickets',
+                            'valid-from'         => 'Valid From',
+                            'valid-until'        => 'Valid Until',
+
+                            'modal' => [
+                                'edit' => 'Edit Tickets',
+                                'save' => 'Save',
+                            ],
+                        ],
+
+                        'empty-info' => [
+                            'tickets' => [
+                                'add' => 'Add Tickets',
+                            ],
+
+                            'slots'   => [
+                                'add'         => 'Add Slots',
+                                'description' => 'Available Slots with time Duration.',
+                            ],
+                        ],
+
+                        'rental' => [
+                            'daily'        => 'Daily Basis',
+                            'daily-hourly' => 'Both (Daily and Hourly Basis)',
+                            'daily-price'  => 'Daily Price',
+                            'hourly'       => 'Hourly Basis',
+                            'hourly-price' => 'Hourly Price',
+                            'title'        => 'Renting Type',
+
+                            'same-slot-for-all-days' => [
+                                'no'    => 'No',
+                                'title' => 'Same Slot For All days',
+                                'yes'   => 'Yes',
+                            ],
+                        ],
+
+                        'slots' => [
+                            'add'              => 'Add Slots',
+                            'description-info' => 'According to slots the time duration will be created and visible. And The time duration will be created and displayed according to the slots. It will be unique across all slots and visible on the storefront.',
+                            'save'             => 'Save',
+                            'title'            => 'Slots Time Duration',
+                            'unavailable'      => 'Unavailable',
+
+                            'action' => [
+                                'add' => 'Add',
+                            ],
+
+                            'modal' => [
+                                'slot' => [
+                                    'friday'    => 'Friday',
+                                    'from'      => 'From',
+                                    'monday'    => 'Monday',
+                                    'saturday'  => 'Saturday',
+                                    'sunday'    => 'Sunday',
+                                    'thursday'  => 'Thursday',
+                                    'to'        => 'To',
+                                    'tuesday'   => 'Tuesday',
+                                    'wednesday' => 'Wednesday',
+                                ],
+                            ],
+                        ],
+
+                        'table' => [
+                            'break-duration'            => 'Break Time b/w Slots (Mins)',
+                            'guest-capacity'            => 'Guest Capacity',
+                            'guest-limit'               => 'Guest Limit Per Table',
+                            'prevent-scheduling-before' => 'Prevent Scheduling Before',
+                            'slot-duration'             => 'Slot Duration (Mins)',
+
+                            'charged-per'               => [
+                                'guest'  => 'Guest',
+                                'table'  => 'Table',
+                                'title'  => 'Charged Per',
+                            ],
+
+                            'same-slot-for-all-days'    => [
+                                'no'    => 'No',
+                                'title' => 'Same Slot For All days',
+                                'yes'   => 'Yes',
+                            ],
+                        ],
+
+                        'type' => [
+                            'appointment' => 'Appointment Booking',
+                            'default'     => 'Default Booking',
+                            'event'       => 'Event Booking',
+                            'many'        => 'Many',
+                            'one'         => 'One',
+                            'rental'      => 'Rental Booking',
+                            'table'       => 'Table Booking',
+                            'title'       => 'Type',
+                        ],
+
+                        'validations' => [
+                            'type-mismatch'      => 'The booking type cannot be changed.',
+                            'time-validation'    => 'Start time must be less than end time.',
+                            'overlap-validation' => 'Time slot overlaps with an existing slot.',
                         ],
                     ],
 
@@ -1003,7 +1310,7 @@ return [
                             'empty-info'  => 'To create link on a go.',
                             'empty-title' => 'Add Link',
                             'file'        => 'File : ',
-                            'info'        => 'Downloadable software type allows to sell digital softwares, such as eBooks, software applications, music, games, etc.',
+                            'info'        => 'Downloadable product type allows to sell digital products, such as eBooks, software applications, music, games, etc.',
                             'sample-file' => 'Sample File : ',
                             'sample-url'  => 'Sample URL : ',
                             'title'       => 'Downloadable Links',
@@ -1030,7 +1337,7 @@ return [
                             'empty-info'  => 'To create sample on a go.',
                             'empty-title' => 'Add Sample',
                             'file'        => 'File : ',
-                            'info'        => 'Downloadable software type allows to sell digital softwares, such as eBooks, software applications, music, games, etc.',
+                            'info'        => 'Downloadable product type allows to sell digital products, such as eBooks, software applications, music, games, etc.',
                             'title'       => 'Downloadable Samples',
                             'url'         => 'URL : ',
 
@@ -1047,12 +1354,12 @@ return [
                 ],
             ],
 
-            'create-success'          => 'software created successfully',
-            'delete-failed'           => 'software deleted Failed',
-            'delete-success'          => 'software deleted successfully',
-            'software-copied'          => 'software copied successfully',
-            'saved-inventory-message' => 'software saved successfully',
-            'update-success'          => 'software updated successfully',
+            'create-success'          => 'Product created successfully',
+            'delete-failed'           => 'Product deleted Failed',
+            'delete-success'          => 'Product deleted successfully',
+            'product-copied'          => 'Product copied successfully',
+            'saved-inventory-message' => 'Product saved successfully',
+            'update-success'          => 'Product updated successfully',
         ],
 
         'attributes' => [
@@ -1070,6 +1377,7 @@ return [
                     'date-time'           => 'Date Time',
                     'delete'              => 'Delete',
                     'edit'                => 'Edit',
+                    'false'               => 'False',
                     'file'                => 'File',
                     'id'                  => 'ID',
                     'image'               => 'Image',
@@ -1082,6 +1390,7 @@ return [
                     'select'              => 'Select',
                     'text'                => 'Text',
                     'textarea'            => 'Textarea',
+                    'true'                => 'True',
                     'type'                => 'Type',
                     'unique'              => 'Unique',
                 ],
@@ -1105,7 +1414,6 @@ return [
                 'datetime'              => 'Datetime',
                 'decimal'               => 'Decimal',
                 'default-value'         => 'Default Value',
-                'max-length'            => 'max length of input',
                 'option-deleted'        => 'Option Deleted Successfully',
                 'email'                 => 'Email',
                 'enable-wysiwyg'        => 'Enable Wysiwyg Editor',
@@ -1115,11 +1423,11 @@ return [
                 'input-options'         => 'Input Options',
                 'input-validation'      => 'Input Validation',
                 'is-comparable'         => 'Attribute is comparable',
-                'is-configurable'       => 'Use To Create Configurable software',
+                'is-configurable'       => 'Use To Create Configurable Product',
                 'is-filterable'         => 'Use in Layered Navigation',
                 'is-required'           => 'Is Required',
                 'is-unique'             => 'Is Unique',
-                'is-visible-on-front'   => 'Visible on software View Page on Front-end',
+                'is-visible-on-front'   => 'Visible on Product View Page on Front-end',
                 'label'                 => 'Label',
                 'multiselect'           => 'Multiselect',
                 'no'                    => 'No',
@@ -1138,7 +1446,7 @@ return [
                 'title'                 => 'Add Attribute',
                 'type'                  => 'Attribute Type',
                 'url'                   => 'URL',
-                'use-in-flat'           => 'Create in software Flat Table',
+                'use-in-flat'           => 'Create in Product Flat Table',
                 'validations'           => 'Validations',
                 'value-per-channel'     => 'Value Per Channel',
                 'value-per-locale'      => 'Value Per Locale',
@@ -1171,7 +1479,6 @@ return [
                 'datetime'              => 'Datetime',
                 'decimal'               => 'Decimal',
                 'default-value'         => 'Default Value',
-                'max-length'            => 'max length of input',
                 'option-deleted'        => 'Option Deleted Successfully',
                 'email'                 => 'Email',
                 'enable-wysiwyg'        => 'Enable Wysiwyg Editor',
@@ -1181,11 +1488,11 @@ return [
                 'input-options'         => 'Input Options',
                 'input-validation'      => 'Input Validation',
                 'is-comparable'         => 'Attribute is comparable',
-                'is-configurable'       => 'Use To Create Configurable software',
+                'is-configurable'       => 'Use To Create Configurable Product',
                 'is-filterable'         => 'Use in Layered Navigation',
                 'is-required'           => 'Is Required',
                 'is-unique'             => 'Is Unique',
-                'is-visible-on-front'   => 'Visible on software View Page on Front-end',
+                'is-visible-on-front'   => 'Visible on Product View Page on Front-end',
                 'label'                 => 'Label',
                 'multiselect'           => 'Multiselect',
                 'no'                    => 'No',
@@ -1204,7 +1511,7 @@ return [
                 'title'                 => 'Edit Attribute',
                 'type'                  => 'Attribute Type',
                 'url'                   => 'URL',
-                'use-in-flat'           => 'Create in software Flat Table',
+                'use-in-flat'           => 'Create in Product Flat Table',
                 'validations'           => 'Validations',
                 'value-per-channel'     => 'Value Per Channel',
                 'value-per-locale'      => 'Value Per Locale',
@@ -1239,7 +1546,7 @@ return [
                     'id'             => 'ID',
                     'inactive'       => 'Inactive',
                     'name'           => 'Name',
-                    'no-of-softwares' => 'Number of softwares',
+                    'no-of-products' => 'Number of Products',
                     'position'       => 'Position',
                     'status'         => 'Visible In Menu',
                     'update-status'  => 'Update Status',
@@ -1267,8 +1574,8 @@ return [
                 'name'                     => 'Name',
                 'parent-category'          => 'Parent Category',
                 'position'                 => 'Position',
-                'softwares-and-description' => 'softwares and Description',
-                'softwares-only'            => 'softwares Only',
+                'products-and-description' => 'Products and Description',
+                'products-only'            => 'Products Only',
                 'save-btn'                 => 'Save Category',
                 'select-display-mode'      => 'Select Display Mode',
                 'seo-details'              => 'SEO Details',
@@ -1298,8 +1605,8 @@ return [
                 'meta-title'               => 'Meta Title',
                 'name'                     => 'Name',
                 'position'                 => 'Position',
-                'softwares-and-description' => 'softwares and Description',
-                'softwares-only'            => 'softwares Only',
+                'products-and-description' => 'Products and Description',
+                'products-only'            => 'Products Only',
                 'save-btn'                 => 'Save Category',
                 'select-display-mode'      => 'Select Display Mode',
                 'select-parent-category'   => 'Select Parent Category',
@@ -1311,11 +1618,11 @@ return [
             ],
 
             'category'             => 'Category',
-            'create-success'       => 'category created successfully.',
+            'create-success'       => 'Category created successfully.',
             'delete-category-root' => 'The Root category can not be deleted.',
             'delete-failed'        => 'Error encountered while deleting category',
             'delete-success'       => 'The category has been successfully deleted.',
-            'update-success'       => 'category updated successfully.',
+            'update-success'       => 'Category updated successfully.',
         ],
 
         'families' => [
@@ -1392,7 +1699,7 @@ return [
             ],
 
             'attribute-family'        => 'Attribute Family',
-            'attribute-software-error' => 'family is used in softwares.',
+            'attribute-product-error' => 'family is used in products.',
             'create-success'          => 'Family created successfully.',
             'delete-failed'           => 'Error encountered while deleting Family.',
             'delete-success'          => 'Family deleted successfully.',
@@ -1420,6 +1727,7 @@ return [
                     'gender'         => 'Gender',
                     'group'          => 'Group',
                     'id'             => 'Customer ID',
+                    'id-value'       => 'ID - :id',
                     'inactive'       => 'Inactive',
                     'method-error'   => 'Error! Wrong method detected, please check mass action configuration',
                     'name'           => 'Customer Name',
@@ -1570,8 +1878,8 @@ return [
                         'id'            => 'ID',
                         'invoice-date'  => 'Invoice Date',
                         'pending'       => 'Pending',
-                        'software-id'    => 'software ID',
-                        'software-name'  => 'software Name',
+                        'product-id'    => 'Product ID',
+                        'product-name'  => 'Product Name',
                         'rating'        => 'Rating',
                         'status'        => 'Status',
                         'title'         => 'Title',
@@ -1644,6 +1952,8 @@ return [
         ],
 
         'groups' => [
+            'customer-associate' => 'This group has associated customers and cannot be deleted.',
+
             'index' => [
                 'title' => 'Groups',
 
@@ -1674,13 +1984,53 @@ return [
             ],
         ],
 
+        'gdpr' => [
+            'index' => [
+                'title' => 'GDPR Request',
+
+                'datagrid' => [
+                    'completed'     => 'Completed',
+                    'created-at'    => 'Created At',
+                    'customer-name' => 'Customer Name',
+                    'declined'      => 'Declined',
+                    'delete'        => 'Delete',
+                    'edit'          => 'Edit',
+                    'id'            => 'ID',
+                    'message'       => 'Message',
+                    'pending'       => 'Pending',
+                    'processing'    => 'Processing',
+                    'revoked'       => 'Revoked',
+                    'status'        => 'Status',
+                    'type'          => 'Type',
+                ],
+
+                'modal' => [
+                    'completed'  => 'Completed',
+                    'declined'   => 'Declined',
+                    'pending'    => 'Pending',
+                    'processing' => 'Processing',
+                    'status'     => 'Status',
+                    'title'      => 'Edit GDPR Data Request',
+                    'type'       => 'Type',
+                    'message'    => 'Message',
+                    'save-btn'   => 'Save',
+                    'revoked'    => 'Revoked',
+                ],
+
+                'update-success'              => 'Data Request updated successfully and Email Sent to Customer.',
+                'delete-success'              => 'Data Request deleted successfully.',
+                'attribute-reason-error'      => 'Unable to Delete.',
+                'update-success-unsent-email' => 'Data Request updated successfully But Email unsent to Customer.',
+            ],
+        ],
+
         'reviews' => [
             'index' => [
                 'date'        => 'Date',
                 'description' => 'Description',
                 'id'          => 'Id',
                 'name'        => 'Name',
-                'software'     => 'software',
+                'product'     => 'Product',
                 'rating'      => 'Rating',
                 'status'      => 'Status',
                 'title'       => 'Reviews',
@@ -1693,7 +2043,7 @@ return [
                     'id'             => 'ID',
                     'images'         => 'Images',
                     'pending'        => 'Pending',
-                    'software'        => 'software',
+                    'product'        => 'Product',
                     'rating'         => 'Rating',
                     'review-comment' => 'Comment',
                     'review-title'   => 'Title',
@@ -1717,7 +2067,7 @@ return [
                     'mass-delete-success' => 'Selected Review Deleted Successfully',
                     'mass-update-success' => 'Selected Review Updated Successfully',
                     'pending'             => 'Pending',
-                    'software'             => 'software',
+                    'product'             => 'Product',
                     'rating'              => 'Rating',
                     'review-id'           => 'ID - :review_id',
                     'status'              => 'Status',
@@ -1954,8 +2304,8 @@ return [
                     'any-conditions-true'                       => 'Any Conditions Are True',
                     'apply-to-shipping'                         => 'Apply to Shipping',
                     'attribute-family'                          => 'Attribute Family',
-                    'attribute-name-children-only'              => 'Attribute name Children Only',
-                    'attribute-name-parent-only'                => 'Attribute name Parent Only',
+                    'attribute-name-children-only'              => ':attribute_name (Children Only)',
+                    'attribute-name-parent-only'                => ':attribute_name (Parent Only)',
                     'auto-generate-coupon'                      => 'Auto Generate Coupon',
                     'back-btn'                                  => 'Back',
                     'buy-x-get-y-free'                          => 'Buy X Get Y Free',
@@ -1996,10 +2346,10 @@ return [
                     'no-coupon'                                 => 'No Coupon',
                     'parent-categories'                         => 'Categories(Parent Only)',
                     'payment-method'                            => 'Payment method',
-                    'percentage-software-price'                  => 'Percentage software Price',
+                    'percentage-product-price'                  => 'Percentage Product Price',
                     'price-in-cart'                             => 'Price in cart',
                     'priority'                                  => 'Priority',
-                    'software-attribute'                         => 'software attribute',
+                    'product-attribute'                         => 'Product attribute',
                     'qty-in-cart'                               => 'Quantity in cart',
                     'save-btn'                                  => 'Save Cart Rule',
                     'settings'                                  => 'Settings',
@@ -2031,8 +2381,8 @@ return [
                     'any-conditions-true'                       => 'Any Conditions Are True',
                     'apply-to-shipping'                         => 'Apply to Shipping',
                     'attribute-family'                          => 'Attribute Family',
-                    'attribute-name-children-only'              => 'Attribute name children only',
-                    'attribute-name-parent-only'                => 'Attribute name parent only',
+                    'attribute-name-children-only'              => ':attribute_name (Children Only)',
+                    'attribute-name-parent-only'                => ':attribute_name (Parent Only)',
                     'auto-generate-coupon'                      => 'Auto Generate Coupon',
                     'back-btn'                                  => 'Back',
                     'buy-x-get-y-free'                          => 'Buy X Get Y Free',
@@ -2080,10 +2430,10 @@ return [
                     'numeric'                                   => 'Numeric',
                     'parent-categories'                         => 'Parent Categories',
                     'payment-method'                            => 'Payment method',
-                    'percentage-software-price'                  => 'Percentage software Price',
+                    'percentage-product-price'                  => 'Percentage Product Price',
                     'price-in-cart'                             => 'Price in cart',
                     'priority'                                  => 'Priority',
-                    'software-attribute'                         => 'software attribute',
+                    'product-attribute'                         => 'Product attribute',
                     'qty-in-cart'                               => 'Quantity in cart',
                     'save-btn'                                  => 'Save Cart Rule',
                     'settings'                                  => 'Settings',
@@ -2160,9 +2510,9 @@ return [
                     'marketing-time'           => 'Marketing Time',
                     'name'                     => 'Name',
                     'no'                       => 'No',
-                    'percentage-software-price' => 'Percentage of software Price',
+                    'percentage-product-price' => 'Percentage of Product Price',
                     'priority'                 => 'Priority',
-                    'software-attribute'        => 'software attribute',
+                    'product-attribute'        => 'Product attribute',
                     'save-btn'                 => 'Save Catalog Rule',
                     'settings'                 => 'Settings',
                     'status'                   => 'Status',
@@ -2202,9 +2552,9 @@ return [
                     'marketing-time'           => 'Marketing Time',
                     'name'                     => 'Name',
                     'no'                       => 'No',
-                    'percentage-software-price' => 'Percentage of software Price',
+                    'percentage-product-price' => 'Percentage of Product Price',
                     'priority'                 => 'Priority',
-                    'software-attribute'        => 'software attribute',
+                    'product-attribute'        => 'Product attribute',
                     'save-btn'                 => 'Save Catalog Rule',
                     'settings'                 => 'Settings',
                     'status'                   => 'Status',
@@ -2372,7 +2722,7 @@ return [
                         'locale'              => 'Locale',
                         'mass-delete-success' => 'Selected URL Rewrites Deleted Successfully',
                         'permanent-redirect'  => 'Permanent (301)',
-                        'software'             => 'software',
+                        'product'             => 'Product',
                         'redirect-type'       => 'Redirect Type',
                         'request-path'        => 'Request Path',
                         'target-path'         => 'Target Path',
@@ -2386,7 +2736,7 @@ return [
                         'for'                => 'For',
                         'locale'             => 'Locale',
                         'permanent-redirect' => 'Permanent (301)',
-                        'software'            => 'software',
+                        'product'            => 'Product',
                         'redirect-type'      => 'Redirect Type',
                         'request-path'       => 'Request Path',
                         'save-btn'           => 'Save URL Rewrite',
@@ -2527,18 +2877,20 @@ return [
                 ],
 
                 'create' => [
-                    'code'              => 'Code',
-                    'create-btn'        => 'Create Currency',
-                    'currency-position' => 'Currency Position',
-                    'decimal'           => 'Decimal',
-                    'decimal-separator' => 'Decimal Separator',
-                    'delete-warning'    => 'Are you sure you want to perform this action?',
-                    'general'           => 'General',
-                    'group-separator'   => 'Group Separator',
-                    'name'              => 'Name',
-                    'save-btn'          => 'Save Currency',
-                    'symbol'            => 'Symbol',
-                    'title'             => 'Create New Currency',
+                    'code'                   => 'Code',
+                    'create-btn'             => 'Create Currency',
+                    'currency-position'      => 'Currency Position',
+                    'decimal'                => 'Decimal',
+                    'decimal-separator'      => 'Decimal Separator',
+                    'decimal-separator-note' => 'The :attribute field can only accept the comma (,) and dot (.) characters',
+                    'delete-warning'         => 'Are you sure you want to perform this action?',
+                    'general'                => 'General',
+                    'group-separator'        => 'Group Separator',
+                    'group-separator-note'   => 'The :attribute field can only accept the comma (,), dot (.), apostrophe (\'), and space ( ) characters',
+                    'name'                   => 'Name',
+                    'save-btn'               => 'Save Currency',
+                    'symbol'                 => 'Symbol',
+                    'title'                  => 'Create New Currency',
                 ],
 
                 'edit' => [
@@ -2564,8 +2916,8 @@ return [
                     'download-sample'     => 'Download Sample',
                     'field-separator'     => 'Field Separator',
                     'file'                => 'File',
-                    'file-info'           => 'Use relative path to /project-root/storage/app/import, e.g. software-images, import-images.',
-                    'file-info-example'   => 'For example, in case software-images, files should be placed into /project-root/storage/app/import/software-images folder.',
+                    'file-info'           => 'Use relative path to /project-root/storage/app/import, e.g. product-images, import-images.',
+                    'file-info-example'   => 'For example, in case product-images, files should be placed into /project-root/storage/app/import/product-images folder.',
                     'general'             => 'General',
                     'images-directory'    => 'Images Directory Path',
                     'process-in-queue'    => 'Process In Queue',
@@ -2584,12 +2936,13 @@ return [
                     'allowed-errors'      => 'Allowed Errors',
                     'back-btn'            => 'Back',
                     'create-update'       => 'Create/Update',
+                    'current-file'        => 'Current Uploaded File',
                     'delete'              => 'Delete',
                     'download-sample'     => 'Download Sample',
                     'field-separator'     => 'Field Separator',
                     'file'                => 'File',
-                    'file-info'           => 'Use relative path to /project-root/storage/app/import, e.g. software-images, import-images.',
-                    'file-info-example'   => 'For example, in case software-images, files should be placed into /project-root/storage/app/import/software-images folder.',
+                    'file-info'           => 'Use relative path to /project-root/storage/app/import, e.g. product-images, import-images.',
+                    'file-info-example'   => 'For example, in case product-images, files should be placed into /project-root/storage/app/import/product-images folder.',
                     'general'             => 'General',
                     'images-directory'    => 'Images Directory Path',
                     'process-in-queue'    => 'Process In Queue',
@@ -2811,10 +3164,11 @@ return [
                         'title' => 'Edit Tax Categories',
                     ],
 
-                    'create-success' => 'New Tax Category Created',
+                    'can-not-delete' => 'Tax Rates Assigned Categories cannot be deleted.',
+                    'create-success' => 'New Tax Category Created.',
                     'delete-failed'  => 'Tax Category Deleted Failed',
-                    'delete-success' => 'Tax Category Deleted Successfully',
-                    'update-success' => 'Tax Category Successfully Updated',
+                    'delete-success' => 'Tax Category Deleted Successfully.',
+                    'update-success' => 'Tax Category Successfully Updated.',
                 ],
             ],
 
@@ -3025,10 +3379,11 @@ return [
             'cannot-change'      => 'User cannot be changed',
             'create-success'     => 'User created successfully.',
             'delete-failed'      => 'User deleted failed.',
+            'delete-self-error'  => 'You cannot delete your own account.',
             'delete-success'     => 'User deleted successfully.',
             'delete-warning'     => 'Are you sure, you want to perform this action?',
             'incorrect-password' => 'Incorrect password',
-            'last-delete-error'  => 'Last User delete failed',
+            'last-delete-error'  => 'Atleast one admin is required.',
             'login-error'        => 'Please check your credentials and try again.',
             'update-success'     => 'User updated successfully.',
         ],
@@ -3089,17 +3444,18 @@ return [
                 'title'      => 'Themes',
 
                 'datagrid' => [
-                    'active'       => 'Active',
-                    'channel_name' => 'Channel Name',
-                    'delete'       => 'Delete',
-                    'id'           => 'Id',
-                    'inactive'     => 'Inactive',
-                    'name'         => 'Name',
-                    'sort-order'   => 'Sort Order',
-                    'status'       => 'Status',
-                    'theme'        => 'Theme',
-                    'type'         => 'Type',
-                    'view'         => 'View',
+                    'active'        => 'Active',
+                    'channel_name'  => 'Channel Name',
+                    'change-status' => 'Change status',
+                    'delete'        => 'Delete',
+                    'id'            => 'Id',
+                    'inactive'      => 'Inactive',
+                    'name'          => 'Name',
+                    'sort-order'    => 'Sort Order',
+                    'status'        => 'Status',
+                    'theme'         => 'Theme',
+                    'type'          => 'Type',
+                    'view'          => 'View',
                 ],
             ],
 
@@ -3114,7 +3470,7 @@ return [
                     'category-carousel' => 'Category Carousel',
                     'footer-links'      => 'Footer Links',
                     'image-carousel'    => 'Image Carousel',
-                    'software-carousel'  => 'software Carousel',
+                    'product-carousel'  => 'Product Carousel',
                     'services-content'  => 'Services Content',
                     'static-content'    => 'Static Content',
                     'title'             => 'Type',
@@ -3126,7 +3482,6 @@ return [
                 'add-filter-btn'                => 'Add Filter',
                 'add-footer-link-btn'           => 'Add Footer Link',
                 'add-image-btn'                 => 'Add Image',
-                'add-csv-btn'                   => 'Add Csv File',
                 'add-link'                      => 'Add Link',
                 'asc'                           => 'Asc',
                 'back'                          => 'Back',
@@ -3161,10 +3516,11 @@ return [
                 'new'                           => 'New',
                 'no'                            => 'No',
                 'parent-id'                     => 'Parent ID',
+                'parent-id-hint'                => 'You can enter multiple parent IDs as comma-separated values (e.g., 12,15,34)',
                 'category-id'                   => 'Category ID',
                 'preview'                       => 'Preview',
-                'software-carousel'              => 'software Carousel',
-                'software-carousel-description'  => 'Showcase softwares elegantly with a dynamic and responsive software carousel.',
+                'product-carousel'              => 'Product Carousel',
+                'product-carousel-description'  => 'Showcase products elegantly with a dynamic and responsive product carousel.',
                 'save-btn'                      => 'Save',
                 'select'                        => 'Select',
                 'slider'                        => 'Slider',
@@ -3214,10 +3570,10 @@ return [
         'sales' => [
             'index' => [
                 'abandoned-carts'               => 'Abandoned Carts',
-                'abandoned-softwares'            => 'Abandoned softwares',
+                'abandoned-products'            => 'Abandoned Products',
                 'abandoned-rate'                => 'Abandoned Rate',
                 'abandoned-revenue'             => 'Abandoned Revenue',
-                'added-to-cart-info'            => 'Only :progress visitors added softwares to cart',
+                'added-to-cart-info'            => 'Only :progress visitors added products to cart',
                 'added-to-cart'                 => 'Added to Cart',
                 'all-channels'                  => 'All Channels',
                 'average-order-value-over-time' => 'Average Order Value Over Time',
@@ -3230,8 +3586,8 @@ return [
                 'orders'                        => 'Orders',
                 'orders-over-time'              => 'Orders Over Time',
                 'payment-method'                => 'Payment Method',
-                'software-views'                 => 'software Views',
-                'software-views-info'            => 'Only :progress visitors view softwares',
+                'product-views'                 => 'Product Views',
+                'product-views-info'            => 'Only :progress visitors view products',
                 'purchase-funnel'               => 'Purchase Funnel',
                 'purchased'                     => 'Purchased',
                 'purchased-info'                => 'Only :progress visitors do the purchasing',
@@ -3285,7 +3641,7 @@ return [
             ],
         ],
 
-        'softwares' => [
+        'products' => [
             'index' => [
                 'all-channels'                     => 'All Channels',
                 'channel'                          => 'Channel',
@@ -3297,9 +3653,9 @@ return [
                 'name'                             => 'Name',
                 'orders'                           => 'Orders',
                 'price'                            => 'Price',
-                'softwares-added-over-time'         => 'softwares Added Over Time',
-                'softwares-with-most-reviews'       => 'softwares With Most Reviews',
-                'softwares-with-most-visits'        => 'softwares With Most Visits',
+                'products-added-over-time'         => 'Products Added Over Time',
+                'products-with-most-reviews'       => 'Products With Most Reviews',
+                'products-with-most-visits'        => 'Products With Most Visits',
                 'quantities'                       => 'Quantities',
                 'quantities-sold-over-time'        => 'Quantities Sold Over Time',
                 'results'                          => 'Results',
@@ -3307,13 +3663,13 @@ return [
                 'reviews'                          => 'Reviews',
                 'search-term'                      => 'Search Term',
                 'start-date'                       => 'Start Date',
-                'title'                            => 'softwares',
+                'title'                            => 'Products',
                 'top-search-terms'                 => 'Top Search Terms',
-                'top-selling-softwares-by-quantity' => 'Top Selling softwares By Quantity',
-                'top-selling-softwares-by-revenue'  => 'Top Selling softwares By Revenue',
+                'top-selling-products-by-quantity' => 'Top Selling Products By Quantity',
+                'top-selling-products-by-revenue'  => 'Top Selling Products By Revenue',
                 'total'                            => 'Total',
-                'total-softwares-added-to-wishlist' => 'softwares Added To Wishlist',
-                'total-sold-quantities'            => 'Sold softwares Quantity',
+                'total-products-added-to-wishlist' => 'Products Added To Wishlist',
+                'total-sold-quantities'            => 'Sold Products Quantity',
                 'uses'                             => 'Uses',
                 'view-details'                     => 'View Details',
                 'visits'                           => 'Visits',
@@ -3322,6 +3678,7 @@ return [
 
         'view' => [
             'all-channels'  => 'All Channels',
+            'back-btn'      => 'Back',
             'day'           => 'Day',
             'end-date'      => 'End Date',
             'export-csv'    => 'Export CSV',
@@ -3357,7 +3714,7 @@ return [
                 'title' => 'General',
 
                 'general' => [
-                    'info'  => 'Set units options.',
+                    'info'  => 'Configure unit settings and toggle the Breadcrumbs and Visitor options on or off.',
                     'title' => 'General',
 
                     'unit-options' => [
@@ -3372,10 +3729,16 @@ return [
                         'title'      => 'Breadcrumbs',
                         'title-info' => 'Enable or disable breadcrumbs navigation in the shop.',
                     ],
+
+                    'visitor-options' => [
+                        'enable'     => 'Enable Visitor Options',
+                        'title'      => 'Visitor Options',
+                        'title-info' => 'Allows control over the site to track and count the number of visits, helping monitor general visitor activity and engagement.',
+                    ],
                 ],
 
                 'content' => [
-                    'info'  => 'Set compare options, wishlist options, image search options, footer, toggle footer and custom scripts.',
+                    'info'  => 'Set header offer title and custom scripts.',
                     'title' => 'Content',
 
                     'header-offer' => [
@@ -3384,6 +3747,40 @@ return [
                         'offer-title'       => 'Offer Title',
                         'redirection-title' => 'Redirection Title',
                         'redirection-link'  => 'Redirection Link',
+                    ],
+
+                    'speculation-rules' => [
+                        'enable-speculation' => 'Enable Speculation Rules',
+                        'info'               => 'Configure settings for enabling or disabling automated speculation logic.',
+                        'title'              => 'Speculation Rules',
+
+                        'prerender' => [
+                            'conservative'           => 'Conservative',
+                            'eager'                  => 'Eager',
+                            'eagerness'              => 'Prerender Eagerness Level',
+                            'eagerness-info'         => 'Controls how aggressively speculation rules are applied. Options: eager (max), moderate (default), conservative (low).',
+                            'enabled'                => 'Enable Prerender Speculation Rules',
+                            'ignore-url-params'      => 'Ignore Prerender URL Parameters',
+                            'ignore-url-params-info' => 'Specify URL parameters to ignore in speculation rules. Use pipe (|) to separate multiple parameters.',
+                            'ignore-urls'            => 'Ignore Prerender URLs',
+                            'ignore-urls-info'       => 'Enter URLs to be excluded from speculation logic. Separate multiple URLs with a pipe (|) symbol.',
+                            'info'                   => 'Set speculation rules status.',
+                            'moderate'               => 'Moderate',
+                        ],
+
+                        'prefetch' => [
+                            'conservative'           => 'Conservative',
+                            'eager'                  => 'Eager',
+                            'eagerness'              => 'Prefetch Eagerness Level',
+                            'eagerness-info'         => 'Controls how aggressively speculation rules are applied. Options: eager (max), moderate (default), conservative (low).',
+                            'enabled'                => 'Enable Prefetch Speculation Rules',
+                            'ignore-url-params'      => 'Ignore Prefetch URL Parameters',
+                            'ignore-url-params-info' => 'Specify URL parameters to ignore in speculation rules. Use pipe (|) to separate multiple parameters.',
+                            'ignore-urls'            => 'Ignore Prefetch URLs',
+                            'ignore-urls-info'       => 'Enter URLs to be excluded from speculation logic. Separate multiple URLs with a pipe (|) symbol.',
+                            'info'                   => 'Set speculation rules status.',
+                            'moderate'               => 'Moderate',
+                        ],
                     ],
 
                     'custom-scripts' => [
@@ -3395,7 +3792,7 @@ return [
                 ],
 
                 'design' => [
-                    'info'  => 'Set logo and favicon icon.',
+                    'info'  => 'Set logo and favicon icon for admin panel.',
                     'title' => 'Design',
 
                     'admin-logo' => [
@@ -3404,10 +3801,19 @@ return [
                         'title'      => 'Admin Logo',
                         'title-info' => 'Configure logo and favicon images for your website\'s front end for better branding and recognition.',
                     ],
+
+                    'menu-category' => [
+                        'default'         => 'Default Menu',
+                        'info'            => 'This setting controls the visibility of categories in the header menu. You can choose to display only parent categories or all nested categories.',
+                        'preview-default' => 'Preview Default Menu',
+                        'preview-sidebar' => 'Preview Sidebar Menu',
+                        'sidebar'         => 'Sidebar Menu',
+                        'title'           => 'Menu Category View',
+                    ],
                 ],
 
                 'magic-ai' => [
-                    'info'  => 'Set Magic AI options.',
+                    'info'  => 'Set Magic AI options and allow some options to automate the creation of content.',
                     'title' => 'Magic AI',
 
                     'settings' => [
@@ -3423,8 +3829,8 @@ return [
                         'category-description-prompt'      => 'Category Description Prompt',
                         'cms-page-content-prompt'          => 'CMS Page Content Prompt',
                         'enabled'                          => 'Enabled',
-                        'software-description-prompt'       => 'software Description Prompt',
-                        'software-short-description-prompt' => 'software Short Description Prompt',
+                        'product-description-prompt'       => 'Product Description Prompt',
+                        'product-short-description-prompt' => 'Product Short Description Prompt',
                         'title'                            => 'Content Generation',
                         'title-info'                       => 'This feature will enable the Magic AI for every WYSIWYG editor, where you want to mange content using AI.<br/><br/>When Enable, go to any editor to generate content.',
                     ],
@@ -3436,42 +3842,124 @@ return [
                     ],
 
                     'review-translation' => [
-                        'dolphin-phi'       => 'Dolphin Phi',
-                        'enabled'           => 'Enabled',
-                        'gpt-3-5-turbo'     => 'OpenAI gpt-3.5-turbo',
-                        'llama2'            => 'Llama 2',
-                        'llama2-uncensored' => 'Llama 2 Uncensored',
-                        'llama2:13b'        => 'Llama 2 13B',
-                        'llama2:70b'        => 'Llama 2 70B',
-                        'llava'             => 'LLaVA',
-                        'mistral'           => 'Mistral',
-                        'model'             => 'Model',
-                        'orca-mini'         => 'Orca Mini',
-                        'phi'               => 'Phi-2',
-                        'starling-lm'       => 'Starling',
-                        'title'             => 'Review Translation',
-                        'title-info'        => 'Provide option to customer or visitor to translate customer review into english.<br/><br/>When enable, go to review and you will find the button ‘Translate to English’ if you review other then English.',
-                        'vicuna'            => 'Vicuna',
+                        'deepseek-r1-8b'      => 'DeepSeek R1 (8b)',
+                        'enabled'             => 'Enabled',
+                        'gemini-2-0-flash'    => 'Gemini 2.0 Flash',
+                        'gpt-4-turbo'         => 'OpenAI gpt-4 Turbo',
+                        'gpt-4o'              => 'OpenAI gpt-4o',
+                        'gpt-4o-mini'         => 'OpenAI gpt-4o mini',
+                        'llama-groq'          => 'Llama 3.3 (Groq)',
+                        'llama3-1-8b'         => 'Llama 3.1 (8B)',
+                        'llama3-2-1b'         => 'Llama 3.2 (1B)',
+                        'llama3-2-3b'         => 'Llama 3.2 (3B)',
+                        'llama3-8b'           => 'Llama 3 (8B)',
+                        'llava-7b'            => 'Llava (7b)',
+                        'mistral-7b'          => 'Mistral (7b)',
+                        'model'               => 'Model',
+                        'orca-mini'           => 'Orca Mini',
+                        'phi3-5'              => 'Phi 3.5',
+                        'qwen2-5-0-5b'        => 'Qwen 2.5 (0.5b)',
+                        'qwen2-5-1-5b'        => 'Qwen 2.5 (1.5b)',
+                        'qwen2-5-14b'         => 'Qwen 2.5 (14b)',
+                        'qwen2-5-3b'          => 'Qwen 2.5 (3b)',
+                        'qwen2-5-7b'          => 'Qwen 2.5 (7b)',
+                        'starling-lm-7b'      => 'Starling-lm (7b)',
+                        'title'               => 'Review Translation',
+                        'title-info'          => 'Provide option to customer or visitor to translate customer review into english.<br/><br/>When enable, go to review and you will find the button ‘Translate to English’ if you review other then English.',
+                        'vicuna-13b'          => 'Vicuna (13b)',
+                        'vicuna-7b'           => 'Vicuna (7b)',
                     ],
 
                     'checkout-message' => [
-                        'dolphin-phi'       => 'Dolphin Phi',
-                        'enabled'           => 'Enabled',
-                        'gpt-3-5-turbo'     => 'OpenAI gpt-3.5-turbo',
-                        'llama2'            => 'Llama 2',
-                        'llama2-uncensored' => 'Llama 2 Uncensored',
-                        'llama2:13b'        => 'Llama 2 13B',
-                        'llama2:70b'        => 'Llama 2 70B',
-                        'llava'             => 'LLaVA',
-                        'mistral'           => 'Mistral',
-                        'model'             => 'Model',
-                        'orca-mini'         => 'Orca Mini',
-                        'phi'               => 'Phi-2',
-                        'prompt'            => 'Prompt',
-                        'starling-lm'       => 'Starling',
-                        'title'             => 'Personalized Checkout Message',
-                        'title-info'        => 'Craft a personalized checkout message for customers on the Thank-You page, tailoring the content to resonate with individual preferences and enhancing the overall post-purchase experience.',
-                        'vicuna'            => 'Vicuna',
+                        'deepseek-r1-8b'      => 'DeepSeek R1 (8b)',
+                        'enabled'             => 'Enabled',
+                        'gemini-2-0-flash'    => 'Gemini 2.0 Flash',
+                        'gpt-4-turbo'         => 'OpenAI gpt 4 Turbo',
+                        'gpt-4o'              => 'OpenAI gpt-4o',
+                        'gpt-4o-mini'         => 'OpenAI gpt-4o mini',
+                        'llama-groq'          => 'Llama 3.3 (Groq)',
+                        'llama3-1-8b'         => 'Llama 3.1 (8B)',
+                        'llama3-2-1b'         => 'Llama 3.2 (1B)',
+                        'llama3-2-3b'         => 'Llama 3.2 (3B)',
+                        'llama3-8b'           => 'Llama 3 (8B)',
+                        'llava-7b'            => 'Llava (7b)',
+                        'mistral-7b'          => 'Mistral (7b)',
+                        'model'               => 'Model',
+                        'orca-mini'           => 'Orca Mini',
+                        'phi3-5'              => 'Phi 3.5',
+                        'prompt'              => 'Prompt',
+                        'qwen2-5-0-5b'        => 'Qwen 2.5 (0.5b)',
+                        'qwen2-5-1-5b'        => 'Qwen 2.5 (1.5b)',
+                        'qwen2-5-14b'         => 'Qwen 2.5 (14b)',
+                        'qwen2-5-3b'          => 'Qwen 2.5 (3b)',
+                        'qwen2-5-7b'          => 'Qwen 2.5 (7b)',
+                        'starling-lm-7b'      => 'Starling-lm (7b)',
+                        'title'               => 'Personalized Checkout Message',
+                        'title-info'          => 'Craft a personalized checkout message for customers on the Thank-You page, tailoring the content to resonate with individual preferences and enhancing the overall post-purchase experience.',
+                        'vicuna'              => 'Vicuna',
+                        'vicuna-13b'          => 'Vicuna (13b)',
+                        'vicuna-7b'           => 'Vicuna (7b)',
+                    ],
+                ],
+
+                'gdpr' => [
+                    'title' => 'GDPR',
+                    'info'  => 'GDPR Compliance Settings',
+
+                    'settings' => [
+                        'title'   => 'GDPR Compliance Settings',
+                        'info'    => 'Manage GDPR compliance settings, including data privacy agreement. Enable or disable GDPR features as required',
+                        'enabled' => 'Enable GDPR',
+                    ],
+
+                    'agreement' => [
+                        'title'          => 'GDPR Agreement',
+                        'info'           => 'Manage customer consent under GDPR regulations. Enable agreement requirements for data collection and processing.',
+                        'enable'         => 'Enable Customer Agreement',
+                        'checkbox-label' => 'Agreement Checkbox Label',
+                        'content'        => 'Agreement Content',
+                    ],
+
+                    'cookie' => [
+                        'bottom-left'  => 'Bottom Left',
+                        'bottom-right' => 'Bottom Right',
+                        'center'       => 'Center',
+                        'description'  => 'Description',
+                        'enable'       => 'Enable Cookie Notice',
+                        'identifier'   => 'Static Block Identifier',
+                        'info'         => 'Configure cookie consent settings to inform users about data collection and ensure compliance with privacy regulations.',
+                        'position'     => 'Cookie Block Display Position',
+                        'title'        => 'Cookie Notice Settings',
+                        'top-left'     => 'Top Left',
+                        'top-right'    => 'Top Right',
+                    ],
+
+                    'cookie-consent' => [
+                        'title'                  => 'Manage Your Cookie Preferences',
+                        'info'                   => 'Control how your data is used by selecting your preferred cookie settings. Adjust permissions for different types of cookies.',
+                        'strictly-necessary'     => 'Strictly Necessary',
+                        'basic-interaction'      => 'Basic Interactions & Functionalities',
+                        'experience-enhancement' => 'Experience Enhancements',
+                        'measurement'            => 'Measurements',
+                        'targeting-advertising'  => 'Targeting & Advertising',
+                    ],
+                ],
+
+                'sitemap' => [
+                    'info'  => 'Set sitemap options.',
+                    'title' => 'Sitemap',
+
+                    'settings' => [
+                        'enabled' => 'Enabled',
+                        'info'    => 'Enable or disable the sitemap for your website to improve search engine optimization and enhance user experience.',
+                        'title'   => 'Settings',
+                    ],
+
+                    'file-limits' => [
+                        'info'             => 'Set file limits options.',
+                        'max-file-size'    => 'Maximum file size',
+                        'max-url-per-file' => 'Maximum no. of URLs per file',
+                        'title'            => 'File Limits',
                     ],
                 ],
             ],
@@ -3480,9 +3968,9 @@ return [
                 'info'  => 'Catalog',
                 'title' => 'Catalog',
 
-                'softwares' => [
-                    'info'  => 'Set guest checkout, software view page, cart view page, store front, review and attribute social share.',
-                    'title' => 'softwares',
+                'products' => [
+                    'info'  => 'Product view page, cart view page, store front, review and attribute social share.',
+                    'title' => 'Products',
 
                     'settings' => [
                         'compare-options'     => 'Compare options',
@@ -3505,31 +3993,31 @@ return [
                         'storefront-mode'       => 'Storefront Search Mode',
                         'storefront-mode-info'  => 'Search functionality on the storefront will be based on the selected search engine including category page, search page, and other search functionalities.',
                         'title'                 => 'Search',
-                        'title-info'            => 'To set up the search engine for software searches, you can choose between a database and Elasticsearch based on your requirements. If you have a large number of softwares, Elasticsearch is recommended.',
+                        'title-info'            => 'To set up the search engine for product searches, you can choose between a database and Elasticsearch based on your requirements. If you have a large number of products, Elasticsearch is recommended.',
                     ],
 
                     'guest-checkout' => [
                         'allow-guest-checkout'      => 'Allow Guest Checkout',
-                        'allow-guest-checkout-hint' => 'Hint: If turned on, this option can be configured for each software specifically.',
+                        'allow-guest-checkout-hint' => 'Hint: If turned on, this option can be configured for each product specifically.',
                         'title'                     => 'Guest Checkout',
-                        'title-info'                => 'Guest checkout allows customers to buy softwares without creating an account, streamlining the purchase process for convenience and faster transactions.',
+                        'title-info'                => 'Guest checkout allows customers to buy products without creating an account, streamlining the purchase process for convenience and faster transactions.',
                     ],
 
-                    'software-view-page' => [
-                        'allow-no-of-related-softwares'  => 'Allowed number of Related softwares',
-                        'allow-no-of-up-sells-softwares' => 'Allowed number of Up-Sell softwares',
-                        'title'                         => 'software view page configuration',
-                        'title-info'                    => 'software view page configuration entails adjusting the layout and elements on a software\'s display page, enhancing user experience and information presentation.',
+                    'product-view-page' => [
+                        'allow-no-of-related-products'  => 'Allowed number of Related Products',
+                        'allow-no-of-up-sells-products' => 'Allowed number of Up-Sell Products',
+                        'title'                         => 'Product view page configuration',
+                        'title-info'                    => 'Product view page configuration entails adjusting the layout and elements on a product\'s display page, enhancing user experience and information presentation.',
                     ],
 
                     'cart-view-page' => [
-                        'allow-no-of-cross-sells-softwares' => 'Allowed number of Cross-Sell softwares',
+                        'allow-no-of-cross-sells-products' => 'Allowed number of Cross-Sell Products',
                         'title'                            => 'Cart view page configuration',
                         'title-info'                       => 'Cart view page configuration involves arranging items, details, and options on the shopping cart page, improving user interaction and purchase flow.',
                     ],
 
                     'storefront' => [
-                        'buy-now-button-display' => 'Allow customers to directly buy softwares',
+                        'buy-now-button-display' => 'Allow customers to directly buy products',
                         'cheapest-first'         => 'Cheapest First',
                         'comma-separated'        => 'Comma Separated',
                         'default-list-mode'      => 'Default List Mode',
@@ -3540,17 +4028,17 @@ return [
                         'latest-first'           => 'Newest First',
                         'list'                   => 'List',
                         'oldest-first'           => 'Oldest First',
-                        'softwares-per-page'      => 'softwares Per Page',
+                        'products-per-page'      => 'Products Per Page',
                         'sort-by'                => 'Sort By',
                         'title'                  => 'Storefront',
-                        'title-info'             => 'Storefront is the customer-facing interface of an online shop, showcasing softwares, categories, and navigation for a seamless shopping experience.',
+                        'title-info'             => 'Storefront is the customer-facing interface of an online shop, showcasing products, categories, and navigation for a seamless shopping experience.',
                     ],
 
                     'small-image' => [
                         'height'      => 'Height',
                         'placeholder' => 'Small Image Placeholder',
                         'title'       => 'Small Image',
-                        'title-info'  => 'Storefront is the customer-facing interface of an online shop, showcasing softwares, categories, and navigation for a seamless shopping experience.',
+                        'title-info'  => 'Storefront is the customer-facing interface of an online shop, showcasing products, categories, and navigation for a seamless shopping experience.',
                         'width'       => 'Width',
                     ],
 
@@ -3566,18 +4054,19 @@ return [
                         'height'      => 'Height',
                         'placeholder' => 'Large Image Placeholder',
                         'title'       => 'Large image',
-                        'title-info'  => 'Large image represents a high-resolution picture providing enhanced detail and visual impact, often used for showcasing softwares or graphics.',
+                        'title-info'  => 'Large image represents a high-resolution picture providing enhanced detail and visual impact, often used for showcasing products or graphics.',
                         'width'       => 'Width',
                     ],
 
                     'review' => [
-                        'allow-customer-review' => 'Allow Customer Review',
-                        'allow-guest-review'    => 'Allow Guest Review',
-                        'display-review-count'  => 'Display the review count for ratings.',
-                        'display-star-count'    => 'Display the star count in ratings.',
-                        'summary'               => 'Summary',
-                        'title'                 => 'Review',
-                        'title-info'            => 'Evaluation or assessment of something, often involving opinions and feedback.',
+                        'allow-customer-review'   => 'Allow Customer Review',
+                        'allow-guest-review'      => 'Allow Guest Review',
+                        'censoring-reviewer-name' => 'Censoring Reviewer Name',
+                        'display-review-count'    => 'Display the review count for ratings.',
+                        'display-star-count'      => 'Display the star count in ratings.',
+                        'summary'                 => 'Summary',
+                        'title'                   => 'Review',
+                        'title-info'              => 'Evaluation or assessment of something, often involving opinions and feedback.',
                     ],
 
                     'attribute' => [
@@ -3588,7 +4077,7 @@ return [
                     ],
 
                     'social-share' => [
-                        'title-info'                  => 'Configure social sharing settings to enable software sharing on Instagram, Twitter, WhatsApp, Facebook, Pinterest, LinkedIn, and via email.',
+                        'title-info'                  => 'Configure social sharing settings to enable product sharing on Instagram, Twitter, WhatsApp, Facebook, Pinterest, LinkedIn, and via email.',
                         'title'                       => 'Social Share',
                         'share-message'               => 'Share Message',
                         'share'                       => 'Share',
@@ -3604,10 +4093,10 @@ return [
                 ],
 
                 'rich-snippets' => [
-                    'info'  => 'Set softwares and categories.',
+                    'info'  => 'Set products and categories.',
                     'title' => 'Rich Snippets',
 
-                    'softwares' => [
+                    'products' => [
                         'enable'          => 'Enable',
                         'show-categories' => 'Show Categories',
                         'show-images'     => 'Show Images',
@@ -3616,29 +4105,29 @@ return [
                         'show-reviews'    => 'Show Reviews',
                         'show-sku'        => 'Show SKU',
                         'show-weight'     => 'Show Weight',
-                        'title'           => 'softwares',
-                        'title-info'      => 'Configure software settings including with SKU, weight, Categories, Images, Reviews, Ratings, Offers and etc.',
+                        'title'           => 'Products',
+                        'title-info'      => 'Configure product settings including with SKU, weight, Categories, Images, Reviews, Ratings, Offers and etc.',
                     ],
 
                     'categories' => [
                         'enable'                  => 'Enable',
                         'show-search-input-field' => 'Show Search Input Field',
                         'title'                   => 'Categories',
-                        'title-info'              => '"Categories" refer to groups or classifications that help organize and group similar softwares or items together for easier browsing and navigation.',
+                        'title-info'              => '"Categories" refer to groups or classifications that help organize and group similar products or items together for easier browsing and navigation.',
                     ],
                 ],
 
                 'inventory' => [
                     'title'      => 'Inventory',
-                    'title-info' => 'Configure inventory settings to allow back orders, set minimum and maximum cart quantities, and define the out-of-stock threshold.',
+                    'title-info' => 'Configure inventory settings to allow back orders and define the out-of-stock threshold.',
 
-                    'software-stock-options' => [
+                    'product-stock-options' => [
                         'allow-back-orders'       => 'Allow Back Orders',
                         'max-qty-allowed-in-cart' => 'Maximum Qty Allowed in Shopping Cart',
                         'min-qty-allowed-in-cart' => 'Minimum Qty Allowed in Shopping Cart',
                         'out-of-stock-threshold'  => 'Out-of-Stock Threshold',
-                        'title'                   => 'software Stock Option',
-                        'info'                    => 'Configure software stock options to allow back orders, set minimum and maximum cart quantities, and define out-of-stock thresholds.',
+                        'title'                   => 'Product Stock Option',
+                        'info'                    => 'Configure product stock options to allow back orders, set minimum and maximum cart quantities, and define out-of-stock thresholds.',
                     ],
                 ],
             ],
@@ -3669,7 +4158,7 @@ return [
 
                 'captcha' => [
                     'info'  => 'Set site key, secret key and status.',
-                    'title' => 'Captcha',
+                    'title' => 'Google Captcha',
 
                     'credentials' => [
                         'secret-key' => 'Secret Key',
@@ -3686,7 +4175,7 @@ return [
                 ],
 
                 'settings' => [
-                    'settings-info' => 'Set newsletter subscriptions, email verifications and social login.',
+                    'settings-info' => 'Set wishlist, login redirection, newsletter subscriptions, default group option , email verifications and social login.',
                     'title'         => 'Settings',
 
                     'login-as-customer' => [
@@ -3737,13 +4226,103 @@ return [
                     ],
 
                     'social-login' => [
-                        'enable-facebook'   => 'Enable Facebook',
-                        'enable-github'     => 'Enable Github',
-                        'enable-google'     => 'Enable Google',
-                        'enable-linkedin'   => 'Enable LinkedIn',
-                        'enable-twitter'    => 'Enable Twitter',
-                        'social-login'      => 'Social Login',
-                        'social-login-info' => '"Social login" enables users to access websites using their social media accounts, streamlining registration and login processes for convenience.',
+                        'title' => 'Social Login',
+                        'info'  => '"Social login" allows users to access a website using their social media accounts, simplifying registration and login processes.',
+
+                        'google' => [
+                            'enable-google' => 'Enable Google',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by Google when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your Google OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Google. Must match the URL configured in your Google console.',
+                            ],
+                        ],
+
+                        'facebook' => [
+                            'enable-facebook' => 'Enable Facebook',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'App ID provided by Facebook when creating an app in the Facebook developer console.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'App secret associated with your Facebook application. Keep it secure and private.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Facebook. Must match the URL configured in your Facebook app settings.',
+                            ],
+                        ],
+
+                        'github' => [
+                            'enable-github' => 'Enable GitHub',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by GitHub when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your GitHub OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with GitHub. Must match the URL configured in your GitHub console.',
+                            ],
+                        ],
+
+                        'linkedin' => [
+                            'enable-linkedin' => 'Enable LinkedIn',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by LinkedIn when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your LinkedIn OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with LinkedIn. Must match the URL configured in your LinkedIn console.',
+                            ],
+                        ],
+
+                        'twitter' => [
+                            'enable-twitter' => 'Enable Twitter',
+
+                            'client-id' => [
+                                'title'      => 'Client ID',
+                                'title-info' => 'Unique identifier provided by Twitter when creating your OAuth application.',
+                            ],
+
+                            'client-secret' => [
+                                'title'      => 'Client Secret',
+                                'title-info' => 'Secret key associated with your Twitter OAuth client. Keep it confidential.',
+                            ],
+
+                            'redirect' => [
+                                'title'      => 'Redirect URL',
+                                'title-info' => 'Callback URL where users are redirected after authenticating with Twitter. Must match the URL configured in your Twitter console.',
+                            ],
+                        ],
                     ],
                 ],
             ],
@@ -3771,16 +4350,20 @@ return [
                 ],
 
                 'notifications' => [
-                    'cancel-order'                                     => 'Send a notification after canceling an order',
+                    'cancel-order'                                     => 'Send a notification to customer after canceling an order',
+                    'cancel-order-mail-to-admin'                       => 'Send a notification e-mail to admin after canceling an order',
                     'customer'                                         => 'Send the customer account credentials after registration',
                     'customer-registration-confirmation-mail-to-admin' => 'Send a confirmation e-mail to admin after customer registration',
                     'info'                                             => 'To configure, receive emails for account verification, order confirmations, updates on invoices, refunds, shipments, and order cancellations.',
-                    'new-admin'                                        => 'Send a confirmation e-mail to the admin after placing a new order',
                     'new-inventory-source'                             => 'Send a notification e-mail to the inventory source after creating a shipment',
                     'new-invoice'                                      => 'Send a notification e-mail to the customer after creating a new invoice',
+                    'new-invoice-mail-to-admin'                        => 'Send a notification e-mail to the admin after creating a new invoice',
                     'new-order'                                        => 'Send a confirmation e-mail to the customer after placing a new order',
+                    'new-order-mail-to-admin'                          => 'Send a confirmation e-mail to the admin after placing a new order',
                     'new-refund'                                       => 'Send a notification e-mail to the customer after creating a refund',
+                    'new-refund-mail-to-admin'                         => 'Send a notification e-mail to the admin after creating a new refund',
                     'new-shipment'                                     => 'Send a notification e-mail to the customer after creating a shipment',
+                    'new-shipment-mail-to-admin'                       => 'Send a notification e-mail to the admin after creating a new shipment',
                     'registration'                                     => 'Send a confirmation e-mail after customer registration',
                     'title'                                            => 'Notifications',
                     'verification'                                     => 'Send a verification e-mail after customer registration',
@@ -3804,7 +4387,7 @@ return [
                         'store-name'     => 'Store Name',
                         'street-address' => 'Street Address',
                         'title'          => 'Origin',
-                        'title-info'     => 'Shipping origin refers to the location where goods or softwares originate before being transported to their destination.',
+                        'title-info'     => 'Shipping origin refers to the location where goods or products originate before being transported to their destination.',
                         'vat-number'     => 'Vat Number',
                         'zip'            => 'Zip',
                     ],
@@ -3935,10 +4518,13 @@ return [
                     ],
 
                     'pdf-print-outs' => [
+                        'footer-text'      => 'Footer text',
+                        'footer-text-info' => 'Enter the text that will appear in the footer of the PDF.',
                         'info'             => 'Configure PDF Print Outs to display Invoice ID, Order ID in the header, and include the invoice logo.',
                         'invoice-id-info'  => 'Configure display of Invoice ID in Invoice Header.',
                         'invoice-id-title' => 'Display Invoice ID in Header',
                         'logo'             => 'Logo',
+                        'logo-info'        => 'Image resolution should be like 131px X 30px.',
                         'order-id-info'    => 'Configure display of Order ID in Invoice Header.',
                         'order-id-title'   => 'Display Order ID in Header',
                         'title'            => 'PDF Print Outs',
@@ -3958,8 +4544,8 @@ return [
 
                     'categories' => [
                         'title'      => 'Tax Categories',
-                        'title-info' => 'Tax categories are classifications for different types of taxes, such as sales tax, value-added tax, or excise tax, used to categorize and apply tax rates to softwares or services.',
-                        'software'    => 'software Default Tax Category',
+                        'title-info' => 'Tax categories are classifications for different types of taxes, such as sales tax, value-added tax, or excise tax, used to categorize and apply tax rates to products or services.',
+                        'product'    => 'Product Default Tax Category',
                         'shipping'   => 'Shipping Tax Category',
                         'none'       => 'None',
                     ],
@@ -3971,7 +4557,7 @@ return [
                         'shipping-address' => 'Shipping Address',
                         'billing-address'  => 'Billing Address',
                         'shipping-origin'  => 'Shipping Origin',
-                        'software-prices'   => 'software Prices',
+                        'product-prices'   => 'Product Prices',
                         'shipping-prices'  => 'Shipping Prices',
                         'excluding-tax'    => 'Excluding Tax',
                         'including-tax'    => 'Including Tax',
@@ -4010,18 +4596,18 @@ return [
 
                 'checkout' => [
                     'title' => 'Checkout',
-                    'info'  => 'Enable or Disable Mini Cart, cart Summary.',
+                    'info'  => 'Set guest checkout, Enable or Disable Mini Cart, cart Summary.',
 
                     'shopping-cart' => [
                         'cart-page'              => 'Cart Page',
                         'cart-page-info'         => 'Control Cart Page visibility to enhance user shopping experience.',
-                        'cross-sell'             => 'Cross sell softwares',
-                        'cross-sell-info'        => 'Enable cross-sell softwares to boost additional sales opportunities.',
+                        'cross-sell'             => 'Cross sell Products',
+                        'cross-sell-info'        => 'Enable cross-sell products to boost additional sales opportunities.',
                         'estimate-shipping'      => 'Estimated Shipping',
                         'estimate-shipping-info' => 'Enable estimated shipping to provide upfront shipping costs.',
                         'guest-checkout'         => 'Allow guest checkout',
                         'guest-checkout-info'    => 'Enable guest checkout for a faster, hassle-free purchase process.',
-                        'info'                   => 'Enable guest checkout, cart page, cross-sell softwares, and estimated shipping to enhance user convenience and streamline the shopping process for increased sales.',
+                        'info'                   => 'Enable guest checkout, cart page, cross-sell products, and estimated shipping to enhance user convenience and streamline the shopping process for increased sales.',
                         'title'                  => 'Shopping Cart',
                     ],
 
@@ -4062,11 +4648,11 @@ return [
                     'explore-all-matching-categories' => 'Explore all categories matching “:query” (:count)',
                     'explore-all-matching-customers'  => 'Explore all customers matching “:query” (:count)',
                     'explore-all-matching-orders'     => 'Explore all Orders matching “:query” (:count)',
-                    'explore-all-matching-softwares'   => 'Explore all softwares matching “:query” (:count)',
+                    'explore-all-matching-products'   => 'Explore all products matching “:query” (:count)',
                     'explore-all-orders'              => 'Explore all Orders',
-                    'explore-all-softwares'            => 'Explore all softwares',
+                    'explore-all-products'            => 'Explore all products',
                     'orders'                          => 'Orders',
-                    'softwares'                        => 'softwares',
+                    'products'                        => 'Products',
                     'sku'                             => 'SKU: :sku',
                     'title'                           => 'Mega Search',
                 ],
@@ -4075,6 +4661,7 @@ return [
             'sidebar' => [
                 'attribute-families'       => 'Attribute Families',
                 'attributes'               => 'Attributes',
+                'booking-product'          => 'Bookings',
                 'campaigns'                => 'Campaigns',
                 'catalog'                  => 'Catalog',
                 'categories'               => 'Categories',
@@ -4091,6 +4678,7 @@ return [
                 'email-templates'          => 'Email Templates',
                 'events'                   => 'Events',
                 'exchange-rates'           => 'Exchange Rates',
+                'gdpr-data-requests'       => 'GDPR Data Requests',
                 'groups'                   => 'Groups',
                 'imports'                  => 'Imports',
                 'inventory-sources'        => 'Inventory Sources',
@@ -4100,7 +4688,7 @@ return [
                 'mode'                     => 'Dark Mode',
                 'newsletter-subscriptions' => 'Newsletter Subscriptions',
                 'orders'                   => 'Orders',
-                'softwares'                 => 'softwares',
+                'products'                 => 'Products',
                 'promotions'               => 'Promotions',
                 'refunds'                  => 'Refunds',
                 'reporting'                => 'Reporting',
@@ -4120,6 +4708,10 @@ return [
                 'transactions'             => 'Transactions',
                 'url-rewrites'             => 'URL Rewrites',
                 'users'                    => 'Users',
+            ],
+
+            'powered-by' => [
+                'description' => 'Powered by :bagisto, an open-source project by :webkul.',
             ],
         ],
 
@@ -4217,22 +4809,21 @@ return [
             ],
         ],
 
-        'softwares' => [
+        'products' => [
             'search' => [
-                'add-btn'       => 'Add Selected software',
-                'empty-info'    => 'No softwares available for search term.',
-                'empty-title'   => 'No softwares found',
-                'software-image' => 'software Image',
+                'add-btn'       => 'Add Selected Product',
+                'empty-info'    => 'No products available for search term.',
+                'empty-title'   => 'No products found',
+                'product-image' => 'Product Image',
                 'qty'           => ':qty Available',
                 'sku'           => 'SKU - :sku',
-                'title'         => 'Select softwares',
+                'title'         => 'Select Products',
             ],
         ],
 
         'media' => [
             'images' => [
                 'add-image-btn'     => 'Add Image',
-                'add-csv-btn'                   => 'Add Csv File',
                 'ai-add-image-btn'  => 'Magic AI',
                 'ai-btn-info'       => 'Generate Image',
                 'allowed-types'     => 'png, jpeg, jpg',
@@ -4279,26 +4870,47 @@ return [
             'ai-btn-tile' => 'Magic AI',
 
             'ai-generation' => [
-                'apply'                  => 'Apply',
-                'generate'               => 'Generate',
-                'generated-content'      => 'Generated Content',
-                'generated-content-info' => 'AI content can be misleading. Please review the generated content before applying it.',
-                'generating'             => 'Generating...',
-                'prompt'                 => 'Prompt',
-                'title'                  => 'AI Assistance',
-                'model'                  => 'Model',
-                'gpt-3-5-turbo'          => 'OpenAI gpt-3.5-turbo',
-                'llama2'                 => 'Llama 2',
-                'mistral'                => 'Mistral',
-                'dolphin-phi'            => 'Dolphin Phi',
-                'phi'                    => 'Phi-2',
-                'starling-lm'            => 'Starling',
-                'llama2-uncensored'      => 'Llama 2 Uncensored',
-                'llama2:13b'             => 'Llama 2 13B',
-                'llama2:70b'             => 'Llama 2 70B',
-                'orca-mini'              => 'Orca Mini',
-                'vicuna'                 => 'Vicuna',
-                'llava'                  => 'LLaVA',
+                'apply'                    => 'Apply',
+                'deepseek-r1-8b'           => 'DeepSeek R1 (8b)',
+                'enabled'                  => 'Enabled',
+                'gemini-2-0-flash'         => 'Gemini 2.0 Flash',
+                'generate'                 => 'Generate',
+                'generated-content'        => 'Generated Content',
+                'generated-content-info'   => 'AI-generated content may be misleading. Review the generated content before applying.',
+                'generating'               => 'Generating...',
+                'gpt-4-turbo'              => 'OpenAI gpt-4 Turbo',
+                'gpt-4o'                   => 'OpenAI gpt-4o',
+                'gpt-4o-mini'              => 'OpenAI gpt-4o Mini',
+                'llama-groq'               => 'Llama 3.3 (Groq)',
+                'llama3-1-8b'              => '(Ollama) Llama 3.1 (8B)',
+                'llama3-2-1b'              => '(Ollama) Llama 3.2 (1B)',
+                'llama3-2-3b'              => '(Ollama) Llama 3.2 (3B)',
+                'llama3-8b'                => '(Ollama) Llama 3 (8B)',
+                'llava-7b'                 => 'Llava (7b)',
+                'mistral-7b'               => 'Mistral (7b)',
+                'model'                    => 'Model',
+                'orca-mini'                => 'Orca Mini',
+                'phi3-5'                   => 'Phi 3.5',
+                'prompt'                   => 'Prompt',
+                'qwen2-5-0-5b'             => 'Qwen 2.5 (0.5b)',
+                'qwen2-5-1-5b'             => 'Qwen 2.5 (1.5b)',
+                'qwen2-5-14b'              => 'Qwen 2.5 (14b)',
+                'qwen2-5-3b'               => 'Qwen 2.5 (3b)',
+                'qwen2-5-7b'               => 'Qwen 2.5 (7b)',
+                'starling-lm-7b'           => 'Starling-lm (7b)',
+                'title'                    => 'AI Assistance',
+                'vicuna-13b'               => 'Vicuna (13b)',
+                'vicuna-7b'                => 'Vicuna (7b)',
+            ],
+
+            'errors' => [
+                'file-extension-mismatch'        => 'File extension does not match file type.',
+                'file-upload-failed'             => 'File upload failed.',
+                'http-error'                     => 'HTTP error.',
+                'invalid-file-type'              => 'Invalid file type. Allowed types: JPEG, PNG, GIF, WebP, SVG',
+                'invalid-json'                   => 'Invalid JSON.',
+                'no-file-uploaded'               => 'No file uploaded.',
+                'upload-failed'                  => 'Image upload failed due to a XHR Transport error.',
             ],
         ],
     ],
@@ -4310,8 +4922,8 @@ return [
         'campaigns'                => 'Campaigns',
         'cancel'                   => 'Cancel',
         'cart-rules'               => 'Cart Rules',
-        'catalog-rules'            => 'Catalog Rules',
         'catalog'                  => 'Catalog',
+        'catalog-rules'            => 'Catalog Rules',
         'categories'               => 'Categories',
         'channels'                 => 'Channels',
         'cms'                      => 'CMS',
@@ -4328,6 +4940,7 @@ return [
         'email-templates'          => 'Email Templates',
         'events'                   => 'Events',
         'exchange-rates'           => 'Exchange Rates',
+        'gdpr'                     => 'GDPR',
         'groups'                   => 'Groups',
         'import'                   => 'Import',
         'imports'                  => 'Imports',
@@ -4338,7 +4951,7 @@ return [
         'newsletter-subscriptions' => 'Newsletter Subscriptions',
         'note'                     => 'Note',
         'orders'                   => 'Orders',
-        'softwares'                 => 'softwares',
+        'products'                 => 'Products',
         'promotions'               => 'Promotions',
         'refunds'                  => 'Refunds',
         'reporting'                => 'Reporting',
@@ -4403,7 +5016,7 @@ return [
     ],
 
     'validations' => [
-        'slug-being-used' => 'This slug is getting used in either categories or softwares.',
+        'slug-being-used' => 'This slug is getting used in either categories or products.',
         'slug-reserved'   => 'This slug is reserved.',
     ],
 
@@ -4429,6 +5042,28 @@ return [
                 'description' => 'A new customer account has been successfully created. They can now log in using their email address and password credentials. Once logged in, they will have access to various services, including the ability to review past orders, manage wishlists, and update their account information.',
                 'greeting'    => 'We extend a warm welcome to the new customer, :customer_name who has just registered with us!',
                 'subject'     => 'New Customer Registration',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => 'New Request For Data Delete',
+                'new-update-request' => 'New Request For Data Update',
+
+                'new-request' => [
+                    'customer-name'  => 'Customer Name : ',
+                    'delete-summary' => 'Summary of Delete Request',
+                    'message'        => 'Message : ',
+                    'request-status' => 'Request Status : ',
+                    'request-type'   => 'Request Type : ',
+                    'update-summary' => 'Summary of Update Request',
+                ],
+
+                'status-update' => [
+                    'subject'        => 'GDPR Request Has Been Updated',
+                    'summary'        => 'The GDPR Request Status Has Been Updated',
+                    'request-status' => 'Request Status:',
+                    'request-type'   => 'Request Type:',
+                    'message'        => 'Message:',
+                ],
             ],
         ],
 

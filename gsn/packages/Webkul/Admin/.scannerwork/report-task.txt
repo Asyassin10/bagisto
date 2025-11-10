@@ -1,6 +1,0 @@
-projectKey=jsn_back
-serverUrl=http://127.0.0.1:9001
-serverVersion=9.9.8.100196
-dashboardUrl=http://127.0.0.1:9001/dashboard?id=jsn_back
-ceTaskId=AZY-X4qLtl-LFxf4FV2U
-ceTaskUrl=http://127.0.0.1:9001/api/ce/task?id=AZY-X4qLtl-LFxf4FV2U

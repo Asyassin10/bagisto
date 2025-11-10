@@ -27,7 +27,7 @@ class OrderTransactionDataGrid extends DataGrid
      *
      * @return \Illuminate\Database\Query\Builder
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('order_transactions')
             ->leftJoin('orders', 'order_transactions.order_id', '=', 'orders.id')
@@ -124,13 +124,13 @@ class OrderTransactionDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case self::STATUS_PAID:
-                        return '<p class="label-active">' . trans('admin::app.sales.transactions.index.datagrid.paid') . '</p>';
+                        return '<p class="label-active">'.trans('admin::app.sales.transactions.index.datagrid.paid').'</p>';
 
                     case self::STATUS_PENDING:
-                        return '<p class="label-pending">' . trans('admin::app.sales.transactions.index.datagrid.pending') . '</p>';
+                        return '<p class="label-pending">'.trans('admin::app.sales.transactions.index.datagrid.pending').'</p>';
 
                     case self::STATUS_COMPLETED:
-                        return '<p class="label-completed">' . trans('admin::app.sales.transactions.index.datagrid.completed') . '</p>';
+                        return '<p class="label-completed">'.trans('admin::app.sales.transactions.index.datagrid.completed').'</p>';
                 }
             },
         ]);

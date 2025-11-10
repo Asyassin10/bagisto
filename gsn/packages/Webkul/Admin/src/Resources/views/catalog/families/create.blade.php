@@ -15,12 +15,17 @@
             </p>
 
             <div class="flex items-center gap-x-2.5">
-                <a href="{{ route('admin.catalog.families.index') }}"
-                    class="transparent-button hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800">
+                <a
+                    href="{{ route('admin.catalog.families.index') }}"
+                    class="transparent-button hover:bg-gray-200 dark:text-white dark:hover:bg-gray-800"
+                >
                     @lang('admin::app.catalog.families.create.back-btn')
                 </a>
 
-                <button type="submit" class="primary-button">
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
                     @lang('admin::app.catalog.families.create.save-btn')
                 </button>
             </div>
@@ -37,7 +42,7 @@
 
             <!-- Right Container -->
             <div class="flex w-[360px] max-w-full select-none flex-col gap-2">
-                <!-- General Pannel -->
+                <!-- General Panel -->
                 <x-admin::accordion>
                     <!-- Panel Header -->
                     <x-slot:header>
@@ -45,10 +50,11 @@
                             @lang('admin::app.catalog.families.create.general')
                         </p>
                     </x-slot>
-
+                
                     <!-- Panel Content -->
                     <x-slot:content>
-                        {{--     <x-admin::form.control-group>
+                        <!-- Code -->
+                        <x-admin::form.control-group>
                             <x-admin::form.control-group.label class="required !text-gray-800 dark:!text-white">
                                 @lang('admin::app.catalog.families.create.code')
                             </x-admin::form.control-group.label>
@@ -63,15 +69,22 @@
                             />
 
                             <x-admin::form.control-group.error control-name="code" />
-                        </x-admin::form.control-group> --}}
+                        </x-admin::form.control-group>
 
+                        <!-- Name -->
                         <x-admin::form.control-group class="!mb-0">
                             <x-admin::form.control-group.label class="required !text-gray-800 dark:!text-white">
                                 @lang('admin::app.catalog.families.create.name')
                             </x-admin::form.control-group.label>
 
-                            <x-admin::form.control-group.control type="text" name="name" rules="required"
-                                :value="old('name')" :label="trans('admin::app.catalog.families.create.name')" :placeholder="trans('admin::app.catalog.families.create.enter-name')" />
+                            <x-admin::form.control-group.control
+                                type="text"
+                                name="name"
+                                rules="required"
+                                :value="old('name')"
+                                :label="trans('admin::app.catalog.families.create.name')"
+                                :placeholder="trans('admin::app.catalog.families.create.enter-name')"
+                            />
 
                             <x-admin::form.control-group.error control-name="name" />
                         </x-admin::form.control-group>
@@ -85,8 +98,8 @@
     </x-admin::form>
 
     @pushOnce('scripts')
-        <script
-            type="text/x-template"
+        <script 
+            type="text/x-template" 
             id="v-family-attributes-template"
         >
             <div>
@@ -102,7 +115,7 @@
                             @lang('admin::app.catalog.families.create.groups-info')
                         </p>
                     </div>
-
+                    
                     <!-- Panel Content -->
                     <div class="flex items-center gap-x-1">
                         <!-- Delete Group Button -->
@@ -136,7 +149,7 @@
                                     : "@lang('admin::app.catalog.families.create.right-column')"
                                 }}
                             </p>
-
+                            
                             <p class="text-xs font-medium text-gray-800 dark:text-white">
                                 @lang('admin::app.catalog.families.create.edit-group-info')
                             </p>
@@ -234,10 +247,10 @@
                                                     :class="[element.is_user_defined ? 'icon-attribute' : 'icon-attribute-block']"
                                                 >
                                                 </i>
-
+                                                
 
                                                 <span class="font-regular text-sm transition-all group-hover:text-gray-800 dark:group-hover:text-white max-xl:text-xs">
-                                                    @{{ element.admin_name }} // @{{ element.max_length }}
+                                                    @{{ element.admin_name }}
                                                 </span>
 
                                                 <input
@@ -290,7 +303,7 @@
                                     <i class="text-xl transition-all group-hover:text-gray-800 dark:group-hover:text-white"></i>
 
                                     <span class="font-regular text-sm transition-all group-hover:text-gray-800 dark:group-hover:text-white max-xl:text-xs">
-                                        @{{ element.admin_name }} // @{{ element.max_length }}
+                                        @{{ element.admin_name }}
                                     </span>
                                 </div>
                             </template>
@@ -374,21 +387,18 @@
                                         </option>
                                     </x-admin::form.control-group.control>
 
-                                    <x-admin::form.control-group.error control-name="column" />
+                                    <x-admin::form.control-group.error control-name="column" /> 
                                 </x-admin::form.control-group>
                             </x-slot>
 
                             <!-- Model Footer -->
                             <x-slot:footer>
-                                <div class="flex items-center gap-x-2.5">
-                                    <!-- Add Group Button -->
-                                    <button
-                                        type="submit"
-                                        class="primary-button"
-                                    >
-                                        @lang('admin::app.catalog.families.create.add-group-btn')
-                                    </button>
-                                </div>
+                                <!-- Save Button -->
+                                <x-admin::button
+                                    button-type="button"
+                                    class="primary-button"
+                                    :title="trans('admin::app.catalog.families.create.add-group-btn')"
+                                />
                             </x-slot>
                         </x-admin::modal>
                     </form>
@@ -400,7 +410,7 @@
             app.component('v-family-attributes', {
                 template: '#v-family-attributes-template',
 
-                data: function() {
+                data: function () {
                     return {
                         selectedGroup: {
                             id: null,
@@ -429,10 +439,8 @@
                 computed: {
                     unassignedAttributes() {
                         return this.customAttributes.filter(attribute => {
-                            return !this.columnGroups[1].find(group => group.custom_attributes.find(
-                                    customAttribute => customAttribute.id == attribute.id)) &&
-                                !this.columnGroups[2]?.find(group => group.custom_attributes.find(
-                                    customAttribute => customAttribute.id == attribute.id));
+                            return ! this.columnGroups[1].find(group => group.custom_attributes.find(customAttribute => customAttribute.id == attribute.id))
+                                && ! this.columnGroups[2]?.find(group => group.custom_attributes.find(customAttribute => customAttribute.id == attribute.id));
                         });
                     },
                 },
@@ -440,8 +448,8 @@
                 methods: {
                     onMove: function(e) {
                         if (
-                            e.to.id === 'unassigned-attributes' &&
-                            !e.draggedContext.element.is_user_defined
+                            e.to.id === 'unassigned-attributes'
+                            && ! e.draggedContext.element.is_user_defined
                         ) {
                             this.dropReverted = true;
 
@@ -453,10 +461,7 @@
 
                     onEnd: function(e) {
                         if (this.dropReverted) {
-                            this.$emitter.emit('add-flash', {
-                                type: 'warning',
-                                message: "@lang('admin::app.catalog.families.create.removal-not-possible')"
-                            });
+                            this.$emitter.emit('add-flash', { type: 'warning', message: "@lang('admin::app.catalog.families.create.removal-not-possible')" });
                         }
                     },
 
@@ -470,8 +475,9 @@
 
                     groupSelected(group) {
                         if (this.selectedGroup.id) {
-                            this.editableGroup = this.selectedGroup.id == group.id ?
-                                group : {
+                            this.editableGroup = this.selectedGroup.id == group.id
+                                ? group
+                                : {
                                     id: null,
                                     code: null,
                                     name: null,
@@ -481,36 +487,30 @@
                         this.selectedGroup = group;
                     },
 
-                    addGroup(params, {
-                        resetForm,
-                        setErrors
-                    }) {
+                    addGroup(params, { resetForm, setErrors }) {
                         let isGroupCodeAlreadyExists = this.isGroupCodeAlreadyExists(params.code);
 
                         let isGroupNameAlreadyExists = this.isGroupNameAlreadyExists(params.name);
 
                         if (isGroupCodeAlreadyExists || isGroupCodeAlreadyExists) {
                             if (isGroupCodeAlreadyExists) {
-                                setErrors({
-                                    'code': ["@lang('admin::app.catalog.families.create.group-code-already-exists')"]
-                                });
+                                setErrors({'code': ["@lang('admin::app.catalog.families.create.group-code-already-exists')"]});
                             }
 
                             if (isGroupNameAlreadyExists) {
-                                setErrors({
-                                    'name': ["@lang('admin::app.catalog.families.create.group-name-already-exists')"]
-                                });
+                                setErrors({'name': ["@lang('admin::app.catalog.families.create.group-name-already-exists')"]});
                             }
 
                             return;
                         }
 
-                        if (!this.columnGroups.hasOwnProperty(params.column)) {
+                        if (! this.columnGroups.hasOwnProperty(params.column)) {
                             this.columnGroups[params.column] = [];
                         }
 
                         this.columnGroups[params.column].push({
                             'id': 'group_' + params.column + '_' + this.columnGroups[params.column].length,
+                            'code': params.code,
                             'name': params.name,
                             'is_user_defined': 1,
                             'custom_attributes': [],
@@ -522,34 +522,26 @@
                     },
 
                     isGroupCodeAlreadyExists(code) {
-                        return this.columnGroups[1].find(group => group.code == code) || this.columnGroups[2].find(
-                            group => group.code == code);
+                        return this.columnGroups[1].find(group => group.code == code) || this.columnGroups[2].find(group => group.code == code);
                     },
-
+                    
                     isGroupNameAlreadyExists(name) {
-                        return this.columnGroups[1].find(group => group.name == name) || this.columnGroups[2]?.find(
-                            group => group.name == name);
+                        return this.columnGroups[1].find(group => group.name == name) || this.columnGroups[2]?.find(group => group.name == name);
                     },
-
+                    
                     isGroupContainsSystemAttributes(group) {
-                        return group.custom_attributes.find(attribute => !attribute.is_user_defined);
+                        return group.custom_attributes.find(attribute => ! attribute.is_user_defined);
                     },
 
                     deleteGroup() {
-                        if (!this.selectedGroup.id) {
-                            this.$emitter.emit('add-flash', {
-                                type: 'warning',
-                                message: "@lang('admin::app.catalog.families.create.select-group')"
-                            });
+                        if (! this.selectedGroup.id) {
+                            this.$emitter.emit('add-flash', { type: 'warning', message: "@lang('admin::app.catalog.families.create.select-group')" });
 
                             return;
                         }
 
                         if (this.isGroupContainsSystemAttributes(this.selectedGroup)) {
-                            this.$emitter.emit('add-flash', {
-                                type: 'warning',
-                                message: "@lang('admin::app.catalog.families.create.group-contains-system-attributes')"
-                            });
+                            this.$emitter.emit('add-flash', { type: 'warning', message: "@lang('admin::app.catalog.families.create.group-contains-system-attributes')" });
 
                             return;
                         }
@@ -564,7 +556,7 @@
                     },
 
                     handleFocusOut(e) {
-                        if (!e.target.classList.contains('group_node')) {
+                        if (! e.target.classList.contains('group_node')) {
                             this.editableGroup = {
                                 id: null,
                                 code: null,

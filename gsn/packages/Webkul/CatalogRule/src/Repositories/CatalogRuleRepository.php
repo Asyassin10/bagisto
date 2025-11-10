@@ -41,11 +41,7 @@ class CatalogRuleRepository extends Repository
      */
     public function create(array $data)
     {
-        $data = array_merge($data, [
-            'starts_from' => $data['starts_from'] ?? null,
-            'ends_till' => $data['ends_till'] ?? null,
-            'status' => isset($data['status']),
-        ]);
+        $data = $this->transformFormData($data);
 
         $catalogRule = parent::create($data);
 
@@ -64,12 +60,7 @@ class CatalogRuleRepository extends Repository
      */
     public function update(array $data, $id)
     {
-        $data = array_merge($data, [
-            'starts_from' => $data['starts_from'] ?? null,
-            'ends_till' => $data['ends_till'] ?? null,
-            'status' => isset($data['status']),
-            'conditions' => $data['conditions'] ?? [],
-        ]);
+        $data = $this->transformFormData($data);
 
         $catalogRule = $this->find($id);
 
@@ -83,6 +74,20 @@ class CatalogRuleRepository extends Repository
     }
 
     /**
+     * Transform form data.
+     */
+    public function transformFormData(array $data): array
+    {
+        return [
+            ...$data,
+            'starts_from' => ! empty($data['starts_from']) ? $data['starts_from'] : null,
+            'ends_till'   => ! empty($data['ends_till']) ? $data['ends_till'] : null,
+            'status'      => isset($data['status']),
+            'conditions'  => $data['conditions'] ?? [],
+        ];
+    }
+
+    /**
      * Returns attributes for catalog rule conditions.
      *
      * @return array
@@ -91,19 +96,18 @@ class CatalogRuleRepository extends Repository
     {
         $attributes = [
             [
-                'key' => 'product',
-                'label' => trans('admin::app.marketing.promotions.catalog-rules.create.product-attribute'),
+                'key'      => 'product',
+                'label'    => trans('admin::app.marketing.promotions.catalog-rules.create.product-attribute'),
                 'children' => [
                     [
-                        'key' => 'product|category_ids',
-                        'type' => 'multiselect',
-                        'label' => trans('admin::app.marketing.promotions.catalog-rules.create.categories'),
+                        'key'     => 'product|category_ids',
+                        'type'    => 'multiselect',
+                        'label'   => trans('admin::app.marketing.promotions.catalog-rules.create.categories'),
                         'options' => $this->categoryRepository->getCategoryTree(),
-                    ],
-                    [
-                        'key' => 'product|attribute_family_id',
-                        'type' => 'select',
-                        'label' => trans('admin::app.marketing.promotions.catalog-rules.create.attribute-family'),
+                    ], [
+                        'key'     => 'product|attribute_family_id',
+                        'type'    => 'select',
+                        'label'   => trans('admin::app.marketing.promotions.catalog-rules.create.attribute-family'),
                         'options' => $this->getAttributeFamilies(),
                     ],
                 ],
@@ -132,9 +136,9 @@ class CatalogRuleRepository extends Repository
             }
 
             $attributes[0]['children'][] = [
-                'key' => 'product|' . $attribute->code,
-                'type' => $attribute->type,
-                'label' => $attribute->name,
+                'key'     => 'product|'.$attribute->code,
+                'type'    => $attribute->type,
+                'label'   => $attribute->name,
                 'options' => $options,
             ];
         }
@@ -153,7 +157,7 @@ class CatalogRuleRepository extends Repository
 
         foreach ($this->taxCategoryRepository->all() as $taxCategory) {
             $taxCategories[] = [
-                'id' => $taxCategory->id,
+                'id'         => $taxCategory->id,
                 'admin_name' => $taxCategory->name,
             ];
         }
@@ -172,7 +176,7 @@ class CatalogRuleRepository extends Repository
 
         foreach ($this->attributeFamilyRepository->all() as $attributeFamily) {
             $attributeFamilies[] = [
-                'id' => $attributeFamily->id,
+                'id'         => $attributeFamily->id,
                 'admin_name' => $attributeFamily->name,
             ];
         }

@@ -50,6 +50,7 @@ return [
             'account-exists'              => 'Уже есть аккаунт?',
             'bagisto'                     => 'Багисто',
             'button-title'                => 'Зарегистрироваться',
+            'click-here'                  => 'Нажмите здесь',
             'confirm-pass'                => 'Подтвердите пароль',
             'email'                       => 'Электронная почта',
             'first-name'                  => 'Имя',
@@ -62,7 +63,7 @@ return [
             'subscribe-to-newsletter'     => 'Подписаться на рассылку',
             'success'                     => 'Аккаунт успешно создан.',
             'success-verify'              => 'Аккаунт успешно создан, на вашу почту отправлено письмо с подтверждением.',
-            'success-verify-email-unsent' => 'Аккаунт успешно создан, но письмо с подтверждением не отправлено.',
+            'terms-conditions'            => 'Условия и положения',
             'verification-not-sent'       => 'Ошибка! Проблема с отправкой письма с подтверждением, попробуйте позже.',
             'verification-sent'           => 'Письмо с подтверждением отправлено',
             'verified'                    => 'Ваш аккаунт подтвержден, попробуйте войти сейчас.',
@@ -373,6 +374,92 @@ return [
                 'success'            => 'Товар успешно добавлен в список желаний',
                 'title'              => 'Список желаний',
             ],
+
+            'gdpr' => [
+                'create-success'              => 'Запрос успешно создан',
+                'revoked-successfully'        => 'Запрос успешно отозван',
+                'success-verify'              => 'Успех! Письмо для подтверждения отправлено.',
+                'success-verify-email-unsent' => 'Успех! Письмо для подтверждения не отправлено.',
+                'unable-to-sent'              => 'Невозможно отправить письмо.',
+
+                'index'   => [
+                    'create-btn' => 'Создать запрос',
+                    'html'       => 'HTML',
+                    'pdf'        => 'PDF',
+                    'title'      => 'Запросы данных GDPR',
+
+                    'modal' => [
+                        'message' => 'Сообщение',
+                        'save'    => 'Сохранить',
+                        'title'   => 'Создать новый запрос',
+
+                        'type'    => [
+                            'choose' => 'Выбрать',
+                            'delete' => 'Удалить',
+                            'title'  => 'Тип',
+                            'update' => 'Обновить',
+                        ],
+                    ],
+
+                    'datagrid' => [
+                        'completed'  => 'Завершено',
+                        'date'       => 'Дата',
+                        'declined'   => 'Отклонено',
+                        'delete'     => 'Удалить',
+                        'id'         => 'ID',
+                        'message'    => 'Сообщение',
+                        'pending'    => 'В ожидании',
+                        'processing' => 'В обработке',
+                        'revoke-btn' => 'Отозвать',
+                        'revoked'    => 'Отозвано',
+                        'status'     => 'Статус',
+                        'type'       => 'Тип',
+                        'update'     => 'Обновить',
+                    ],
+                ],
+
+                'pdf' => [
+                    'title' => 'Просмотр магазина по умолчанию',
+
+                    'account-info' => [
+                        'dob'          => 'Дата рождения',
+                        'email'        => 'Электронная почта',
+                        'first-name'   => 'Имя',
+                        'gender'       => 'Пол',
+                        'last-name'    => 'Фамилия',
+                        'phone'        => 'Телефон',
+                        'title'        => 'Информация об аккаунте',
+                    ],
+
+                    'address-info' => [
+                        'address'    => 'Адрес',
+                        'address1'   => 'Адрес 1',
+                        'address2'   => 'Адрес 2',
+                        'city'       => 'Город',
+                        'company'    => 'Компания',
+                        'country'    => 'Страна',
+                        'first-name' => 'Имя',
+                        'last-name'  => 'Фамилия',
+                        'phone'      => 'Телефон',
+                        'postcode'   => 'Почтовый индекс',
+                        'state'      => 'Штат/регион',
+                        'title'      => 'Адресная информация',
+                        'vat-id'     => 'ИНН',
+                    ],
+
+                    'order-info' => [
+                        'amount'       => 'Сумма',
+                        'order-id'     => 'ID заказа',
+                        'product-name' => 'Название продукта',
+                        'qty'          => 'Количество',
+                        'shipping'     => 'Доставка',
+                        'sku'          => 'SKU',
+                        'status'       => 'Статус',
+                        'title'        => 'Информация о заказе',
+                        'type'         => 'Тип',
+                    ],
+                ],
+            ],
         ],
     ],
 
@@ -387,39 +474,59 @@ return [
         ],
 
         'media' => [
-            'add-attachments' => 'Добавить вложения',
+            'index' => [
+                'add-attachments' => 'Добавить вложения',
+                'add-image'       => 'Добавить изображение/видео',
+            ],
         ],
 
         'layouts' => [
             'header' => [
-                'account'           => 'Аккаунт',
-                'bagisto'           => 'Багисто',
-                'cart'              => 'Корзина',
-                'compare'           => 'Сравнить',
-                'dropdown-text'     => 'Управление корзиной, заказами и списком желаний',
-                'logout'            => 'Выход',
-                'no-category-found' => 'Категория не найдена.',
-                'orders'            => 'Заказы',
-                'profile'           => 'Профиль',
-                'search'            => 'Поиск',
-                'search-text'       => 'Искать продукты здесь',
-                'sign-in'           => 'Войти',
-                'sign-up'           => 'Зарегистрироваться',
-                'submit'            => 'Отправить',
-                'title'             => 'Аккаунт',
-                'welcome'           => 'Добро пожаловать',
-                'welcome-guest'     => 'Добро пожаловать, Гость',
-                'wishlist'          => 'Список желаний',
-
                 'desktop' => [
                     'top' => [
                         'default-locale' => 'Язык по умолчанию',
                     ],
+
+                    'bottom' => [
+                        'all'           => 'Все',
+                        'back-button'   => 'Назад к главному меню',
+                        'bagisto'       => 'Багисто',
+                        'categories'    => 'Категории',
+                        'compare'       => 'Сравнить',
+                        'dropdown-text' => 'Управление корзиной, заказами и избранным',
+                        'logout'        => 'Выйти',
+                        'orders'        => 'Заказы',
+                        'profile'       => 'Профиль',
+                        'search'        => 'Поиск',
+                        'search-text'   => 'Искать товары здесь',
+                        'sign-in'       => 'Войти',
+                        'sign-up'       => 'Зарегистрироваться',
+                        'submit'        => 'Отправить',
+                        'welcome'       => 'Добро пожаловать',
+                        'welcome-guest' => 'Добро пожаловать, гость',
+                        'wishlist'      => 'Избранное',
+                    ],
                 ],
 
                 'mobile' => [
-                    'currencies' => 'Валюты',
-                    'locales'    => 'Языки',
+                    'account'       => 'Аккаунт',
+                    'back-button'   => 'Назад к главному меню',
+                    'bagisto'       => 'Багисто',
+                    'compare'       => 'Сравнить',
+                    'currencies'    => 'Валюты',
+                    'dropdown-text' => 'Управление корзиной, заказами и избранным',
+                    'locales'       => 'Языки',
+                    'login'         => 'Вход или регистрация',
+                    'logout'        => 'Выйти',
+                    'orders'        => 'Заказы',
+                    'profile'       => 'Профиль',
+                    'search'        => 'Поиск',
+                    'search-text'   => 'Искать товары здесь',
+                    'sign-in'       => 'Войти',
+                    'sign-up'       => 'Зарегистрироваться',
+                    'welcome'       => 'Добро пожаловать',
+                    'welcome-guest' => 'Добро пожаловать, гость',
+                    'wishlist'      => 'Избранное',
                 ],
             ],
 
@@ -441,6 +548,25 @@ return [
                 'subscribe-newsletter'   => 'Подписаться на рассылку',
                 'subscribe-stay-touch'   => 'Подписаться, чтобы оставаться на связи.',
                 'whats-new'              => 'Что нового',
+            ],
+
+            'cookie' => [
+                'index' => [
+                    'privacy-policy'           => 'Политика конфиденциальности',
+                    'reject'                   => 'Отклонить',
+                    'accept'                   => 'Принять',
+                    'learn-more-and-customize' => 'Узнать больше и настроить',
+                ],
+
+                'consent' => [
+                    'your-cookie-consent-preferences'         => 'Ваши предпочтения в отношении файлов cookie',
+                    'save-and-continue'                       => 'Сохранить и продолжить',
+                    'strictly-necessary'                      => 'Строго необходимые',
+                    'basic-interactions'                      => 'Основные взаимодействия и функциональности',
+                    'experience-enhancement'                  => 'Улучшение опыта',
+                    'measurements'                            => 'Измерение',
+                    'targeting-and-advertising'               => 'Таргетинг и реклама',
+                ],
             ],
         ],
 
@@ -563,6 +689,13 @@ return [
 
         'view' => [
             'type' => [
+                'simple' => [
+                    'customizable-options' => [
+                        'none'         => 'Ничего',
+                        'total-amount' => 'Общая сумма',
+                    ],
+                ],
+
                 'configurable' => [
                     'select-options'       => 'Пожалуйста, выберите опцию',
                     'select-above-options' => 'Пожалуйста, выберите вышеуказанные опции',
@@ -581,6 +714,62 @@ return [
 
                 'grouped' => [
                     'name' => 'Название',
+                ],
+
+                'booking' => [
+                    'location'    => 'Местоположение',
+                    'view-on-map' => 'Посмотреть на карте',
+
+                    'default' => [
+                        'slot-duration-in-minutes' => ':minutes минут',
+                        'slot-duration'            => 'Продолжительность слота',
+                    ],
+
+                    'appointment' => [
+                        'closed'                   => 'Закрыто',
+                        'see-details'              => 'Посмотреть детали',
+                        'slot-duration'            => 'Продолжительность слота',
+                        'slot-duration-in-minutes' => ':minutes минут',
+                        'today-availability'       => 'Доступность сегодня',
+                    ],
+
+                    'event' => [
+                        'book-your-ticket' => 'Забронируйте билет',
+                        'title'            => 'Событие на :',
+                    ],
+
+                    'rental'      => [
+                        'choose-rent-option' => 'Выберите вариант аренды',
+                        'daily-basis'        => 'На ежедневной основе',
+                        'from'               => 'С',
+                        'hourly-basis'       => 'На почасовой основе',
+                        'rent-an-item'       => 'Арендовать предмет',
+                        'select-date'        => 'Выберите дату',
+                        'select-rent-time'   => 'Выберите время аренды',
+                        'select-slot'        => 'Выберите слот',
+                        'select-time-slot'   => 'Выберите временной слот',
+                        'slot'               => 'Слот',
+                        'no-slots-available' => 'Нет доступных слотов',
+                        'to'                 => 'До',
+                    ],
+
+                    'table'       => [
+                        'book-a-table'             => 'Забронировать столик',
+                        'closed'                   => 'Закрыто',
+                        'slot-duration'            => 'Продолжительность слота',
+                        'slot-duration-in-minutes' => ':minutes минут',
+                        'slots-for-all-days'       => 'Показать на все дни',
+                        'special-notes'            => 'Особые запросы/заметки',
+                        'today-availability'       => 'Доступность сегодня',
+                    ],
+
+                    'slots' => [
+                        'book-an-appointment' => 'Записаться на прием',
+                        'date'                => 'Дата',
+                        'no-slots-available'  => 'Нет доступных слотов',
+                        'select-slot'         => 'Выберите слот',
+                        'title'               => 'Слот',
+                    ],
                 ],
             ],
 
@@ -627,6 +816,38 @@ return [
                 'offers' => 'Купите :qty по цене :price каждый и сэкономьте :discount',
             ],
         ],
+
+        'booking' => [
+            'closed' => 'Закрыто',
+
+            'cart'             => [
+                'booking-from' => 'Бронирование с',
+                'booking-till' => 'Бронирование до',
+                'daily'        => 'Ежедневно',
+                'event-from'   => 'Событие с',
+                'event-ticket' => 'Билет на событие',
+                'event-till'   => 'Событие до',
+                'hourly'       => 'Почасовая основа',
+
+                'integrity'    => [
+                    'event'                  => [
+                        'expired' => 'Это событие истекло.',
+                    ],
+
+                    'missing_options'        => 'Отсутствуют варианты для этого продукта.',
+                    'inventory_warning'      => 'Запрошенное количество недоступно, попробуйте позже.',
+                    'select_hourly_duration' => 'Выберите продолжительность слота в один час.',
+                ],
+
+                'rent-from'    => 'Аренда с',
+                'rent-till'    => 'Аренда до',
+                'rent-type'    => 'Тип аренды',
+                'renting_type' => 'Тип аренды',
+                'special-note' => 'Особые запросы/заметки',
+            ],
+
+            'per-ticket-price' => ':price за билет',
+        ],
     ],
 
     'categories' => [
@@ -634,6 +855,15 @@ return [
             'clear-all' => 'Очистить все',
             'filter'    => 'Фильтр',
             'filters'   => 'Фильтры:',
+
+            'search' => [
+                'load-more'            => 'Загрузить больше',
+                'loading'              => 'Загрузка...',
+                'no-options-available' => 'Нет доступных опций.',
+                'results-info'         => 'Показано :currentCount из :totalCount опций',
+                'title'                => 'Поиск',
+            ],
+
             'sort'      => 'Сортировка',
         ],
 
@@ -650,7 +880,8 @@ return [
     ],
 
     'search' => [
-        'title'   => 'Результаты поиска для : :query',
+        'title'   => 'Вот результаты для : :query',
+        'suggest' => 'Искать вместо этого',
         'results' => 'Результаты поиска',
 
         'images' => [
@@ -799,6 +1030,7 @@ return [
                 'street-address'         => 'Улица, дом',
                 'telephone'              => 'Телефон',
                 'title'                  => 'Адрес',
+                'vat-id'                 => 'Идентификационный номер НДС',
             ],
 
             'index' => [
@@ -869,8 +1101,11 @@ return [
         ],
 
         'index' => [
-            'offer'               => 'Получите скидку до 40% на свой первый заказ. ПОКУПАЙТЕ СЕЙЧАС',
-            'resend-verify-email' => 'Повторно отправить письмо для подтверждения почты',
+            'categories-carousel' => 'Карусель категорий',
+            'image-carousel'      => 'Карусель изображений',
+            'offer'               => 'Получите ДО 40% СКИДКИ на ваш первый заказ, ПОКУПАЙТЕ СЕЙЧАС',
+            'product-carousel'    => 'Карусель продуктов',
+            'resend-verify-email' => 'Повторно отправить письмо с подтверждением',
             'verify-email'        => 'Подтвердите вашу электронную почту',
         ],
 
@@ -879,7 +1114,9 @@ return [
 
     'partials' => [
         'pagination' => [
+            'next-page'          => 'Следующая страница',
             'pagination-showing' => 'Показаны записи с :firstItem по :lastItem из :total',
+            'prev-page'          => 'Предыдущая страница',
         ],
     ],
 
@@ -915,6 +1152,7 @@ return [
     'layouts' => [
         'address'               => 'Адрес',
         'downloadable-products' => 'Загружаемые товары',
+        'gdpr-request'          => 'Запросы GDPR',
         'my-account'            => 'Мой аккаунт',
         'orders'                => 'Заказы',
         'profile'               => 'Профиль',
@@ -973,6 +1211,33 @@ return [
                 'greeting'    => 'Добро пожаловать в нашу рассылку!',
                 'subject'     => 'Подписка на нашу рассылку',
                 'unsubscribe' => 'Отписаться',
+            ],
+
+            'gdpr' => [
+                'new-delete-request' => 'Новый запрос на удаление данных',
+                'new-update-request' => 'Новый запрос на обновление данных',
+
+                'new-request' => [
+                    'delete-summary' => 'Резюме запроса на удаление',
+                    'message'        => 'Сообщение : ',
+                    'request-status' => 'Статус запроса : ',
+                    'request-type'   => 'Тип запроса : ',
+                    'update-summary' => 'Резюме запроса на обновление',
+                ],
+
+                'status-update' => [
+                    'subject'        => 'Ваш запрос GDPR был обновлён',
+                    'summary'        => 'Статус вашего запроса GDPR был обновлён',
+                    'request-status' => 'Статус запроса:',
+                    'request-type'   => 'Тип запроса:',
+                    'message'        => 'Сообщение:',
+                ],
+            ],
+
+            'reminder' => [
+                'already-paid'    => 'Если вы уже произвели оплату, проигнорируйте это сообщение.',
+                'invoice-overdue' => 'Это дружеское напоминание о том, что ваш счет просрочен. Пожалуйста, произведите оплату при первой возможности.',
+                'subject'         => 'Напоминание о счете',
             ],
         ],
 

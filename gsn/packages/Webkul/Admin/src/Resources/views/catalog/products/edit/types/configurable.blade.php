@@ -146,15 +146,12 @@
         
                         <!-- Modal Footer -->
                         <x-slot:footer>
-                            <!-- Modal Submission -->
-                            <div class="flex items-center gap-x-2.5">
-                                <button 
-                                    type="submit"
-                                    class="primary-button"
-                                >
-                                    @lang('admin::app.catalog.products.edit.types.configurable.create.save-btn')
-                                </button>
-                            </div>
+                            <!-- Save Button -->
+                            <x-admin::button
+                                button-type="button"
+                                class="primary-button"
+                                :title="trans('admin::app.catalog.products.edit.types.configurable.create.save-btn')"
+                            />
                         </x-slot>
                     </x-admin::modal>
                 </form>
@@ -296,7 +293,7 @@
                                         <div class="border-b pb-2.5 dark:border-gray-800">
                                             <div class="flex items-end gap-2.5">
                                                 <x-admin::form.control-group class="!mb-0 flex-1">
-                                                    <x-admin::form.control-group.label>
+                                                    <x-admin::form.control-group.label class="required">
                                                         @lang('admin::app.catalog.products.edit.types.configurable.mass-edit.apply-to-all-sku')
                                                     </x-admin::form.control-group.label>
                         
@@ -338,6 +335,7 @@
                                                     <v-field
                                                         type="text"
                                                         :name="'inventories[' + inventorySource.id + ']'"
+                                                        value="0"
                                                         class="flex min-h-[39px] w-full rounded-md border bg-white px-3 py-1.5 text-sm font-normal text-gray-600 transition-all hover:border-gray-400 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-300"
                                                         :class="[errors['inventories[' + inventorySource.id + ']'] ? 'border border-red-500' : '']"
                                                         rules="required|numeric|min:0"
@@ -479,14 +477,16 @@
                                 ].includes(selectedType)}"
                                 v-for="variant in tempSelectedVariants"
                             >
-                                <div class="text-sm text-gray-800">
-                                    <span
-                                        class="after:content-['_/_'] last:after:content-[''] dark:text-white"
-                                        v-for='(attribute, index) in superAttributes'
-                                    >
-                                        @{{ optionName(attribute, variant[attribute.code]) }}
-                                    </span>
-                                </div>
+                                <x-admin::form.control-group.label class="required">
+                                    <div class="text-sm text-gray-800">
+                                        <span
+                                            class="after:content-['_/_'] last:after:content-[''] dark:text-white"
+                                            v-for='(attribute, index) in superAttributes'
+                                        >
+                                            @{{ optionName(attribute, variant[attribute.code]) }}
+                                        </span>
+                                    </div>
+                                </x-admin::form.control-group.label>
 
                                 <template v-if="selectedType == 'editPrices'">
                                     <x-admin::form.control-group class="mb-0 max-w-[115px] flex-1">
@@ -766,7 +766,7 @@
                         :ref="$.uid + '_imageInput_' + index"
                     />
                 </template>
-                <!-- //Ends Form Hidden Fields -->
+                <!-- Ends Form Hidden Fields -->
 
                 <!-- Selection Checkbox -->
                 <div class="select-none">
@@ -841,6 +841,16 @@
                             </span>
                         </p>
                     </div>
+
+                    <!-- Error message for price attribute -->
+                    <v-error-message
+                        :name="'variants[' + variant.id + '].price'"
+                        v-slot="{ message }"
+                    >
+                        <p class="mt-1 text-xs italic text-red-600">
+                            @{{ message }}
+                        </p>
+                    </v-error-message>
                 </div>
             </div>
 
@@ -1482,14 +1492,16 @@
 
             created() {
                 let inventories = {};
-                
-                if (Array.isArray(this.variant.inventories)) {
-                    this.variant.inventories.forEach((inventory) => {
-                        inventories[inventory.inventory_source_id] = inventory.qty;
-                    });
 
-                    this.variant.inventories = inventories; 
-                }
+                this.inventorySources.forEach((source) => {
+                    const inventory = Array.isArray(this.variant.inventories)
+                        ? this.variant.inventories.find(inventory => inventory.inventory_source_id === source.id)
+                        : null;
+
+                    inventories[source.id] = inventory ? (inventory.qty || 0) : 0;
+                });
+
+                this.variant.inventories = inventories;
             },
 
             mounted() {
@@ -1507,7 +1519,7 @@
                     let totalQty = 0;
 
                     for (let key in this.variant.inventories) {
-                        totalQty += parseInt(this.variant.inventories[key]);
+                        totalQty += parseInt(this.variant.inventories[key]) || 0;
                     }
 
                     return totalQty;

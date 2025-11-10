@@ -12,7 +12,7 @@ class InvoiceDataGrid extends DataGrid
      *
      * @return void
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $dbPrefix = DB::getTablePrefix();
 

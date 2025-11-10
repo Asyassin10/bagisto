@@ -34,7 +34,7 @@ class ReviewDataGrid extends DataGrid
      *
      * @return void
      */
-    public function prepareQueryBuilder(bool $is_filter_by_editeur_active = false)
+    public function prepareQueryBuilder()
     {
         $queryBuilder = DB::table('product_reviews')
             ->leftJoin('product_flat', function ($leftJoin) {
@@ -134,13 +134,13 @@ class ReviewDataGrid extends DataGrid
             'closure'    => function ($row) {
                 switch ($row->status) {
                     case self::STATUS_APPROVED:
-                        return '<p class="label-active">' . trans('admin::app.customers.customers.view.datagrid.reviews.approved') . '</p>';
+                        return '<p class="label-active">'.trans('admin::app.customers.customers.view.datagrid.reviews.approved').'</p>';
 
                     case self::STATUS_PENDING:
-                        return '<p class="label-pending">' . trans('admin::app.customers.customers.view.datagrid.reviews.pending') . '</p>';
+                        return '<p class="label-pending">'.trans('admin::app.customers.customers.view.datagrid.reviews.pending').'</p>';
 
                     case self::STATUS_DISAPPROVED:
-                        return '<p class="label-canceled">' . trans('admin::app.customers.customers.view.datagrid.reviews.disapproved') . '</p>';
+                        return '<p class="label-canceled">'.trans('admin::app.customers.customers.view.datagrid.reviews.disapproved').'</p>';
                 }
             },
         ]);
@@ -152,15 +152,13 @@ class ReviewDataGrid extends DataGrid
             'searchable'         => true,
             'filterable'         => true,
             'filterable_type'    => 'dropdown',
-            'filterable_options' => array_map(
-                function ($value) {
-                    return [
-                        'label'  => $value,
-                        'value'  => (string) $value,
-                    ];
-                },
-                range(1, 5)
-            ),
+            'filterable_options' => array_map(function ($value) {
+                return [
+                    'label'  => $value,
+                    'value'  => (string) $value,
+                ];
+            },
+                range(1, 5)),
             'sortable'           => true,
         ]);
 

@@ -21,8 +21,13 @@ class GSNServiceProvider extends ServiceProvider
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        // Load views
+        // Load views - GSN views can override Shop views
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'gsn');
+
+        // Override Shop views if custom GSN views exist
+        if (is_dir(__DIR__.'/../Resources/views/shop')) {
+            $this->loadViewsFrom(__DIR__.'/../Resources/views/shop', 'shop');
+        }
 
         // Load translations
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'gsn');
@@ -32,10 +37,20 @@ class GSNServiceProvider extends ServiceProvider
             $this->registerCommands();
         }
 
-        // Publish assets
+        // Publish configuration
         $this->publishes([
             __DIR__.'/../Config/imagecache.php' => config_path('imagecache.php'),
         ], 'gsn-config');
+
+        // Publish theme assets
+        $this->publishes([
+            __DIR__.'/../Resources/assets' => public_path('themes/gsn'),
+        ], 'gsn-assets');
+
+        // Publish theme views
+        $this->publishes([
+            __DIR__.'/../Resources/views/shop' => resource_path('themes/gsn/views'),
+        ], 'gsn-views');
     }
 
     /**

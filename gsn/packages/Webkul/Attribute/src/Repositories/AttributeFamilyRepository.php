@@ -161,17 +161,4 @@ class AttributeFamilyRepository extends Repository
             ->distinct()
             ->get();
     }
-    public function getComparableAttributesBelongsToSpeceficFamily($group_ids)
-    {
-        return $this->attributeRepository
-            ->with(['options', 'options.translations'])
-            ->join('attribute_group_mappings', 'attribute_group_mappings.attribute_id', '=', 'attributes.id')
-            ->select('attributes.*')
-            ->where('attributes.is_comparable', 1)
-            ->whereNotIn('code', ['name', 'price'])
-            ->whereIn('attribute_group_mappings.attribute_group_id', $group_ids)
-            ->orderBy("attribute_group_mappings.position")
-            ->distinct()
-            ->get();
-    }
 }
