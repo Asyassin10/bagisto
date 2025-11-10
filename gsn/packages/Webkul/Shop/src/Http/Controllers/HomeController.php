@@ -42,7 +42,7 @@ class HomeController extends Controller
 
         $categories = CategoryTreeResource::collection($categories);
 
-        return view('shop::home.index', compact('customizations', 'categories'));
+        return view('gsn::home.index', compact('customizations', 'categories'));
     }
 
     /**
