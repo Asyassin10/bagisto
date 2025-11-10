@@ -21,12 +21,18 @@ class GSNServiceProvider extends ServiceProvider
         // Load migrations
         $this->loadMigrationsFrom(__DIR__.'/../../database/migrations');
 
-        // Load views - GSN views can override Shop views
+        // Load views - GSN views can override Shop and Admin views
+        // Register GSN-specific views with 'gsn' namespace
         $this->loadViewsFrom(__DIR__.'/../Resources/views', 'gsn');
 
-        // Override Shop views if custom GSN views exist
+        // Override Shop package views - these will take priority
         if (is_dir(__DIR__.'/../Resources/views/shop')) {
             $this->loadViewsFrom(__DIR__.'/../Resources/views/shop', 'shop');
+        }
+
+        // Override Admin package views - these will take priority
+        if (is_dir(__DIR__.'/../Resources/views/admin')) {
+            $this->loadViewsFrom(__DIR__.'/../Resources/views/admin', 'admin');
         }
 
         // Load translations
