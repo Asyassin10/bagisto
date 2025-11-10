@@ -71,12 +71,11 @@ class SessionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
-        $id = auth()->guard('customer')->user()->id;
-
         auth()->guard('customer')->logout();
 
         Event::dispatch('customer.after.logout', $id);

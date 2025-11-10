@@ -2,13 +2,10 @@
 
 namespace Webkul\Shop\Http\Controllers\API;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Webkul\Attribute\Enums\AttributeTypeEnum;
 use Webkul\Attribute\Repositories\AttributeRepository;
 use Webkul\Category\Repositories\CategoryRepository;
 use Webkul\Product\Repositories\ProductRepository;
-use Webkul\Shop\Http\Resources\AttributeOptionResource;
 use Webkul\Shop\Http\Resources\AttributeResource;
 use Webkul\Shop\Http\Resources\CategoryResource;
 use Webkul\Shop\Http\Resources\CategoryTreeResource;
@@ -20,11 +17,7 @@ class CategoryController extends APIController
      *
      * @return void
      */
-    public function __construct(
-        protected AttributeRepository $attributeRepository,
-        protected CategoryRepository $categoryRepository,
-        protected ProductRepository $productRepository
-    ) {}
+    public function __construct(protected AttributeRepository $attributeRepository, protected CategoryRepository $categoryRepository, protected ProductRepository $productRepository) {}
 
     /**
      * Get all categories.
@@ -58,51 +51,69 @@ class CategoryController extends APIController
     /**
      * Get filterable attributes for category.
      */
+
     public function getAttributes(): JsonResource
     {
-        if (! request('category_id')) {
-            $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
+        // Check if 'category_id' is not present in the request
+        if (!request('category_id')) {
+            // Fetch visible category tree based on the current channel's root category ID
+            $categories = $this->categoryRepository->getVisibleCategoryTree(core()->getCurrentChannel()->root_category_id);
 
-            return AttributeResource::collection($filterableAttributes);
+            // Transform categories into the desired structure for options
+            $options = $categories->map(function ($category) {
+                return [
+                    'id' => $category->id,
+                    'name' => $category->name,
+                ];
+            });
+
+            return JsonResource::make([
+                'data' => [
+                    [
+                        'id' => 2,
+                        'code' => 'is_congrate_partner',
+                        'type' => 'checkbox', 
+                        'name' => 'Partenaire Congrès',
+                        'options' => [
+                            [
+                                'id' => 1,
+                                'name' => 'oui',
+                            ],
+                        ],
+                    ],
+                    [
+                        'id' => 1,
+                        'code' => 'category_id',
+                        'type' => 'select',
+                        'name' => 'Thématiques',
+                        'options' => $options,
+                    ],
+                ],
+            ]);
         }
 
         $category = $this->categoryRepository->findOrFail(request('category_id'));
 
-        if (empty($filterableAttributes = $category->filterableAttributes)) {
+        if (empty(($filterableAttributes = $category->filterableAttributes))) {
             $filterableAttributes = $this->attributeRepository->getFilterableAttributes();
         }
 
-        return AttributeResource::collection($filterableAttributes);
-    }
+        $additionalCongreFilter = [
+            'id' => 999,
+            'code' => 'is_congrate_partner',
+            'type' => 'checkbox',
+            'name' => 'Partenaire congrès',
+            'options' => [
+                [
+                    'id' => 1,
+                    'name' => 'oui',
+                ],
+            ],
+        ];
 
-    /**
-     * Get attribute options with pagination and search.
-     */
-    public function getAttributeOptions(int $attributeId): mixed
-    {
-        $attribute = $this->attributeRepository->findOrFail($attributeId);
-
-        if ($attribute->type === AttributeTypeEnum::BOOLEAN->value) {
-            return new JsonResponse([
-                'data' => AttributeTypeEnum::getBooleanOptions(),
-            ]);
-        }
-
-        $query = $attribute->options()
-            ->with([
-                'translation' => fn ($query) => $query->where('locale', core()->getCurrentLocale()->code),
-            ]);
-
-        if ($search = request('search')) {
-            $query->where(function ($query) use ($search) {
-                $query->whereHas('translation', fn ($query) => $query->where('label', 'like', "%{$search}%"))
-                    ->orWhere('admin_name', 'like', "%{$search}%");
-            });
-        }
-
-        $query->orderBy('sort_order');
-
-        return AttributeOptionResource::collection($query->paginate());
+        return JsonResource::make([
+            'data' => array_merge(AttributeResource::collection($filterableAttributes)->resolve(), [$additionalCongreFilter]),
+        ]);
     }
 
     /**
@@ -110,13 +121,7 @@ class CategoryController extends APIController
      */
     public function getProductMaxPrice($categoryId = null): JsonResource
     {
-        if (core()->getConfigData('catalog.products.search.engine') == 'elastic') {
-            $searchEngine = core()->getConfigData('catalog.products.search.storefront_mode');
-        }
-
-        $maxPrice = $this->productRepository
-            ->setSearchEngine($searchEngine ?? 'database')
-            ->getMaxPrice(['category_id' => $categoryId]);
+        $maxPrice = $this->productRepository->getMaxPrice(['category_id' => $categoryId]);
 
         return new JsonResource([
             'max_price' => core()->convertPrice($maxPrice),

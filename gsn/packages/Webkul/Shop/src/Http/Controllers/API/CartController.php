@@ -49,8 +49,6 @@ class CartController extends APIController
     {
         $this->validate(request(), [
             'product_id' => 'required|integer|exists:products,id',
-            'is_buy_now' => 'integer|in:0,1',
-            'quantity'   => 'integer|min:1',
         ]);
 
         $product = $this->productRepository->with('parent')->findOrFail(request()->input('product_id'));
@@ -211,21 +209,21 @@ class CartController extends APIController
                 if (! $coupon) {
                     return (new JsonResource([
                         'data'     => new CartResource(Cart::getCart()),
-                        'message'  => trans('shop::app.checkout.coupon.invalid'),
+                        'message'  => trans('Coupon not found.'),
                     ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                 }
 
                 if ($coupon->cart_rule->status) {
-                    if (Cart::getCart()->coupon_code == $coupon->code) {
+                    if (Cart::getCart()->coupon_code == $validatedData['code']) {
                         return (new JsonResource([
                             'data'     => new CartResource(Cart::getCart()),
                             'message'  => trans('shop::app.checkout.coupon.already-applied'),
                         ]))->response()->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
                     }
 
-                    Cart::setCouponCode($coupon->code)->collectTotals();
+                    Cart::setCouponCode($validatedData['code'])->collectTotals();
 
-                    if (Cart::getCart()->coupon_code == $coupon->code) {
+                    if (Cart::getCart()->coupon_code == $validatedData['code']) {
                         return new JsonResource([
                             'data'     => new CartResource(Cart::getCart()),
                             'message'  => trans('shop::app.checkout.coupon.success-apply'),
@@ -280,7 +278,6 @@ class CartController extends APIController
             ->select('products.*', 'product_cross_sells.child_id')
             ->join('product_cross_sells', 'products.id', '=', 'product_cross_sells.child_id')
             ->whereIn('product_cross_sells.parent_id', $productIds)
-            ->whereNotIn('product_cross_sells.child_id', $productIds)
             ->groupBy('product_cross_sells.child_id')
             ->take(core()->getConfigData('catalog.products.cart_view_page.no_of_cross_sells_products'))
             ->get();

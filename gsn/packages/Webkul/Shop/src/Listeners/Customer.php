@@ -21,7 +21,7 @@ class Customer extends Base
     {
         if (core()->getConfigData('customer.settings.email.verification')) {
             try {
-                if (! core()->getConfigData('customer.settings.email.verification')) {
+                if (! core()->getConfigData('emails.general.notifications.emails.general.notifications.verification')) {
                     return;
                 }
 

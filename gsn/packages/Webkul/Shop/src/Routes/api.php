@@ -12,7 +12,7 @@ use Webkul\Shop\Http\Controllers\API\ProductController;
 use Webkul\Shop\Http\Controllers\API\ReviewController;
 use Webkul\Shop\Http\Controllers\API\WishlistController;
 
-Route::group(['prefix' => 'api'], function () {
+Route::group(['middleware' => ['locale', 'theme', 'currency'], 'prefix' => 'api'], function () {
     Route::controller(CoreController::class)->prefix('core')->group(function () {
         Route::get('countries', 'getCountries')->name('shop.api.core.countries');
 
@@ -25,8 +25,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('tree', 'tree')->name('shop.api.categories.tree');
 
         Route::get('attributes', 'getAttributes')->name('shop.api.categories.attributes');
-
-        Route::get('attributes/{attribute_id}/options', 'getAttributeOptions')->name('shop.api.categories.attribute_options');
 
         Route::get('max-price/{id?}', 'getProductMaxPrice')->name('shop.api.categories.max_price');
     });
@@ -49,12 +47,17 @@ Route::group(['prefix' => 'api'], function () {
 
     Route::controller(CompareController::class)->prefix('compare-items')->group(function () {
         Route::get('', 'index')->name('shop.api.compare.index');
+        Route::get('/getComparableAttributes', 'getComparableAttributes')->name('shop.api.compare.getComparableAttributes');
+        Route::post('products-comparee-new', action: 'get_products_new')->name('getproducts_new');
 
         Route::post('', 'store')->name('shop.api.compare.store');
 
         Route::delete('', 'destroy')->name('shop.api.compare.destroy');
+                Route::get('/products-no-compare', 'getnoncompareyet')->name('shop.api.compare.products-no-compare');
+
 
         Route::delete('all', 'destroyAll')->name('shop.api.compare.destroy_all');
+        Route::post('products-compare', 'get_products')->name('shop.api.compare.getproducts');
     });
 
     Route::controller(CartController::class)->prefix('checkout/cart')->group(function () {
@@ -99,6 +102,7 @@ Route::group(['prefix' => 'api'], function () {
     });
 
     Route::group(['middleware' => ['customer'], 'prefix' => 'customer'], function () {
+
         Route::controller(AddressController::class)->prefix('addresses')->group(function () {
             Route::get('', 'index')->name('shop.api.customers.account.addresses.index');
 

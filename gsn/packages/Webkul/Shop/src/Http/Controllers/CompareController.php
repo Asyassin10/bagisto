@@ -3,6 +3,8 @@
 namespace Webkul\Shop\Http\Controllers;
 
 use Webkul\Attribute\Repositories\AttributeFamilyRepository;
+use Webkul\Attribute\Repositories\AttributeRepository;
+use Webkul\Product\Repositories\ProductRepository;
 
 class CompareController extends Controller
 {
@@ -11,7 +13,11 @@ class CompareController extends Controller
      *
      * @return void
      */
-    public function __construct(protected AttributeFamilyRepository $attributeFamilyRepository) {}
+    public function __construct(
+        protected AttributeFamilyRepository $attributeFamilyRepository,
+        protected AttributeRepository $attributeRepository,
+        protected ProductRepository $productRepository
+    ) {}
 
     /**
      * Address route index page.
@@ -20,8 +26,6 @@ class CompareController extends Controller
      */
     public function index()
     {
-        $comparableAttributes = $this->attributeFamilyRepository->getComparableAttributesBelongsToFamily();
-
-        return view('shop::compare.index', compact('comparableAttributes'));
+        return view('shop::compare.index');
     }
 }

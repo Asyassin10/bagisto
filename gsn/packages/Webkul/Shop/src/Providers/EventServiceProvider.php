@@ -3,12 +3,6 @@
 namespace Webkul\Shop\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Webkul\Shop\Listeners\Customer;
-use Webkul\Shop\Listeners\GDPR;
-use Webkul\Shop\Listeners\Invoice;
-use Webkul\Shop\Listeners\Order;
-use Webkul\Shop\Listeners\Refund;
-use Webkul\Shop\Listeners\Shipment;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,65 +12,48 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        /**
-         * Customer related events.
-         */
         'customer.registration.after' => [
-            [Customer::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Customer@afterCreated',
         ],
 
         'customer.password.update.after' => [
-            [Customer::class, 'afterPasswordUpdated'],
+            'Webkul\Shop\Listeners\Customer@afterPasswordUpdated',
         ],
 
         'customer.subscription.after' => [
-            [Customer::class, 'afterSubscribed'],
+            'Webkul\Shop\Listeners\Customer@afterSubscribed',
         ],
 
         'customer.note.create.after' => [
-            [Customer::class, 'afterNoteCreated'],
+            'Webkul\Shop\Listeners\Customer@afterNoteCreated',
         ],
 
-        /**
-         * GDPR related events.
-         */
-        'customer.account.gdpr-request.create.after' => [
-            [GDPR::class, 'afterGdprRequestCreated'],
-        ],
-
-        'customer.account.gdpr-request.update.after' => [
-            [GDPR::class, 'afterGdprRequestUpdated'],
-        ],
-
-        /**
-         * Sales related events.
-         */
         'checkout.order.save.after' => [
-            [Order::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Order@afterCreated',
         ],
 
         'sales.order.cancel.after' => [
-            [Order::class, 'afterCanceled'],
+            'Webkul\Shop\Listeners\Order@afterCanceled',
         ],
 
         'sales.order.comment.create.after' => [
-            [Order::class, 'afterCommented'],
+            'Webkul\Shop\Listeners\Order@afterCommented',
         ],
 
         'sales.invoice.save.after' => [
-            [Invoice::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Invoice@afterCreated',
         ],
 
         'sales.invoice.send_duplicate_email' => [
-            [Invoice::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Invoice@afterCreated',
         ],
 
         'sales.shipment.save.after' => [
-            [Shipment::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Shipment@afterCreated',
         ],
 
         'sales.refund.save.after' => [
-            [Refund::class, 'afterCreated'],
+            'Webkul\Shop\Listeners\Refund@afterCreated',
         ],
     ];
 }

@@ -1,0 +1,6 @@
+projectKey=jsn_front
+serverUrl=http://127.0.0.1:9001
+serverVersion=9.9.8.100196
+dashboardUrl=http://127.0.0.1:9001/dashboard?id=jsn_front
+ceTaskId=AZYzoVi5YuiHE98XQwYT
+ceTaskUrl=http://127.0.0.1:9001/api/ce/task?id=AZYzoVi5YuiHE98XQwYT

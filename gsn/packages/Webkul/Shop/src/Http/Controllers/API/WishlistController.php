@@ -2,9 +2,8 @@
 
 namespace Webkul\Shop\Http\Controllers\API;
 
+use Cart;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Event;
-use Webkul\Checkout\Facades\Cart;
 use Webkul\Customer\Repositories\WishlistRepository;
 use Webkul\Product\Repositories\ProductRepository;
 use Webkul\Shop\Http\Resources\CartResource;
@@ -48,9 +47,7 @@ class WishlistController extends APIController
             'product_id' => 'required|integer|exists:products,id',
         ]);
 
-        $productId = request()->input('product_id');
-
-        $product = $this->productRepository->find($productId);
+        $product = $this->productRepository->find(request()->input('product_id'));
 
         if (! $product) {
             return new JsonResource([
@@ -65,11 +62,7 @@ class WishlistController extends APIController
         ];
 
         if (! $this->wishlistRepository->findOneWhere($data)) {
-            Event::dispatch('customer.wishlist.create.before', $productId);
-
-            $wishlist = $this->wishlistRepository->create($data);
-
-            Event::dispatch('customer.wishlist.create.after', $wishlist);
+            $this->wishlistRepository->create($data);
 
             return new JsonResource([
                 'message' => trans('shop::app.customers.account.wishlist.success'),
@@ -103,11 +96,7 @@ class WishlistController extends APIController
         }
 
         try {
-            Event::dispatch('customer.wishlist.move-to-cart.before', $id);
-
             $result = Cart::moveToCart($wishlistItem, request()->input('quantity'));
-
-            Event::dispatch('customer.wishlist.move-to-cart.after', $id);
 
             if ($result) {
                 return new JsonResource([
@@ -125,6 +114,7 @@ class WishlistController extends APIController
                 'data'     => route('shop.product_or_category.index', $wishlistItem->product->url_key),
                 'message'  => trans('shop::app.checkout.cart.missing-options'),
             ]);
+
         } catch (\Exception $exception) {
             return new JsonResource([
                 'redirect' => true,
@@ -141,14 +131,10 @@ class WishlistController extends APIController
      */
     public function destroy($id): JsonResource
     {
-        Event::dispatch('customer.wishlist.delete.before', $id);
-
         $success = $this->wishlistRepository->deleteWhere([
             'id'          => $id,
             'customer_id' => auth()->guard('customer')->user()->id,
         ]);
-
-        Event::dispatch('customer.wishlist.delete.after', $id);
 
         if (! $success) {
             return new JsonResource([
@@ -167,13 +153,9 @@ class WishlistController extends APIController
      */
     public function destroyAll(): JsonResource
     {
-        Event::dispatch('customer.wishlist.delete-all.before');
-
         $success = $this->wishlistRepository->deleteWhere([
             'customer_id'  => auth()->guard('customer')->user()->id,
         ]);
-
-        Event::dispatch('customer.wishlist.delete-all.after');
 
         if (! $success) {
             return new JsonResource([
