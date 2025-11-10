@@ -16,7 +16,7 @@ use Webkul\GSN\Http\Controllers\JsonSearchController;
 */
 
 // CAS Authentication Routes
-Route::get('/cas/login', [AuthController::class, 'login'])->name('gsn.cas.login');
+Route::get('/cas/login', [AuthController::class, 'login'])->name('login');
 Route::get('/cas/logout', [AuthController::class, 'logout'])->name('gsn.cas.logout');
 Route::get('/cas/callback', [AuthController::class, 'handleCasCallback'])->name('gsn.cas.callback');
 
