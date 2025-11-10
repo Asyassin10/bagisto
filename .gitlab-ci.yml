@@ -1,0 +1,199 @@
+stages:
+  # - code_quality
+  - prep
+  - dep
+  - build
+  - deploy
+
+variables:
+  DOCKER_VERSION: "26.0"
+  PHP_IMAGE_TAG: ${CI_REGISTRY_IMAGE}/php:$CI_COMMIT_REF_SLUG
+  # pour faire fonctionner dind (docker in docker)
+  DOCKER_TLS_CERTDIR: "/certs"
+
+# règles générales pour déclencher le pipeline
+workflow:
+  rules:
+    # - if: $CI_COMMIT_BRANCH == "ci" || $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_TAG =~ /^v?\d+\.\d+(\.\d+)?(-\w+)?$/
+    - if: $CI_COMMIT_BRANCH == "staging" || $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "preprod" 
+
+# installe une clé privée ssh pour pouvoir se connecter aux serveurs cibles lors des déploiements (via ansible)
+.ssh_install_key:
+  before_script: &ssh_install_key
+    ##
+    ## Install ssh-agent if not already installed, it is required by Docker.
+    ## (change apt-get to yum if you use an RPM-based image)
+    ##
+    - 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+
+    ##
+    ## Run ssh-agent (inside the build environment)
+    ##
+    - eval $(ssh-agent -s)
+
+    ##
+    ## Give the right permissions, otherwise ssh-add will refuse to add files
+    ## Add the SSH key stored in SSH_PRIVATE_KEY file type CI/CD variable to the agent store
+    ##
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+
+    ##
+    ## Create the SSH directory and give it the right permissions
+    ##
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+
+# sonar:
+#   stage: code_quality
+#   image:
+#     name: sonarsource/sonar-scanner-cli:5.0
+#     entrypoint: [""]
+#   variables:
+#     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+#     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+#   cache:
+#     key: "${CI_JOB_NAME}"
+#     paths:
+#       - .sonar/cache
+#   script:
+#     - |
+#         sonar-scanner \
+#           -Dsonar.qualitygate.wait=true \
+#           -Dsonar.host.url=${SONAR_HOST_URL} \
+#           -Dsonar.projectKey=${SONAR_PROJECT_KEY}
+#   allow_failure: true
+#   rules:
+#     - if: $CI_COMMIT_BRANCH == "master"
+
+# image custo désactivée pour cause d'erreur à l'install des paquets apt
+# prepare_php_image:
+#   stage: prep
+#   image: docker:${DOCKER_VERSION}
+#   services:
+#     - docker:${DOCKER_VERSION}-dind
+#   script:
+#     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+#     - docker build -t $PHP_IMAGE_TAG .
+#     - docker push $PHP_IMAGE_TAG
+
+composer_install:
+  stage: dep
+  image: jakzal/phpqa:php8.2
+  script:
+    - composer install -o --ignore-platform-reqs
+  cache:
+    key:
+      files:
+        - composer.lock
+      prefix: ${CI_PROJECT_NAME}_vendor
+    paths:
+      - vendor
+
+.build_php: &build_php
+  stage: build
+  image: jakzal/phpqa:php8.2
+  script:
+    - cp -f ${LARAVEL_ENV} .env
+    - php artisan key:generate
+  cache:
+    key:
+      files:
+        - composer.lock
+      prefix: ${CI_PROJECT_NAME}_vendor
+    paths:
+      - vendor
+    policy: pull
+  artifacts:
+    paths:
+      - .env
+
+build_php_staging:
+  <<: *build_php
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging"
+  environment:
+    name: staging
+    action: prepare
+
+build_php_preprod:
+  <<: *build_php
+  rules:
+    - if: $CI_COMMIT_BRANCH == "preprod"
+  environment:
+    name: preprod
+    action: prepare
+
+build_php_production:
+  <<: *build_php
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+    # - if: $CI_COMMIT_TAG =~ /^v?\d+\.\d+(\.\d+)?(-\w+)?$/
+  environment:
+    name: production
+    action: prepare
+
+.deploy_template: &deploy_template
+  stage: deploy
+  image: oveach/ansible:latest-slim
+  variables:
+    ANSIBLE_HOST_KEY_CHECKING: 'False'
+    ANSIBLE_FORCE_COLOR: 'True'
+    # pour profiler les tâches ansible, càd afficher leur durée d'exécution
+    ANSIBLE_CALLBACKS_ENABLED: ansible.posix.profile_tasks
+  before_script: *ssh_install_key
+  script:
+    # obligé de créer le tar un répertoire plus haut pour ne pas l'inclure dans l'archive (sinon erreur, logique)
+    - tar -czf ../build.tgz --exclude ansible --exclude bootstrap/cache --exclude storage --exclude .git .
+    # replace l'archive dans le répertoire courant
+    - mv ../build.tgz build.tgz
+    - cd ansible
+    - cp $ANSIBLE_GROUP_VARS group_vars/$CI_ENVIRONMENT_NAME
+    # debug
+    # - cat $ANSIBLE_INVENTORY
+    # - cat group_vars/$CI_ENVIRONMENT_NAME
+    # disable for debug
+    - ansible-playbook -i $ANSIBLE_INVENTORY site.yml
+  cache:
+    key:
+      files:
+        - composer.lock
+      prefix: ${CI_PROJECT_NAME}_vendor
+    paths:
+      - vendor
+    policy: pull
+  # debug :
+  # artifacts:
+  #   paths:
+  #     - build.tgz
+
+deploy_staging:
+  <<: *deploy_template
+  rules:
+    - if: $CI_COMMIT_BRANCH == "staging"
+      # when: manual
+  needs:
+    - build_php_staging
+  environment:
+    name: staging
+
+deploy_preprod:
+  <<: *deploy_template
+  rules:
+    - if: $CI_COMMIT_BRANCH == "preprod"
+      # when: manual
+  needs:
+    - build_php_preprod
+  environment:
+    name: preprod
+
+deploy_production:
+  <<: *deploy_template
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+    # - if: $CI_COMMIT_TAG =~ /^v?\d+\.\d+(\.\d+)?(-\w+)?$/
+      when: manual
+  needs:
+    - build_php_production
+  environment:
+    name: production

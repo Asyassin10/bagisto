@@ -1,0 +1,7 @@
+# fichier inventory d'exemple, à variabiliser dans gitlab
+
+[web]
+<nom_vm_cible> ansible_ssh_host=<ip_vm_cible> ansible_ssh_port=22 ansible_ssh_user=deploy
+
+[staging:children]
+web

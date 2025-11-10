@@ -1,0 +1,287 @@
+<?xml version="1.0"?>
+<phpunit xmlns="https://schema.phpunit.de/coverage/1.0">
+  <build time="Tue Apr 15 19:19:17 IST 2025" phpunit="10.5.36" coverage="10.1.16">
+    <runtime name="PHP" version="8.4.6" url="https://www.php.net/"/>
+    <driver name="xdebug" version="3.4.2"/>
+  </build>
+  <project source="/home/yassine/Documents/guide-des-solutions-logicielles/packages/Webkul">
+    <tests>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_test_if_logiciel_can_be_created_successfully" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_test_if_logiciel_cant_be_created_successfully_with_validation_errors" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_test_if_logiciel_can_be_created_successfully_with_redirect_url" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_dispatches_events_during_product_creation" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_validates_required_fields_in_updating_the_product_test_response_status" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_validates_required_fields_in_updating_the_product_test_response_structure" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_test_if_product_can_be_edited_successfully" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_test_redirection_in_some_casess" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_stores_a_new_attribute_family_and_redirects" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_returns_validation_errors_when_the_data_is_invalid" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_updates_an_existing_attribute_family_and_redirects" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_can_display_the_societe_update_page" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\AdminTest::__pest_evaluable_it_can_update_societe_information" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_updates_product_partner_agreement_status_in_bulk_via_route_as_authenticated_admin" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_validates_request_data_for_mass_set_partner_agreed_as_authenticated_admin" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_denies_access_to_unauthenticated_users" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_renders_the_edit_page_with_the_edit_button" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_updates_a_channel_successfully" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_validates_request_data_for_updating_a_channel" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Admin\tests\Feature\MyTests\MassSetPartnetAgreedTest::__pest_evaluable_it_denies_access_to_unauthenticated_users_on_channel_update" size="unknown" status="success"/>
+      <test name="Tests\Feature\CompareControllerTest::it_returns_compare_view" size="unknown" status="success"/>
+      <test name="Tests\Feature\HomeControllerTest::test_index_method_returns_view_with_search_terms" size="unknown" status="success"/>
+      <test name="Tests\Feature\ProductControllerTest::testDownload" size="unknown" status="success"/>
+      <test name="Tests\Feature\Shop\Http\Controllers\ProductsCategoriesProxyControllerTest::it_returns_404_when_nothing_found" size="unknown" status="success"/>
+      <test name="Tests\Feature\SearchControllerTest::it_uploads_search_image_and_returns_response" size="unknown" status="success"/>
+      <test name="Tests\Feature\SearchControllerTest::it_returns_error_when_upload_fails" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_checks_if_product_has_attribute_and_type_is_not_text__returns_true" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_checks_if_product_has_attribute_and_type_is_not_text__returns_false" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_fetches_next_value__returns_true" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_fetches_next_value__returns_false_when_conditions_not_met" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_fetches_next_value__returns_true_when_conditions_are_met" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_throws_exception_when_next_index_does_not_exist" size="unknown" status="success"/>
+      <test name="P\Packages\Webkul\Shop\tests\Unit\ProductPageServiceTest::__pest_evaluable_it_throws_exception_for_invalid_index_when_fetching_next_value" size="unknown" status="success"/>
+    </tests>
+    <directory name="/">
+      <totals>
+        <lines total="5181" comments="755" code="4426" executable="3484" executed="3348" percent="96.10"/>
+        <methods count="28" tested="17" percent="60.71"/>
+        <functions count="0" tested="0" percent="0"/>
+        <classes count="9" tested="4" percent="44.44"/>
+        <traits count="0" tested="0" percent="0"/>
+      </totals>
+      <directory name="Admin">
+        <totals>
+          <lines total="4565" comments="585" code="3980" executable="3408" executed="3277" percent="96.16"/>
+          <methods count="15" tested="6" percent="40.00"/>
+          <functions count="0" tested="0" percent="0"/>
+          <classes count="3" tested="0" percent="0.00"/>
+          <traits count="0" tested="0" percent="0"/>
+        </totals>
+        <directory name="src">
+          <totals>
+            <lines total="4565" comments="585" code="3980" executable="3408" executed="3277" percent="96.16"/>
+            <methods count="15" tested="6" percent="40.00"/>
+            <functions count="0" tested="0" percent="0"/>
+            <classes count="3" tested="0" percent="0.00"/>
+            <traits count="0" tested="0" percent="0"/>
+          </totals>
+          <directory name="Config">
+            <totals>
+              <lines total="3437" comments="327" code="3110" executable="3079" executed="3079" percent="100.00"/>
+              <methods count="0" tested="0" percent="0"/>
+              <functions count="0" tested="0" percent="0"/>
+              <classes count="0" tested="0" percent="0"/>
+              <traits count="0" tested="0" percent="0"/>
+            </totals>
+            <file name="acl.php" href="Admin/src/Config/acl.php.xml">
+              <totals>
+                <lines total="860" comments="72" code="788" executable="776" executed="776" percent="100.00"/>
+                <methods count="0" tested="0" percent="0"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="0" tested="0" percent="0"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+            <file name="menu.php" href="Admin/src/Config/menu.php.xml">
+              <totals>
+                <lines total="377" comments="215" code="162" executable="152" executed="152" percent="100.00"/>
+                <methods count="0" tested="0" percent="0"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="0" tested="0" percent="0"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+            <file name="system.php" href="Admin/src/Config/system.php.xml">
+              <totals>
+                <lines total="2200" comments="40" code="2160" executable="2151" executed="2151" percent="100.00"/>
+                <methods count="0" tested="0" percent="0"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="0" tested="0" percent="0"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+          </directory>
+          <directory name="Http">
+            <totals>
+              <lines total="1128" comments="258" code="870" executable="329" executed="198" percent="60.18"/>
+              <methods count="15" tested="6" percent="40.00"/>
+              <functions count="0" tested="0" percent="0"/>
+              <classes count="3" tested="0" percent="0.00"/>
+              <traits count="0" tested="0" percent="0"/>
+            </totals>
+            <directory name="Controllers">
+              <totals>
+                <lines total="1128" comments="258" code="870" executable="329" executed="198" percent="60.18"/>
+                <methods count="15" tested="6" percent="40.00"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="3" tested="0" percent="0.00"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+              <directory name="Catalog">
+                <totals>
+                  <lines total="1057" comments="250" code="807" executable="296" executed="173" percent="58.45"/>
+                  <methods count="13" tested="5" percent="38.46"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="2" tested="0" percent="0.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+                <file name="AttributeFamilyController.php" href="Admin/src/Http/Controllers/Catalog/AttributeFamilyController.php.xml">
+                  <totals>
+                    <lines total="173" comments="44" code="129" executable="34" executed="31" percent="91.18"/>
+                    <methods count="4" tested="3" percent="75.00"/>
+                    <functions count="0" tested="0" percent="0"/>
+                    <classes count="1" tested="0" percent="0.00"/>
+                    <traits count="0" tested="0" percent="0"/>
+                  </totals>
+                </file>
+                <file name="ProductController.php" href="Admin/src/Http/Controllers/Catalog/ProductController.php.xml">
+                  <totals>
+                    <lines total="884" comments="206" code="678" executable="262" executed="142" percent="54.20"/>
+                    <methods count="9" tested="2" percent="22.22"/>
+                    <functions count="0" tested="0" percent="0"/>
+                    <classes count="1" tested="0" percent="0.00"/>
+                    <traits count="0" tested="0" percent="0"/>
+                  </totals>
+                </file>
+              </directory>
+              <directory name="Societe">
+                <totals>
+                  <lines total="71" comments="8" code="63" executable="33" executed="25" percent="75.76"/>
+                  <methods count="2" tested="1" percent="50.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="0" percent="0.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+                <file name="SocieteController.php" href="Admin/src/Http/Controllers/Societe/SocieteController.php.xml">
+                  <totals>
+                    <lines total="71" comments="8" code="63" executable="33" executed="25" percent="75.76"/>
+                    <methods count="2" tested="1" percent="50.00"/>
+                    <functions count="0" tested="0" percent="0"/>
+                    <classes count="1" tested="0" percent="0.00"/>
+                    <traits count="0" tested="0" percent="0"/>
+                  </totals>
+                </file>
+              </directory>
+            </directory>
+          </directory>
+        </directory>
+      </directory>
+      <directory name="Shop">
+        <totals>
+          <lines total="616" comments="170" code="446" executable="76" executed="71" percent="93.42"/>
+          <methods count="13" tested="11" percent="84.62"/>
+          <functions count="0" tested="0" percent="0"/>
+          <classes count="6" tested="4" percent="66.67"/>
+          <traits count="0" tested="0" percent="0"/>
+        </totals>
+        <directory name="src">
+          <totals>
+            <lines total="616" comments="170" code="446" executable="76" executed="71" percent="93.42"/>
+            <methods count="13" tested="11" percent="84.62"/>
+            <functions count="0" tested="0" percent="0"/>
+            <classes count="6" tested="4" percent="66.67"/>
+            <traits count="0" tested="0" percent="0"/>
+          </totals>
+          <directory name="Http">
+            <totals>
+              <lines total="473" comments="152" code="321" executable="51" executed="47" percent="92.16"/>
+              <methods count="10" tested="9" percent="90.00"/>
+              <functions count="0" tested="0" percent="0"/>
+              <classes count="5" tested="4" percent="80.00"/>
+              <traits count="0" tested="0" percent="0"/>
+            </totals>
+            <directory name="Controllers">
+              <totals>
+                <lines total="473" comments="152" code="321" executable="51" executed="47" percent="92.16"/>
+                <methods count="10" tested="9" percent="90.00"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="5" tested="4" percent="80.00"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+              <file name="CompareController.php" href="Shop/src/Http/Controllers/CompareController.php.xml">
+                <totals>
+                  <lines total="32" comments="10" code="22" executable="2" executed="2" percent="100.00"/>
+                  <methods count="2" tested="2" percent="100.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="1" percent="100.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+              </file>
+              <file name="HomeController.php" href="Shop/src/Http/Controllers/HomeController.php.xml">
+                <totals>
+                  <lines total="113" comments="45" code="68" executable="9" executed="9" percent="100.00"/>
+                  <methods count="2" tested="2" percent="100.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="1" percent="100.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+              </file>
+              <file name="ProductController.php" href="Shop/src/Http/Controllers/ProductController.php.xml">
+                <totals>
+                  <lines total="101" comments="20" code="81" executable="8" executed="8" percent="100.00"/>
+                  <methods count="2" tested="2" percent="100.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="1" percent="100.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+              </file>
+              <file name="ProductsCategoriesProxyController.php" href="Shop/src/Http/Controllers/ProductsCategoriesProxyController.php.xml">
+                <totals>
+                  <lines total="175" comments="59" code="116" executable="30" executed="26" percent="86.67"/>
+                  <methods count="2" tested="1" percent="50.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="0" percent="0.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+              </file>
+              <file name="SearchController.php" href="Shop/src/Http/Controllers/SearchController.php.xml">
+                <totals>
+                  <lines total="52" comments="18" code="34" executable="2" executed="2" percent="100.00"/>
+                  <methods count="2" tested="2" percent="100.00"/>
+                  <functions count="0" tested="0" percent="0"/>
+                  <classes count="1" tested="1" percent="100.00"/>
+                  <traits count="0" tested="0" percent="0"/>
+                </totals>
+              </file>
+            </directory>
+          </directory>
+          <directory name="Providers">
+            <totals>
+              <lines total="143" comments="18" code="125" executable="25" executed="24" percent="96.00"/>
+              <methods count="3" tested="2" percent="66.67"/>
+              <functions count="0" tested="0" percent="0"/>
+              <classes count="1" tested="0" percent="0.00"/>
+              <traits count="0" tested="0" percent="0"/>
+            </totals>
+            <file name="EventServiceProvider.php" href="Shop/src/Providers/EventServiceProvider.php.xml">
+              <totals>
+                <lines total="60" comments="5" code="55" executable="0" executed="0" percent="0"/>
+                <methods count="0" tested="0" percent="0"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="0" tested="0" percent="0"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+            <file name="ModuleServiceProvider.php" href="Shop/src/Providers/ModuleServiceProvider.php.xml">
+              <totals>
+                <lines total="8" comments="0" code="8" executable="0" executed="0" percent="0"/>
+                <methods count="0" tested="0" percent="0"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="0" tested="0" percent="0"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+            <file name="ShopServiceProvider.php" href="Shop/src/Providers/ShopServiceProvider.php.xml">
+              <totals>
+                <lines total="75" comments="13" code="62" executable="25" executed="24" percent="96.00"/>
+                <methods count="3" tested="2" percent="66.67"/>
+                <functions count="0" tested="0" percent="0"/>
+                <classes count="1" tested="0" percent="0.00"/>
+                <traits count="0" tested="0" percent="0"/>
+              </totals>
+            </file>
+          </directory>
+        </directory>
+      </directory>
+    </directory>
+  </project>
+</phpunit>

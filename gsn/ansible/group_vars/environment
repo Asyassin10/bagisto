@@ -1,0 +1,6 @@
+---
+
+# template des variables pour chaque environnement
+
+project_root: /var/www/gsm-rec
+php_bin: php8.1

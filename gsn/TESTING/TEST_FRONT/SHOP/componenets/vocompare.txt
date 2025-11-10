@@ -1,0 +1,41 @@
+     //  this.$axios.post("{{ route('shop.api.compare.destroy') }}", {
+                    console.log("productId")
+                    console.log(productId)
+                    console.log("productId")
+                    this.$axios.post(this.windowOrigin + "/api/compare-items", {
+                        '_method': 'DELETE',
+                        'product_id': productId,
+                    })
+                        .then(response => {
+                            this.items = response.data.data;
+
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: response.data.message
+                            });
+
+                        })
+                        .catch(error => {
+                            this.$emitter.emit('add-flash', {
+                                type: 'error',
+                                message: error.data.message
+                            });
+                        });
+
+
+  //  this.$axios.post("{{ route('shop.api.compare.destroy_all') }}", {
+                    this.$axios.post(this.windowOrigin + "/api/compare-items/all", {
+                        '_method': 'DELETE',
+                    })
+                        .then(response => {
+                            this.items = [];
+
+                            this.$emitter.emit('add-flash', {
+                                type: 'success',
+                                message: response.data.data.message
+                            });
+                        })
+                        .catch(error => { });
+
+// packages/Webkul/Shop/resources/js/components/v-compare.js
+// module.exports = {

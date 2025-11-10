@@ -1,0 +1,54 @@
+---
+- hosts: web
+
+  vars:
+    releases_keep: 2
+
+  tasks:
+  - name: create release name
+    set_fact: release_subdir={{lookup('pipe', 'TZ=":Europe/Paris" date +%Y%m%d%H%M%S')}}
+
+  - name: create release directory name
+    set_fact: release_dir="{{project_root}}/releases/{{release_subdir}}"
+
+  - name: create release directory
+    file: dest="{{release_dir}}" state=directory
+
+  - name: upload and unarchive build
+    unarchive: src="../build.tgz" dest="{{release_dir}}"
+
+  - name: clean git files
+    shell: find {{release_dir}} -type f -name .gitkeep | xargs rm && find {{release_dir}} -type f -name .gitignore | xargs rm
+    ignore_errors: true
+
+  - name: create shared cache dir
+    file: dest="{{project_root}}/shared/bootstrap/cache/{{release_subdir}}" state=directory
+
+  - name: link to shared
+    file: src="{{project_root}}/shared/{{item.src}}" dest="{{release_dir}}/{{item.dest}}" state=link
+    with_items:
+      - {src: storage, dest: storage}
+      - {src: public/logos, dest: public/logos}
+      - {src: "bootstrap/cache/{{release_subdir}}", dest: bootstrap/cache}
+
+  - name: laravel optimize
+    # shell: /usr/bin/{{php_bin}} artisan optimize
+    shell: /usr/bin/{{php_bin}} artisan optimize:clear
+    args:
+      chdir: "{{release_dir}}/"
+
+  - name: laravel migrate
+    shell: /usr/bin/{{php_bin}} artisan migrate
+    args:
+      chdir: "{{release_dir}}/"
+
+  - name: activate new release
+    file: src="{{release_dir}}" dest="{{project_root}}/current" state=link force=yes
+
+  - name: clean old releases
+    shell: ls -1dt {{project_root}}/releases/* | tail -n +$(({{releases_keep}} + 1)) | xargs rm -rf
+    when: releases_keep > 0
+
+  - name: clean old releases cache
+    shell: ls -1dt {{project_root}}/shared/bootstrap/cache/* | tail -n +$(({{releases_keep}} + 1)) | xargs rm -rf
+    when: releases_keep > 0

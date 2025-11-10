@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Admin/src/Resources/assets/js/Myjs/v-document-onload.test.js">
+    <testCase name="Integration tests for DOM initialization Modal is shown when data-show-modal is true during DOMContentLoaded" duration="14"/>
+  </file>
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Admin/src/Resources/assets/js/Myjs/v-main.test.js">
+    <testCase name="main.js main.js exports all required functions" duration="4"/>
+    <testCase name="main.js DOMContentLoaded event adds form submit event listener" duration="4"/>
+    <testCase name="main.js Form submit event triggers validateStatus" duration="4"/>
+    <testCase name="main.js save-button click event triggers justSave" duration="4"/>
+    <testCase name="main.js save-inactive-button click event triggers saveWithStatisInactive" duration="10"/>
+    <testCase name="main.js save-data-button click event triggers saveData" duration="3"/>
+    <testCase name="main.js DOMContentLoaded logs successful initialization" duration="2"/>
+    <testCase name="main.js DOMContentLoaded handles missing form gracefully" duration="5"/>
+    <testCase name="main.js DOMContentLoaded handles missing save-button gracefully" duration="4"/>
+    <testCase name="main.js DOMContentLoaded handles missing save-inactive-button gracefully" duration="2"/>
+    <testCase name="main.js DOMContentLoaded handles missing save-data-button gracefully" duration="2"/>
+    <testCase name="main.js Event listeners call correct functions with proper parameters" duration="2"/>
+  </file>
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Admin/src/Resources/assets/js/Myjs/v-adminSoftwareEdit.test.js">
+    <testCase name="Modal Functions showModal should set modal display to flex" duration="1"/>
+    <testCase name="Modal Functions hideModal should set modal display to none" duration="1"/>
+    <testCase name="Modal Functions justSave should prevent default event behavior" duration="9"/>
+    <testCase name="Modal Functions justSave adds necessary hidden inputs" duration="2"/>
+    <testCase name="Modal Functions validateStatus returns true when status is checked" duration="1"/>
+    <testCase name="Modal Functions validateStatus shows modal and prevents submission when status is not checked" duration="0"/>
+    <testCase name="Modal Functions validateStatus prevents submission when status input does not exist" duration="1"/>
+    <testCase name="Modal Functions saveWithStatisInactive sets status to inactive and submits form" duration="1"/>
+    <testCase name="Modal Functions saveData hides modal and submits form" duration="1"/>
+  </file>
+</testExecutions>

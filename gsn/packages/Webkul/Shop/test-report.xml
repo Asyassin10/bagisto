@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Shop/src/Resources/assets/js/Pdf/generatePdf.test.js">
+    <testCase name="PDF Generation correctly processes group names and their content" duration="23"/>
+    <testCase name="PDF Generation correctly processes elements with checkmarks and X marks" duration="2"/>
+    <testCase name="PDF Generation correctly handles numeric values" duration="2"/>
+    <testCase name="PDF Generation handles missing or empty sections gracefully" duration="1"/>
+    <testCase name="PDF Generation length_kkey is incremented correctly for each row in sectionData" duration="2"/>
+    <testCase name="PDF Generation generatePDF creates PDF and opens in new tab" duration="2"/>
+    <testCase name="PDF Generation generatePDF handles canvas operations correctly" duration="2"/>
+    <testCase name="PDF Generation extracts and decodes présentation text correctly" duration="3"/>
+    <testCase name="PDF Generation handles missing présentation element" duration="1"/>
+    <testCase name="PDF Generation extracts logo URL correctly" duration="2"/>
+    <testCase name="PDF Generation handles missing logo element" duration="1"/>
+    <testCase name="PDF Generation handles logo element without src attribute" duration="1"/>
+    <testCase name="PDF Generation extracts logo URL correctly when element and src exist" duration="1"/>
+    <testCase name="PDF Generation handles logo element without src attribute" duration="2"/>
+    <testCase name="PDF Generation handles missing logo element" duration="3"/>
+  </file>
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Shop/src/Resources/assets/js/componenets/v-compare.test.js">
+    <testCase name="v-compare Component JSON parsing returns empty array when localStorage is empty" duration="76"/>
+    <testCase name="v-compare Component removes an item" duration="10"/>
+    <testCase name="v-compare Component removes all items" duration="8"/>
+    <testCase name="v-compare Component initializes with default data" duration="10"/>
+    <testCase name="v-compare Component removes all items and redirects the user" duration="15"/>
+    <testCase name="v-compare Component removes a product by id" duration="6"/>
+    <testCase name="v-compare Component sets thematique_attributes when response.data.data.thematique exists" duration="4"/>
+    <testCase name="v-compare Component sets usage_attributes when response.data.data.usage exists" duration="6"/>
+    <testCase name="v-compare Component filters out the productId from localStorage compare_items" duration="14"/>
+  </file>
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Shop/src/Resources/assets/js/bladeScripts/navbarDesktop.test.js">
+    <testCase name="initializeCategoryMenu should handle empty data" duration="45"/>
+    <testCase name="initializeCategoryMenu should format category names correctly" duration="127"/>
+    <testCase name="initializeCategoryMenu should handle fetch errors" duration="115"/>
+  </file>
+  <file path="/home/zack/Documents/GSN/client/guide-des-solutions-logicielles/packages/Webkul/Shop/src/Resources/assets/js/componenets/v-product-card-compare.test.js">
+    <testCase name="VProductCard JSON parsing returns empty array when localStorage is empty" duration="76"/>
+    <testCase name="VProductCard renders the product card correctly" duration="10"/>
+    <testCase name="VProductCard shows the comparator modal with the correct count" duration="19"/>
+    <testCase name="VProductCard renders comparator content correctly" duration="38"/>
+    <testCase name="VProductCard prevents adding more than 4 products to compare list" duration="13"/>
+    <testCase name="VProductCard adds a product to compare list" duration="16"/>
+    <testCase name="VProductCard JSON parsing returns default array when localStorage is empty" duration="6"/>
+    <testCase name="VProductCard prevents adding a duplicate product to compare list" duration="6"/>
+    <testCase name="VProductCard prevents comparing products from different categories" duration="11"/>
+    <testCase name="VProductCard creates comparator item with correct content and fallback logo" duration="11"/>
+    <testCase name="VProductCard JSON parsing returns empty array when localStorage is empty" duration="25"/>
+  </file>
+</testExecutions>

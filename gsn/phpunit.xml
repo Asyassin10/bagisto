@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+    bootstrap="vendor/autoload.php" colors="true">
+    <testsuites>
+        <testsuite name="Feature Test">
+            <directory suffix="Test.php">./packages/Webkul/Admin/tests/Feature/MyTests</directory>
+            <directory suffix="Test.php">./tests/Feature</directory>
+        </testsuite>
+
+        <testsuite name="Unit Test Shop">
+            <directory suffix="Test.php">packages/Webkul/Shop/tests/Unit</directory>
+        </testsuite>
+
+    </testsuites>
+    <coverage>
+        <report>
+            <xml outputDirectory="./coverage" />
+            <html outputDirectory="./coverage/html" />
+        </report>
+    </coverage>
+    <php>
+        <env name="APP_ENV" value="testing" />
+        <env name="BCRYPT_ROUNDS" value="4" />
+        <env name="CACHE_DRIVER" value="array" />
+        <env name="MAIL_MAILER" value="array" />
+        <env name="SESSION_DRIVER" value="array" />
+        <env name="TELESCOPE_ENABLED" value="false" />
+    </php>
+    <source>
+    <include>
+                <!-- Directories -->
+            <directory suffix=".php">./packages/Webkul/Admin/src/Config</directory>
+            <directory suffix=".php">./packages/Webkul/Shop/src/Providers</directory>
+      <!-- Specific controllers to cover -->
+      <file>./packages/Webkul/Shop/src/Http/Controllers/CompareController.php</file>
+      <file>./packages/Webkul/Shop/src/Http/Controllers/ProductController.php</file>
+      <file>./packages/Webkul/Shop/src/Http/Controllers/SearchController.php</file>
+      <file>./packages/Webkul/Shop/src/Http/Controllers/ProductsCategoriesProxyController.php</file>
+      <file>./packages/Webkul/Shop/src/Http/Controllers/HomeController.php</file>
+      <file>./packages/Webkul/Admin/src/Http/Controllers/Catalog/AttributeFamilyController.php</file>
+      <file>./packages/Webkul/Admin/src/Http/Controllers/Catalog/ProductController.php</file>
+      <file>./packages/Webkul/Admin/src/Http/Controllers/Societe/SocieteController.php</file>
+    </include>
+  </source>
+
+
+</phpunit>
