@@ -38,7 +38,7 @@ class ToAdminProductHasBeenChanged extends GsnBaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->view("NotificationsHtrml.UpdateProduit", ["username" => $notifiable->name]);
+            ->view("gsn::notifications.UpdateProduit", ["username" => $notifiable->name]);
     }
     public function toCustomApi($notifiable): void
     {

@@ -41,7 +41,7 @@ class NotififcationProductStatusChangedToActif extends BasesGsnBaseNotification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->view("NotificationsHtrml.gsmFicheActif", ["username" => $notifiable->name]);
+            ->view("gsn::notifications.gsmFicheActif", ["username" => $notifiable->name]);
     }
 
     public function toCustomApi($notifiable): void

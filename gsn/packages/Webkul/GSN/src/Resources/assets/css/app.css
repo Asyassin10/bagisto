@@ -1,0 +1,103 @@
+@font-face {
+    font-family: 'MarkPro';
+    src: url('./fonts/MarkPro-Book.ttf') format('truetype');
+    /* Use MarkPro-Book for normal style */
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'MarkPro';
+    src: url('./fonts/MarkPro-Bold.ttf') format('truetype');
+    /* Use MarkPro-Bold for bold style */
+    font-weight: bold;
+    font-style: normal;
+}
+
+.truncate-name {
+    font: normal normal bold 19px/26px MarkPro;
+}
+
+.truncate-description {
+    font: normal normal normal 16px/23px MarkPro;
+}
+
+.medium-mark-pro {
+    font: normal normal bold 16px/23px MarkPro;
+}
+
+.custom-green-color {
+    color: #27986F;
+}
+
+
+.custom-button:hover,
+.custom-button:hover svg,
+.custom-button:hover span {
+    color: #FDD320;
+    /* Changes text, svg, and span to yellow */
+}
+
+/* Default styles for large screens (e.g., desktop) */
+
+
+/*
+
+.mobile-class {
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-color: #1f1d41;
+}
+
+@media (max-width: 1536px) and (max-height: 863.20) {
+    .mobile-class {
+        height: 250px;
+    }
+}
+
+@media screen and (width: 1097.14px) and (height: 616.57px) {
+    .mobile-class {
+        height: 255px;
+    }
+}
+
+@media screen and (width: 1097.14px) and (height: 616.57px) {
+    .mobile-class {
+        height: 255px;
+    }
+}
+
+@media (max-width: 1098px) and (max-height: 322px) {
+    .mobile-class {
+        height: 255px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .mobile-class {
+        background-size: cover;
+        background-position: center center;
+        height: 200px;
+    }
+}
+
+@media (max-width: 767px) {
+    .mobile-class {
+        background-size: cover;
+        background-position: center center;
+        height: 110px;
+        background-color: #1f1d41;
+    }
+}
+
+@media (max-width: 480px) {
+    .mobile-class {
+        background-size: cover;
+        background-position: center center;
+        height: 95px;
+    }
+}
+
+*/

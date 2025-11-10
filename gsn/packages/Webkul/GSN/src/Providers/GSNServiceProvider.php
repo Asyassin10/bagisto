@@ -4,6 +4,7 @@ namespace Webkul\GSN\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Router;
 
 class GSNServiceProvider extends ServiceProvider
 {
@@ -38,6 +39,9 @@ class GSNServiceProvider extends ServiceProvider
         // Load translations
         $this->loadTranslationsFrom(__DIR__.'/../Resources/lang', 'gsn');
 
+        // Register middleware
+        $this->registerMiddleware();
+
         // Register commands
         if ($this->app->runningInConsole()) {
             $this->registerCommands();
@@ -48,7 +52,21 @@ class GSNServiceProvider extends ServiceProvider
             __DIR__.'/../Config/imagecache.php' => config_path('imagecache.php'),
         ], 'gsn-config');
 
-        // Publish theme assets
+        // Publish custom CSS/JS assets
+        $this->publishes([
+            __DIR__.'/../Resources/assets/css' => public_path('css/gsn'),
+        ], 'gsn-css');
+
+        $this->publishes([
+            __DIR__.'/../Resources/assets/js' => public_path('js/gsn'),
+        ], 'gsn-js');
+
+        // Publish tarteaucitron (cookie consent library)
+        $this->publishes([
+            __DIR__.'/../Resources/assets/tarteaucitron' => public_path('tarteaucitron'),
+        ], 'gsn-tarteaucitron');
+
+        // Publish all theme assets
         $this->publishes([
             __DIR__.'/../Resources/assets' => public_path('themes/gsn'),
         ], 'gsn-assets');
@@ -57,6 +75,19 @@ class GSNServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../Resources/views/shop' => resource_path('themes/gsn/views'),
         ], 'gsn-views');
+    }
+
+    /**
+     * Register middleware.
+     *
+     * @return void
+     */
+    protected function registerMiddleware(): void
+    {
+        $router = $this->app->make(Router::class);
+
+        // Register route middleware
+        $router->aliasMiddleware('cas.auth', \Webkul\GSN\Http\Middleware\CasAuth::class);
     }
 
     /**
