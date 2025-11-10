@@ -1,8 +1,8 @@
 <?php
 
-namespace Webkul\Admin\Http\Controllers\Societe;
+namespace Webkul\GSN\Http\Controllers\Admin\Societe;
 
-use App\Societe;
+use Webkul\GSN\Models\Societe;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Webkul\Admin\Http\Controllers\Controller;

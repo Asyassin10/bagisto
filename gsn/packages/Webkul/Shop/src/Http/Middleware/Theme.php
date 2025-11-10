@@ -14,7 +14,7 @@ class Theme
      */
     public function handle($request, Closure $next)
     {
-        $themes = app('themes');
+        $themes = themes();
         $channel = core()->getCurrentChannel();
 
         if (
