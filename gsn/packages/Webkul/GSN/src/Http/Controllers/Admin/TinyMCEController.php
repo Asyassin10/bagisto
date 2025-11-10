@@ -1,8 +1,9 @@
 <?php
 
-namespace Webkul\Admin\Http\Controllers;
+namespace Webkul\GSN\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Storage;
+use Webkul\Admin\Http\Controllers\Controller;
 
 class TinyMCEController extends Controller
 {

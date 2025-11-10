@@ -1,8 +1,8 @@
 <?php
 
-namespace Webkul\Admin\Http\Controllers;
+namespace Webkul\GSN\Http\Controllers\Admin;
 
-use App\Notifications\EditorAccountCreationNotification;
+use Webkul\GSN\Notifications\EditorAccountCreationNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Webkul\User\Repositories\AdminRepository;
