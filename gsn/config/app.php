@@ -238,6 +238,7 @@ return [
         Webkul\Theme\Providers\ThemeServiceProvider::class,
         Webkul\User\Providers\UserServiceProvider::class,
         Webkul\GSN\Providers\GSNServiceProvider::class,
+        Webkul\GSN\Providers\GSNThemeServiceProvider::class,  // Load AFTER Shop to override components
         Subfission\Cas\CasServiceProvider::class,
     ])->toArray(),
 
