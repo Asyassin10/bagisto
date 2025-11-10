@@ -230,7 +230,7 @@ return [
         Webkul\Rule\Providers\RuleServiceProvider::class,
         Webkul\Sales\Providers\SalesServiceProvider::class,
         Webkul\Shipping\Providers\ShippingServiceProvider::class,
-        Webkul\Shop\Providers\ShopServiceProvider::class,
+        // Webkul\Shop\Providers\ShopServiceProvider::class, // DISABLED: Using GSN ShopServiceProvider instead
         Webkul\Sitemap\Providers\SitemapServiceProvider::class,
         Webkul\SocialLogin\Providers\SocialLoginServiceProvider::class,
         Webkul\SocialShare\Providers\SocialShareServiceProvider::class,
